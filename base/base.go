@@ -9,7 +9,7 @@ import (
 	. "../models"
 )
 
-func getSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
+func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 	clientIdentity := ctx.GetClientIdentity()
 	stub := ctx.GetStub()
 	mspId, err := clientIdentity.GetMSPID()
@@ -25,11 +25,11 @@ func getSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 		return nil, fmt.Errorf("Отсутвует атрибут address в сертификате")
 	}
 
-	return getBankByRemoteContract(stub, mspId, address)
+	return GetBankByRemoteContract(stub, mspId, address)
 
 }
 
-func getBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*Bank, error) {
+func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*Bank, error) {
 	request := GetBankRequest{
 		Address: address,
 		MSPId: mspId,
