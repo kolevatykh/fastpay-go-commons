@@ -3,6 +3,7 @@ package base
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/roles"
 	. "github.com/SolarLabRU/fastpay-go-commons/models"
 	"github.com/SolarLabRU/fastpay-go-commons/requests"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
@@ -56,4 +57,31 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 	}
 
 	return &bank, nil
+}
+
+func CheckAccess(ctx contractapi.TransactionContextInterface, role roles.Roles) error {
+	return CheckAccessWithBank(ctx, nil, role)
+}
+
+func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank, role roles.Roles) error {
+	if bank == nil {
+		var err error = nil
+		bank, err = GetSenderBank(ctx)
+		if err != nil {
+			return err
+		}
+	}
+
+	switch role {
+	case roles.Undefined:
+		return fmt.Errorf("Права доступа к методу не определены", "60601")
+	case roles.Regulator:
+		if !bank.IsRegulator {
+			return fmt.Errorf("Для досупа банк должен быть регулятором", "60601")
+		}
+	case roles.Owner:
+		if !bank.IsRegulator {
+			return fmt.Errorf("Для досупа банк должен быть владельцем", "60601")
+		}
+	}
 }
