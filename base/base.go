@@ -6,6 +6,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/roles"
 	. "github.com/SolarLabRU/fastpay-go-commons/models"
 	"github.com/SolarLabRU/fastpay-go-commons/requests"
+	"github.com/hyperledger/fabric-chaincode-go/pkg/cid"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
@@ -18,16 +19,24 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 		return nil, fmt.Errorf("Невозможно получить MSP ID. %s", err.Error())
 	}
 
-	address, isFound, err := clientIdentity.GetAttributeValue("address")
-	if err != nil {
-		return nil, fmt.Errorf("Невозможно получить атрибут из сертификата. %s", err.Error())
-	}
-	if isFound == false {
+	address, _ := GetSenderAddressFromCertificate(clientIdentity)
+	if address == "" {
 		return nil, fmt.Errorf("Отсутвует атрибут address в сертификате")
 	}
 
 	return GetBankByRemoteContract(stub, mspId, address)
+}
 
+func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
+	address, isFound, err := identity.GetAttributeValue("address")
+	if err != nil {
+		return "", fmt.Errorf("Невозможно получить атрибут из сертификата. %s", err.Error())
+	}
+	if isFound == false {
+		return "", fmt.Errorf("Отсутвует атрибут address в сертификате")
+	}
+
+	return address, nil
 }
 
 func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*Bank, error) {
