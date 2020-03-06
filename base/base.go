@@ -84,4 +84,6 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank
 			return fmt.Errorf("Для досупа банк должен быть владельцем", "60601")
 		}
 	}
+
+	return nil
 }
