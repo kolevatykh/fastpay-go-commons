@@ -3,10 +3,10 @@ package base
 import (
 	"encoding/json"
 	"fmt"
+	. "github.com/SolarLabRU/fastpay-go-commons/models"
+	. "github.com/SolarLabRU/fastpay-go-commons/requests"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	. "../requests"
-	. "../models"
 )
 
 func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
@@ -32,7 +32,7 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*Bank, error) {
 	request := GetBankRequest{
 		Address: address,
-		MSPId: mspId,
+		MSPId:   mspId,
 	}
 
 	requestAsBytes, err := json.Marshal(request)
