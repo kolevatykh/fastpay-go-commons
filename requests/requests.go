@@ -14,6 +14,16 @@ type CreateAccount struct {
 	Sig           SignDto  `json:"sig" validate:"required,dive"`
 }
 
+type CreateBank struct {
+	Address string `json:"address"  validate:"required,validHex40"`
+	State   int    `json:"state" validate:"required"`
+	Name    string `json:"name"`
+	BIK     string `json:"bik"`
+	MspId   string `json:"mspId"`
+	IsOwner bool   `json:"isOwner"`
+	Conf    string `json:"conf"`
+}
+
 type GetBank struct {
 	MSPId   string `json:"mspId" validate:"required"`
 	Address string `json:"address" validate:"required,validHex40"`
