@@ -1,6 +1,6 @@
 package requests
 
-type CreateAccountRequest struct {
+type CreateAccount struct {
 	Address       string   `json:"address"  validate:"required,validHex40"`
 	State         int      `json:"state" validate:"required"`
 	CurrencyCode  int      `json:"currencyCode" validate:"required,gte=0,lte=999"`
