@@ -15,3 +15,17 @@ type AccountModel struct {
 	PublicKey                  string   `json:"publicKey"`
 	DocType                    string   `json:"docType"`
 }
+
+type Bank struct {
+	Address     string `json:"address"`
+	Name        string `json:"name"`
+	BIK         string `json:"bik"`
+	State       int    `json:"state"`
+	CreatedBy   string `json:"createdBy"`
+	IsOwner     bool   `json:"isOwner"`
+	Encrypted   bool   `json:"encrypted"`
+	IsRegulator bool   `json:"isRegulator"`
+	MSPId       string `json:"mspId"`
+	Conf        string `json:"conf"`
+	DocType     string `json:"docType"`
+}
