@@ -1,6 +1,6 @@
 package models
 
-type AccountModel struct {
+type Account struct {
 	Address                    string   `json:"address"`
 	State                      int      `json:"state"`
 	CurrencyCode               int      `json:"currencyCode"`
