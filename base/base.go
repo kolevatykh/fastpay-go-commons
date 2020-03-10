@@ -15,11 +15,16 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 	clientIdentity := ctx.GetClientIdentity()
 	stub := ctx.GetStub()
 	mspId, err := clientIdentity.GetMSPID()
+	println("mspId", mspId) // TODO Убрать
 	if err != nil {
 		return nil, fmt.Errorf("Невозможно получить MSP ID. %s", err.Error())
 	}
 
 	address, _ := GetSenderAddressFromCertificate(clientIdentity)
+
+	println("address", address) // TODO Убрать
+
+	address = "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79" // TODO Убрать
 	if address == "" {
 		return nil, fmt.Errorf("Отсутвует атрибут address в сертификате")
 	}
@@ -53,7 +58,7 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 
 	var args [][]byte
 
-	args = append(args, []byte("getBank"))
+	args = append(args, []byte("getBankByMspIdAddress"))
 	args = append(args, requestAsBytes)
 
 	response := stub.InvokeChaincode("banks", args, "")
