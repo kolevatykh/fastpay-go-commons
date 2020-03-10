@@ -15,16 +15,13 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 	clientIdentity := ctx.GetClientIdentity()
 	stub := ctx.GetStub()
 	mspId, err := clientIdentity.GetMSPID()
-	println("mspId", mspId) // TODO Убрать
+	fmt.Println("mspId", mspId) // TODO Убрать
 	if err != nil {
 		return nil, fmt.Errorf("Невозможно получить MSP ID. %s", err.Error())
 	}
 
 	address, _ := GetSenderAddressFromCertificate(clientIdentity)
 
-	println("address", address) // TODO Убрать
-
-	address = "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79" // TODO Убрать
 	if address == "" {
 		return nil, fmt.Errorf("Отсутвует атрибут address в сертификате")
 	}
@@ -34,6 +31,10 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, err := identity.GetAttributeValue("address")
+	fmt.Println("address", address, isFound, err) // TODO Убрать
+
+	address, isFound, err = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+
 	if err != nil {
 		return "", fmt.Errorf("Невозможно получить атрибут из сертификата. %s", err.Error())
 	}
