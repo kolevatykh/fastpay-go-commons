@@ -64,6 +64,8 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 
 	response := stub.InvokeChaincode("banks", args, "")
 
+	fmt.Println("response GetBankByRemoteContract", response)
+
 	var bank Bank
 	err = json.Unmarshal(response.GetPayload(), &bank)
 
