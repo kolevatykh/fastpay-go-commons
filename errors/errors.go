@@ -10,17 +10,17 @@ const (
 	/**
 	 * Код ошибки при успешном выполнении операции
 	 */
-	SuccessErrorCode = 0
+	ErrorSuccess = 0
 
 	/**
 	 * Минимальная сумма перевода средств
 	 */
-	amountTxMin = 60001
+	ErrorAmountTxMin = 60001
 
 	/**
 	 * Аккаунт существует
 	 */
-	errorAccountExist = 60100
+	ErrorAccountExist = 60100
 
 	/**
 	 * Идентификатор аккаунта существует
@@ -55,7 +55,7 @@ const (
 	/**
 	 * Валюта не существует
 	 */
-	errorCurrencyNotExist = 60114
+	ErrorCurrencyNotExist = 60114
 
 	/**
 	 * Аккаунт не доступен
@@ -100,7 +100,7 @@ const (
 	/**
 	 * Информация о клиенте банка не найдена
 	 */
-	errorCustomerNotFound = 60128
+	ErrorCustomerNotFound = 60128
 
 	/**
 	 * Аккаунт создан без идентификатора
@@ -140,7 +140,7 @@ const (
 	/**
 	 * Неверный формат идентификатора аккаунта
 	 */
-	errorIdentifierNotFolowingRegex = 60303
+	ErrorIdentifierNotFolowingRegex = 60303
 
 	/**
 	 * Требуется передать идентификатор
