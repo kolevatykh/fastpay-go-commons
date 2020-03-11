@@ -2,8 +2,10 @@ package base
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/roles"
+	. "github.com/SolarLabRU/fastpay-go-commons/errors"
 	. "github.com/SolarLabRU/fastpay-go-commons/models"
 	"github.com/SolarLabRU/fastpay-go-commons/requests"
 	"github.com/SolarLabRU/fastpay-go-commons/responses"
@@ -119,4 +121,31 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank
 	}
 
 	return nil
+}
+
+func CreateMessageError(code uint8, message string) error {
+	baseError := BaseError{
+		Code:    code,
+		Message: message,
+	}
+
+	return createMessageError(&baseError)
+}
+
+func CreateMessageErrorWithData(code uint8, message, data string) error {
+	baseError := BaseError{
+		Code:    code,
+		Message: message,
+		Data:    data,
+	}
+
+	return createMessageError(&baseError)
+}
+func createMessageError(baseError *BaseError) error {
+	byteError, err := json.Marshal(baseError)
+	if err != nil {
+		return err // TODO Доделать вернуть JSON
+	}
+
+	return errors.New(string(byteError))
 }
