@@ -69,12 +69,19 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 
 	fmt.Println("response GetBankByRemoteContract", response)
 
+	fmt.Println("response.String()", response.String())
+	fmt.Println("response.GetPayload()", response.GetPayload())
+	fmt.Println("response.GetMessage()", response.GetMessage())
+	fmt.Println("response.GetStatus()", response.GetStatus())
+
 	var bank Bank
 	err = json.Unmarshal(response.GetPayload(), &bank)
 
 	if err != nil {
 		return nil, fmt.Errorf("Ошибка вызова чейнкода banks. %s", err.Error())
 	}
+
+	fmt.Println("bank", bank)
 
 	return &bank, nil
 }
