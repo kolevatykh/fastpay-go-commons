@@ -123,25 +123,26 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank
 	return nil
 }
 
-func CreateMessageError(code uint, message string) error {
+func CreateError(code uint, message string) error {
 	baseError := BaseError{
 		Code:    code,
 		Message: message,
 	}
 
-	return createMessageError(&baseError)
+	return createError(&baseError)
 }
 
-func CreateMessageErrorWithData(code uint, message, data string) error {
+func CreateErrorWithData(code uint, message, data string) error {
 	baseError := BaseError{
 		Code:    code,
 		Message: message,
 		Data:    data,
 	}
 
-	return createMessageError(&baseError)
+	return createError(&baseError)
 }
-func createMessageError(baseError *BaseError) error {
+
+func createError(baseError *BaseError) error {
 	byteError, err := json.Marshal(baseError)
 	if err != nil {
 		return err // TODO Доделать вернуть JSON
