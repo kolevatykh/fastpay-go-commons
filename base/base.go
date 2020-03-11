@@ -9,6 +9,7 @@ import (
 	. "github.com/SolarLabRU/fastpay-go-commons/models"
 	"github.com/SolarLabRU/fastpay-go-commons/requests"
 	"github.com/SolarLabRU/fastpay-go-commons/responses"
+	. "github.com/SolarLabRU/fastpay-go-commons/validation"
 	"github.com/hyperledger/fabric-chaincode-go/pkg/cid"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
@@ -109,14 +110,14 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank
 
 	switch role {
 	case roles.Undefined:
-		return fmt.Errorf("Права доступа к методу не определены", "60601")
+		return CreateError(ErrorForbidden, "Права доступа к методу не определены")
 	case roles.Regulator:
 		if !bank.IsRegulator {
-			return fmt.Errorf("Для досупа банк должен быть регулятором", "60601")
+			return CreateError(ErrorForbidden, "Для досупа банк должен быть регулятором")
 		}
 	case roles.Owner:
 		if !bank.IsRegulator {
-			return fmt.Errorf("Для досупа банк должен быть владельцем", "60601")
+			return CreateError(ErrorForbidden, "Для досупа банк должен быть владельцем")
 		}
 	}
 
@@ -149,4 +150,19 @@ func createError(baseError *BaseError) error {
 	}
 
 	return errors.New(string(byteError))
+}
+
+func CheckArgs(args string, request interface{}) error {
+	err := json.Unmarshal([]byte(args), &request)
+
+	if err != nil {
+		return err
+	}
+
+	err = Validate.Struct(request)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
