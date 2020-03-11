@@ -50,6 +50,7 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 		Address: address,
 		MSPId:   mspId,
 	}
+	fmt.Println("request", request)
 
 	requestAsBytes, err := json.Marshal(request)
 
@@ -61,6 +62,8 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 
 	args = append(args, []byte("getBankByMspIdAddress"))
 	args = append(args, requestAsBytes)
+
+	fmt.Println("args", args)
 
 	response := stub.InvokeChaincode("banks", args, "")
 
