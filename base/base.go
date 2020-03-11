@@ -21,29 +21,26 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 	mspId, err := clientIdentity.GetMSPID()
 	fmt.Println("mspId", mspId) // TODO Убрать
 	if err != nil {
-		return nil, fmt.Errorf("Невозможно получить MSP ID. %s", err.Error())
+		return nil, CreateError(ErrorCertificateNotValid, fmt.Sprintf("Невозможно получить MSP ID. %s", err.Error()))
 	}
 
-	address, _ := GetSenderAddressFromCertificate(clientIdentity)
+	address, err := GetSenderAddressFromCertificate(clientIdentity)
 
-	if address == "" {
-		return nil, fmt.Errorf("Отсутвует атрибут address в сертификате")
+	if err != nil {
+		return nil, err
 	}
 
 	return GetBankByRemoteContract(stub, mspId, address)
 }
 
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
-	address, isFound, err := identity.GetAttributeValue("address")
-	fmt.Println("address", address, isFound, err) // TODO Убрать
+	address, isFound, _ := identity.GetAttributeValue("address")
+	fmt.Println("address", address, isFound) // TODO Убрать
 
-	address, isFound, err = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
-	if err != nil {
-		return "", fmt.Errorf("Невозможно получить атрибут из сертификата. %s", err.Error())
-	}
-	if isFound == false {
-		return "", fmt.Errorf("Отсутвует атрибут address в сертификате")
+	if !isFound {
+		return "", CreateError(ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
 	}
 
 	return address, nil
@@ -55,7 +52,7 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 	paramsAsBytes, err := json.Marshal(params)
 
 	if err != nil {
-		return nil, fmt.Errorf("Ошибка парсинга входных параметров. %s", err.Error())
+		return nil, CreateError(ErrorDefault, fmt.Sprintf("Ошибка парсинга входных параметров. %s", err.Error()))
 	}
 
 	args = append(args, []byte(nameFunc))
@@ -63,8 +60,8 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 
 	response := stub.InvokeChaincode(chaincodeName, args, "")
 
-	if response.GetStatus() == 500 {
-		return nil, fmt.Errorf("Ошибка при вызове чейнкода: %s", response.GetMessage())
+	if response.GetStatus() == 500 { // TODO спарсить код ошибки
+		return nil, CreateError(ErrorDefault, fmt.Sprintf("Ошибка при вызове чейнкода: %s", response.GetMessage()))
 	}
 
 	return response.GetPayload(), nil
@@ -86,8 +83,8 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 	var bankResponse responses.BankResponse
 	err = json.Unmarshal(response, &bankResponse)
 
-	if err != nil {
-		return nil, fmt.Errorf("Ошибка вызова чейнкода banks. %s", err.Error())
+	if err != nil { //TODO
+		return nil, CreateError(ErrorDefault, fmt.Sprintf("Ошибка вызова чейнкода banks. %s", err.Error()))
 	}
 
 	fmt.Println("bank", bankResponse)
