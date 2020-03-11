@@ -6,6 +6,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/roles"
 	. "github.com/SolarLabRU/fastpay-go-commons/models"
 	"github.com/SolarLabRU/fastpay-go-commons/requests"
+	"github.com/SolarLabRU/fastpay-go-commons/responses"
 	"github.com/hyperledger/fabric-chaincode-go/pkg/cid"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
@@ -45,45 +46,50 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 	return address, nil
 }
 
-func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*Bank, error) {
-	request := requests.GetBank{
-		Address: address,
-		MSPId:   mspId,
-	}
-	fmt.Println("request", request)
+func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nameFunc string, params interface{}) ([]byte, error) {
+	var args [][]byte
 
-	requestAsBytes, err := json.Marshal(request)
+	paramsAsBytes, err := json.Marshal(params)
 
 	if err != nil {
 		return nil, fmt.Errorf("Ошибка парсинга входных параметров. %s", err.Error())
 	}
 
-	var args [][]byte
+	args = append(args, []byte(nameFunc))
+	args = append(args, paramsAsBytes)
 
-	args = append(args, []byte("getBankByMspIdAddress"))
-	args = append(args, requestAsBytes)
+	response := stub.InvokeChaincode(chaincodeName, args, "")
 
-	fmt.Println("args", args)
+	if response.GetStatus() == 500 {
+		return nil, fmt.Errorf("Ошибка при вызове чейнкода: %s", response.GetMessage())
+	}
 
-	response := stub.InvokeChaincode("banks", args, "")
+	return response.GetPayload(), nil
 
-	fmt.Println("response GetBankByRemoteContract", response)
+}
 
-	fmt.Println("response.String()", response.String())
-	fmt.Println("response.GetPayload()", response.GetPayload())
-	fmt.Println("response.GetMessage()", response.GetMessage())
-	fmt.Println("response.GetStatus()", response.GetStatus())
+func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*Bank, error) {
+	request := requests.GetBank{
+		Address: address,
+		MSPId:   mspId,
+	}
 
-	var bank Bank
-	err = json.Unmarshal(response.GetPayload(), &bank)
+	// TODO Вынести название чейнкода в конастанту
+	response, err := InvokeChaincode(stub, "banks", "getBankByMspIdAddress", request)
+	if err != nil {
+		return nil, err
+	}
+
+	var bankResponse responses.BankResponse
+	err = json.Unmarshal(response, &bankResponse)
 
 	if err != nil {
 		return nil, fmt.Errorf("Ошибка вызова чейнкода banks. %s", err.Error())
 	}
 
-	fmt.Println("bank", bank)
+	fmt.Println("bank", bankResponse)
 
-	return &bank, nil
+	return &bankResponse.Data, nil
 }
 
 func CheckAccess(ctx contractapi.TransactionContextInterface, role roles.Roles) error {
