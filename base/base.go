@@ -123,7 +123,7 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank
 	return nil
 }
 
-func CreateMessageError(code uint8, message string) error {
+func CreateMessageError(code uint, message string) error {
 	baseError := BaseError{
 		Code:    code,
 		Message: message,
@@ -132,7 +132,7 @@ func CreateMessageError(code uint8, message string) error {
 	return createMessageError(&baseError)
 }
 
-func CreateMessageErrorWithData(code uint8, message, data string) error {
+func CreateMessageErrorWithData(code uint, message, data string) error {
 	baseError := BaseError{
 		Code:    code,
 		Message: message,
