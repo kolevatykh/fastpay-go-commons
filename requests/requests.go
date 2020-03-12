@@ -1,27 +1,34 @@
 package requests
 
+import (
+	account_type "github.com/SolarLabRU/fastpay-go-commons/enums/account-type"
+	identity_type "github.com/SolarLabRU/fastpay-go-commons/enums/identity-type"
+	juridical_type "github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/state"
+)
+
 type CreateAccount struct {
-	Address       string   `json:"address"  validate:"required,validHex40"`
-	State         int      `json:"state" validate:"required"`
-	CurrencyCode  int      `json:"currencyCode" validate:"required,gte=0,lte=999"`
-	JuridicalType int      `json:"juridicalType" validate:"required"`
-	IdentityType  int      `json:"identityType" validate:"required"`
-	Type          int      `json:"type" validate:"required"`
-	Identifiers   []string `json:"identifiers"`
-	Timestamp     int64    `json:"timestamp" validate:"required"`
-	PublicKey     string   `json:"publicKey" validate:"required"`
-	MsgHash       string   `json:"msgHash" validate:"required"`
-	Sig           SignDto  `json:"sig" validate:"required,dive"`
+	Address       string                       `json:"address"  validate:"required,validHex40"`
+	State         state.State                  `json:"state" validate:"required"`
+	CurrencyCode  int                          `json:"currencyCode" validate:"required,gte=0,lte=999"`
+	JuridicalType juridical_type.JuridicalType `json:"juridicalType" validate:"required"`
+	IdentityType  identity_type.IdentityType   `json:"identityType" validate:"required"`
+	Type          account_type.AccountType     `json:"type" validate:"required"`
+	Identifiers   []string                     `json:"identifiers"`
+	Timestamp     int64                        `json:"timestamp" validate:"required"`
+	PublicKey     string                       `json:"publicKey" validate:"required"`
+	MsgHash       string                       `json:"msgHash" validate:"required"`
+	Sig           SignDto                      `json:"sig" validate:"required,dive"`
 }
 
 type CreateBank struct {
-	Address string `json:"address"  validate:"required,validHex40"`
-	State   int    `json:"state" validate:"required"`
-	Name    string `json:"name"`
-	BIK     string `json:"bik"`
-	MspId   string `json:"mspId"`
-	IsOwner bool   `json:"isOwner"`
-	Conf    string `json:"conf"`
+	Address string      `json:"address"  validate:"required,validHex40"`
+	State   state.State `json:"state" validate:"required"`
+	Name    string      `json:"name"`
+	BIK     string      `json:"bik"`
+	MspId   string      `json:"mspId"`
+	IsOwner bool        `json:"isOwner"`
+	Conf    string      `json:"conf"`
 }
 
 type GetBank struct {
