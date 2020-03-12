@@ -153,17 +153,15 @@ func CheckArgs(args string, request interface{}) error {
 	err := json.Unmarshal([]byte(args), &request)
 
 	if err != nil {
-		return err // TODO
+		return CreateError(ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error())) // TODO
 	}
 
 	err = Validate.Struct(request)
 	if err != nil {
-		return err // TODO
+		return CreateError(ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error())) // TODO
 	}
 
 	requestInterface, ok := request.(interface{ SetDefaults() })
-
-	fmt.Println("ok: ", ok) // TODO Убрать
 
 	if ok {
 		requestInterface.SetDefaults()
