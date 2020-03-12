@@ -9,11 +9,11 @@ import (
 
 type CreateAccount struct {
 	Address       string                       `json:"address" validate:"required,validHex40"`
-	State         state.State                  `json:"state" validate:"required"`
+	State         state.State                  `json:"state"`
 	CurrencyCode  int                          `json:"currencyCode" validate:"required,gte=0,lte=999"`
 	JuridicalType juridical_type.JuridicalType `json:"juridicalType"`
-	IdentityType  identity_type.IdentityType   `json:"identityType" validate:"required"`
-	Type          account_type.AccountType     `json:"type" validate:"required"`
+	IdentityType  identity_type.IdentityType   `json:"identityType"`
+	Type          account_type.AccountType     `json:"type"`
 	Identifiers   []string                     `json:"identifiers" validate:"required,dive,validHex64"`
 	Timestamp     int64                        `json:"timestamp" validate:"required"`
 	PublicKey     string                       `json:"publicKey" validate:"required"`
@@ -35,7 +35,7 @@ func (createAccount *CreateAccount) setDefaults() {
 
 type CreateBank struct {
 	Address string      `json:"address"  validate:"required,validHex40"`
-	State   state.State `json:"state" validate:"required"`
+	State   state.State `json:"state"`
 	Name    string      `json:"name"`
 	BIK     string      `json:"bik"`
 	MspId   string      `json:"mspId"`
