@@ -21,6 +21,18 @@ type CreateAccount struct {
 	Sig           SignDto                      `json:"sig" validate:"required,dive"`
 }
 
+func (createAccount *CreateAccount) setDefaults() {
+	if createAccount.IdentityType == identity_type.Undefined {
+		createAccount.IdentityType = identity_type.None
+	}
+	if createAccount.State == state.Undefined {
+		createAccount.State = state.Available
+	}
+	if createAccount.Type == account_type.Undefined {
+		createAccount.Type = account_type.Client
+	}
+}
+
 type CreateBank struct {
 	Address string      `json:"address"  validate:"required,validHex40"`
 	State   state.State `json:"state" validate:"required"`
@@ -29,6 +41,12 @@ type CreateBank struct {
 	MspId   string      `json:"mspId"`
 	IsOwner bool        `json:"isOwner"`
 	Conf    string      `json:"conf"`
+}
+
+func (createBank *CreateBank) setDefaults() {
+	if createBank.State == state.Undefined {
+		createBank.State = state.Available
+	}
 }
 
 type GetBank struct {
