@@ -161,6 +161,14 @@ func CheckArgs(args string, request interface{}) error {
 		return err // TODO
 	}
 
+	requestInterface, ok := request.(interface{ SetDefaults() })
+
+	fmt.Println("ok: ", ok) // TODO Убрать
+
+	if ok {
+		requestInterface.SetDefaults()
+	}
+
 	return nil
 }
 

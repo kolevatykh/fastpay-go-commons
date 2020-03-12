@@ -43,11 +43,12 @@ type CreateBank struct {
 	Conf    string      `json:"conf"`
 }
 
-func (createBank *CreateBank) SetDefaults() {
-	if createBank.State == state.Undefined {
-		createBank.State = state.Available
-	}
-}
+// TODO
+//func (createBank *CreateBank) SetDefaults() {
+//	if createBank.State == state.Undefined {
+//		createBank.State = state.Available
+//	}
+//}
 
 type GetBank struct {
 	MSPId   string `json:"mspId" validate:"required"`
