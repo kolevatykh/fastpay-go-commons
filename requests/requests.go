@@ -21,7 +21,7 @@ type CreateAccount struct {
 	Sig           SignDto                      `json:"sig" validate:"required,dive"`
 }
 
-func (createAccount *CreateAccount) setDefaults() {
+func (createAccount *CreateAccount) SetDefaults() {
 	if createAccount.IdentityType == identity_type.Undefined {
 		createAccount.IdentityType = identity_type.None
 	}
@@ -43,7 +43,7 @@ type CreateBank struct {
 	Conf    string      `json:"conf"`
 }
 
-func (createBank *CreateBank) setDefaults() {
+func (createBank *CreateBank) SetDefaults() {
 	if createBank.State == state.Undefined {
 		createBank.State = state.Available
 	}
