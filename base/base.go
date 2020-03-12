@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/SolarLabRU/fastpay-go-commons/enums/roles"
+	roles "github.com/SolarLabRU/fastpay-go-commons/enums/access-role"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/state"
 	. "github.com/SolarLabRU/fastpay-go-commons/errors"
 	. "github.com/SolarLabRU/fastpay-go-commons/models"
 	"github.com/SolarLabRU/fastpay-go-commons/requests"
@@ -31,6 +32,14 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 	}
 
 	return GetBankByRemoteContract(stub, mspId, address)
+}
+
+func SenderBankIsAvailable(ctx contractapi.TransactionContextInterface) error {
+	bank, _ := GetSenderBank(ctx)
+	if bank == nil || bank.State == state.Available {
+		return CreateError(ErrorBankNotAvailable, "Банк отправителя не доступен")
+	}
+	return nil
 }
 
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
@@ -92,11 +101,11 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 	return &bankResponse.Data, nil
 }
 
-func CheckAccess(ctx contractapi.TransactionContextInterface, role roles.Roles) error {
+func CheckAccess(ctx contractapi.TransactionContextInterface, role roles.AccessRole) error {
 	return CheckAccessWithBank(ctx, nil, role)
 }
 
-func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank, role roles.Roles) error {
+func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank, role roles.AccessRole) error {
 	if bank == nil {
 		var err error = nil
 		bank, err = GetSenderBank(ctx)
@@ -140,6 +149,21 @@ func CreateErrorWithData(code uint, message, data string) error {
 	return createError(&baseError)
 }
 
+func CheckArgs(args string, request interface{}) error {
+	err := json.Unmarshal([]byte(args), &request)
+
+	if err != nil {
+		return err // TODO
+	}
+
+	err = Validate.Struct(request)
+	if err != nil {
+		return err // TODO
+	}
+
+	return nil
+}
+
 func createError(baseError *BaseError) error {
 	byteError, err := json.Marshal(baseError)
 	if err != nil {
@@ -147,19 +171,4 @@ func createError(baseError *BaseError) error {
 	}
 
 	return errors.New(string(byteError))
-}
-
-func CheckArgs(args string, request interface{}) error {
-	err := json.Unmarshal([]byte(args), &request)
-
-	if err != nil {
-		return err
-	}
-
-	err = Validate.Struct(request)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
