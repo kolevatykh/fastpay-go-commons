@@ -8,13 +8,13 @@ import (
 )
 
 type CreateAccount struct {
-	Address       string                       `json:"address"  validate:"required,validHex40"`
+	Address       string                       `json:"address" validate:"required,validHex40"`
 	State         state.State                  `json:"state" validate:"required"`
 	CurrencyCode  int                          `json:"currencyCode" validate:"required,gte=0,lte=999"`
-	JuridicalType juridical_type.JuridicalType `json:"juridicalType" validate:"required"`
+	JuridicalType juridical_type.JuridicalType `json:"juridicalType"`
 	IdentityType  identity_type.IdentityType   `json:"identityType" validate:"required"`
 	Type          account_type.AccountType     `json:"type" validate:"required"`
-	Identifiers   []string                     `json:"identifiers"`
+	Identifiers   []string                     `json:"identifiers" validate:"required,dive,validHex64"`
 	Timestamp     int64                        `json:"timestamp" validate:"required"`
 	PublicKey     string                       `json:"publicKey" validate:"required"`
 	MsgHash       string                       `json:"msgHash" validate:"required"`
