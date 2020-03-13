@@ -469,6 +469,11 @@ const (
 	ErrorBankDisplayNameNotPassed = 60369
 
 	/**
+	 * Ошибка при получении MSP_ID
+	 */
+	ErrorGetMspId = 60370
+
+	/**
 	 * Попытка перевода средств между юр. лицами
 	 */
 	ErrorLimitLegalEntry = 60410
@@ -569,6 +574,27 @@ const (
 	 * Ошибка обновления статуса счета
 	 */
 	ErrorInvoiceUpdate = 60508
+
+	/**
+	 * Ошибка сохрания данных в БД
+	 */
+	ErrorPutState = 60510
+
+	/**
+	 * Ошибка при получении данных в БД
+	 */
+	ErrorGetState = 60511
+
+	/**
+	 * Ошибка при серилизации JSON
+	 */
+	ErrorJsonMarshal = 60512
+
+	/**
+	 * Ошибка при десерилизации JSON
+	 */
+	ErrorJsonUnmarshal = 60513
+
 	/**
 	 * Не доступен для этого владельца
 	 */

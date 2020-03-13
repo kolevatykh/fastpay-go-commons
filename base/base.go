@@ -26,7 +26,7 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 	mspId, err := clientIdentity.GetMSPID()
 
 	if err != nil {
-		return nil, CreateError(ErrorCertificateNotValid, fmt.Sprintf("Невозможно получить MSP ID. %s", err.Error()))
+		return nil, CreateError(ErrorGetMspId, fmt.Sprintf("Невозможно получить MSP ID. %s", err.Error()))
 	}
 
 	address, err := GetSenderAddressFromCertificate(clientIdentity)
@@ -65,6 +65,8 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 	response := stub.InvokeChaincode(chaincodeName, args, "")
 
 	if response.GetStatus() == 500 { // TODO спарсить код ошибки
+		fmt.Println("TODO спарсить код ошибки", response.GetMessage())
+
 		return nil, CreateError(ErrorDefault, fmt.Sprintf("Ошибка при вызове чейнкода: %s", response.GetMessage()))
 	}
 
@@ -86,8 +88,8 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 	var bankResponse responses.BankResponse
 	err = json.Unmarshal(response, &bankResponse)
 
-	if err != nil { //TODO
-		return nil, CreateError(ErrorDefault, fmt.Sprintf("Ошибка вызова чейнкода banks. %s", err.Error()))
+	if err != nil {
+		return nil, CreateError(ErrorJsonUnmarshal, fmt.Sprintf("Ошибка десерилизации ответа после вызова чейнкода banks. %s", err.Error()))
 	}
 
 	return &bankResponse.Data, nil
@@ -110,6 +112,7 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 	if bank == nil || bank.State == state.Available {
 		return CreateError(ErrorBankNotAvailable, "Банк отправителя не доступен")
 	}
+
 	return nil
 }
 
@@ -192,7 +195,7 @@ func CheckArgs(args string, request interface{}) error {
 func createError(baseError *BaseError) error {
 	byteError, err := json.Marshal(baseError)
 	if err != nil {
-		return err // TODO Доделать вернуть JSON
+		return errors.New(fmt.Sprintf("{\"code\": %d, \"message\": \"Ошибка при формирование структуры ошибки. %s\", \"data\": \"\"}", ErrorDefault, err.Error()))
 	}
 
 	return errors.New(string(byteError))
