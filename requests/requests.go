@@ -16,7 +16,7 @@ type CreateAccount struct {
 	Type          account_type.AccountType     `json:"type"`
 	Identifiers   []string                     `json:"identifiers" validate:"required,dive,validHex64"`
 	Timestamp     int64                        `json:"timestamp" validate:"required"`
-	PublicKey     string                       `json:"publicKey" validate:"required"`
+	PublicKey     string                       `json:"publicKey"`
 	MsgHash       string                       `json:"msgHash" validate:"required"`
 	Sig           SignDto                      `json:"sig" validate:"required,dive"`
 }
