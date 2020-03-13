@@ -64,7 +64,9 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 
 	response := stub.InvokeChaincode(chaincodeName, args, "")
 
-	if response.GetStatus() == 500 {
+	if response.GetStatus() == 500 { // TODO спарсить код ошибки
+		fmt.Println("TODO спарсить код ошибки", response.GetMessage())
+
 		return nil, parseErrorFromAnotherChaincode(response.GetMessage())
 	}
 
@@ -77,7 +79,7 @@ func parseErrorFromAnotherChaincode(message string) error {
 
 	err := json.Unmarshal([]byte(message), &baseError)
 
-	if err == nil {
+	if err != nil {
 		return CreateError(ErrorDefault, fmt.Sprintf("Ошибка при вызове чейнкода: %s", message))
 	}
 
