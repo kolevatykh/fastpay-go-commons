@@ -16,11 +16,15 @@ import (
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
+const (
+	ChaincodeBankName = "banks"
+)
+
 func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 	clientIdentity := ctx.GetClientIdentity()
 	stub := ctx.GetStub()
 	mspId, err := clientIdentity.GetMSPID()
-	//fmt.Println("mspId", mspId) // TODO Убрать
+
 	if err != nil {
 		return nil, CreateError(ErrorCertificateNotValid, fmt.Sprintf("Невозможно получить MSP ID. %s", err.Error()))
 	}
@@ -34,17 +38,8 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
 	return GetBankByRemoteContract(stub, mspId, address)
 }
 
-func SenderBankIsAvailable(ctx contractapi.TransactionContextInterface) error {
-	bank, _ := GetSenderBank(ctx)
-	if bank == nil || bank.State == state.Available {
-		return CreateError(ErrorBankNotAvailable, "Банк отправителя не доступен")
-	}
-	return nil
-}
-
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
-	//fmt.Println("address", address, isFound) // TODO Убрать
 
 	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
@@ -83,8 +78,7 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 		MSPId:   mspId,
 	}
 
-	// TODO Вынести название чейнкода в конастанту
-	response, err := InvokeChaincode(stub, "banks", "getBankByMspIdAddress", request)
+	response, err := InvokeChaincode(stub, ChaincodeBankName, "getBankByMspIdAddress", request)
 	if err != nil {
 		return nil, err
 	}
@@ -96,19 +90,44 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 		return nil, CreateError(ErrorDefault, fmt.Sprintf("Ошибка вызова чейнкода banks. %s", err.Error()))
 	}
 
-	// fmt.Println("bank", bankResponse) TODO
-
 	return &bankResponse.Data, nil
 }
 
-func CheckAccess(ctx contractapi.TransactionContextInterface, role roles.AccessRole) error {
-	return CheckAccessWithBank(ctx, nil, role)
+func SenderBankIsAvailable(ctx contractapi.TransactionContextInterface) error {
+	bank, _ := GetSenderBank(ctx)
+	return SenderBankIsAvailableWithBank(ctx, bank)
 }
 
-func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank, role roles.AccessRole) error {
+func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, bank *Bank) error {
 	if bank == nil {
 		var err error = nil
 		bank, err = GetSenderBank(ctx)
+		if err != nil {
+			return err
+		}
+	}
+
+	if bank == nil || bank.State == state.Available {
+		return CreateError(ErrorBankNotAvailable, "Банк отправителя не доступен")
+	}
+	return nil
+}
+
+func CheckAccess(ctx contractapi.TransactionContextInterface, role roles.AccessRole, checkAvailable bool) error {
+	return CheckAccessWithBank(ctx, nil, role, checkAvailable)
+}
+
+func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank, role roles.AccessRole, checkAvailable bool) error {
+	if bank == nil {
+		var err error = nil
+		bank, err = GetSenderBank(ctx)
+		if err != nil {
+			return err
+		}
+	}
+
+	if checkAvailable {
+		err := SenderBankIsAvailableWithBank(ctx, bank)
 		if err != nil {
 			return err
 		}
