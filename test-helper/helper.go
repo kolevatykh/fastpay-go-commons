@@ -19,19 +19,19 @@ const (
 	standardTxID = "1234567890"
 )
 
-func CallContractFunctionAndCheckError(t *testing.T, mockStub *shimtest.MockStub, arguments []string, callType string, expectedMessage string) {
+func CallContractFunctionAndCheckError(t *testing.T, mockStub *MockStub, arguments []string, callType string, expectedMessage string) {
 	t.Helper()
 
 	CallContractFunctionAndCheckResponse(t, mockStub, arguments, callType, expectedMessage, "error")
 }
 
-func CallContractFunctionAndCheckSuccess(t *testing.T, mockStub *shimtest.MockStub, arguments []string, callType string, expectedMessage string) {
+func CallContractFunctionAndCheckSuccess(t *testing.T, mockStub *MockStub, arguments []string, callType string, expectedMessage string) {
 	t.Helper()
 
 	CallContractFunctionAndCheckResponse(t, mockStub, arguments, callType, expectedMessage, "success")
 }
 
-func CallContractFunctionAndCheckResponse(t *testing.T, mockStub *shimtest.MockStub, arguments []string, callType string, expectedMessage string, expectedType string) {
+func CallContractFunctionAndCheckResponse(t *testing.T, mockStub *MockStub, arguments []string, callType string, expectedMessage string, expectedType string) {
 	t.Helper()
 
 	args := helpers.StringArrayToByteArray(arguments)
