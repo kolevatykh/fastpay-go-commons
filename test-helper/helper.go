@@ -8,19 +8,27 @@ import (
 	"github.com/hyperledger/fabric-chaincode-go/shimtest"
 	"github.com/hyperledger/fabric-protos-go/msp"
 	"github.com/hyperledger/fabric-protos-go/peer"
+	"github.com/stretchr/testify/assert"
 	"testing"
+)
+
+const (
+	invokeType   = "INVOKE"
+	initType     = "INIT"
+	queryType    = "QUERY"
+	standardTxID = "1234567890"
 )
 
 func CallContractFunctionAndCheckError(t *testing.T, mockStub *shimtest.MockStub, arguments []string, callType string, expectedMessage string) {
 	t.Helper()
 
-	callContractFunctionAndCheckResponse(t, mockStub, arguments, callType, expectedMessage, "error")
+	CallContractFunctionAndCheckResponse(t, mockStub, arguments, callType, expectedMessage, "error")
 }
 
 func CallContractFunctionAndCheckSuccess(t *testing.T, mockStub *shimtest.MockStub, arguments []string, callType string, expectedMessage string) {
 	t.Helper()
 
-	callContractFunctionAndCheckResponse(t, mockStub, arguments, callType, expectedMessage, "success")
+	CallContractFunctionAndCheckResponse(t, mockStub, arguments, callType, expectedMessage, "success")
 }
 
 func CallContractFunctionAndCheckResponse(t *testing.T, mockStub *shimtest.MockStub, arguments []string, callType string, expectedMessage string, expectedType string) {
