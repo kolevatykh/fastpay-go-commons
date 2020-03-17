@@ -88,7 +88,7 @@ func parseErrorFromAnotherChaincode(message string) error {
 }
 
 func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*Bank, error) {
-	request := requests.GetBank{
+	request := requests.GetBankRequest{
 		Address: address,
 		MSPId:   mspId,
 	}

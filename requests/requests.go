@@ -7,7 +7,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state"
 )
 
-type CreateAccount struct {
+type CreateAccountRequest struct {
 	Address       string                       `json:"address" validate:"required,validHex40"`
 	State         state.State                  `json:"state"`
 	CurrencyCode  int                          `json:"currencyCode" validate:"required,gte=0,lte=999"`
@@ -21,7 +21,7 @@ type CreateAccount struct {
 	Sig           SignDto                      `json:"sig" validate:"required,dive"`
 }
 
-func (createAccount *CreateAccount) SetDefaults() {
+func (createAccount *CreateAccountRequest) SetDefaults() {
 	if createAccount.IdentityType == identity_type.Undefined {
 		createAccount.IdentityType = identity_type.None
 	}
@@ -33,7 +33,7 @@ func (createAccount *CreateAccount) SetDefaults() {
 	}
 }
 
-type CreateBank struct {
+type CreateBankRequest struct {
 	Address string      `json:"address"  validate:"required,validHex40"`
 	State   state.State `json:"state"`
 	Name    string      `json:"name"`
@@ -43,13 +43,13 @@ type CreateBank struct {
 	Conf    string      `json:"conf"`
 }
 
-func (createBank *CreateBank) SetDefaults() {
+func (createBank *CreateBankRequest) SetDefaults() {
 	if createBank.State == state.Undefined {
 		createBank.State = state.Available
 	}
 }
 
-type GetBank struct {
+type GetBankRequest struct {
 	MSPId   string `json:"mspId" validate:"required"`
 	Address string `json:"address" validate:"required,validHex40"`
 }
