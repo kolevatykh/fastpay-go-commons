@@ -33,6 +33,13 @@ func (createAccount *CreateAccountRequest) SetDefaults() {
 	}
 }
 
+type AddIdentifierRequest struct {
+	Address    string  `json:"address" validate:"required,validHex40"`
+	Identifier string  `json:"identifier" validate:"required"`
+	MsgHash    string  `json:"msgHash" validate:"required"`
+	Sig        SignDto `json:"sig" validate:"required,dive"`
+}
+
 type CreateBankRequest struct {
 	Address string           `json:"address"  validate:"required,validHex40"`
 	State   state_enum.State `json:"state"`
