@@ -6,3 +6,8 @@ type BankResponse struct {
 	Data models.Bank
 	BaseResponse
 }
+
+type AccountResponse struct {
+	Data models.Account
+	BaseResponse
+}

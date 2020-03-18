@@ -9,3 +9,13 @@ func StringArrayToByteArray(arguments []string) [][]byte {
 
 	return args
 }
+
+func RemoveItemFromSlice(source []string, deleteValue string) []string {
+	for i, value := range source {
+		if value == deleteValue {
+			return append(source[:i], source[i+1:]...)
+		}
+	}
+
+	return source
+}
