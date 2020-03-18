@@ -40,6 +40,10 @@ type AddIdentifierRequest struct {
 	Sig        SignDto `json:"sig" validate:"required,dive"`
 }
 
+type RemoveIdentifierRequest struct {
+	AddIdentifierRequest
+}
+
 type CreateBankRequest struct {
 	Address string           `json:"address"  validate:"required,validHex40"`
 	State   state_enum.State `json:"state"`
