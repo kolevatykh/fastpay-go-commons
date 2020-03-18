@@ -1,4 +1,4 @@
-package juridical_type
+package juridical_type_enum
 
 type JuridicalType int
 

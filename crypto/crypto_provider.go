@@ -8,8 +8,9 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"golang.org/x/crypto/ripemd160"
 	"math/big"
+
+	"golang.org/x/crypto/ripemd160"
 )
 
 // Sign signs arbitrary data using ECDSA.

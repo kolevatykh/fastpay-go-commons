@@ -1,4 +1,4 @@
-package state
+package state_enum
 
 type State int
 

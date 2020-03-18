@@ -1,4 +1,4 @@
-package errors
+package cc_errors
 
 type BaseError struct {
 	Code    uint   `json:"code"`

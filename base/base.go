@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	roles "github.com/SolarLabRU/fastpay-go-commons/enums/access-role"
-	"github.com/SolarLabRU/fastpay-go-commons/enums/state"
-	. "github.com/SolarLabRU/fastpay-go-commons/errors"
-	. "github.com/SolarLabRU/fastpay-go-commons/models"
+
+	"github.com/SolarLabRU/fastpay-go-commons/cc-errors"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/access-role-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
+	"github.com/SolarLabRU/fastpay-go-commons/models"
 	"github.com/SolarLabRU/fastpay-go-commons/requests"
 	"github.com/SolarLabRU/fastpay-go-commons/responses"
-	. "github.com/SolarLabRU/fastpay-go-commons/validation"
+	"github.com/SolarLabRU/fastpay-go-commons/validation"
 	"github.com/hyperledger/fabric-chaincode-go/pkg/cid"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
@@ -20,13 +21,13 @@ const (
 	ChaincodeBankName = "banks"
 )
 
-func GetSenderBank(ctx contractapi.TransactionContextInterface) (*Bank, error) {
+func GetSenderBank(ctx contractapi.TransactionContextInterface) (*models.Bank, error) {
 	clientIdentity := ctx.GetClientIdentity()
 	stub := ctx.GetStub()
 	mspId, err := clientIdentity.GetMSPID()
 
 	if err != nil {
-		return nil, CreateError(ErrorGetMspId, fmt.Sprintf("Невозможно получить MSP ID. %s", err.Error()))
+		return nil, CreateError(cc_errors.ErrorGetMspId, fmt.Sprintf("Невозможно получить MSP ID. %s", err.Error()))
 	}
 
 	address, err := GetSenderAddressFromCertificate(clientIdentity)
@@ -44,7 +45,7 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
-		return "", CreateError(ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
+		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
 	}
 
 	return address, nil
@@ -56,7 +57,7 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 	paramsAsBytes, err := json.Marshal(params)
 
 	if err != nil {
-		return nil, CreateError(ErrorDefault, fmt.Sprintf("Ошибка парсинга входных параметров. %s", err.Error()))
+		return nil, CreateError(cc_errors.ErrorDefault, fmt.Sprintf("Ошибка парсинга входных параметров. %s", err.Error()))
 	}
 
 	args = append(args, []byte(nameFunc))
@@ -75,19 +76,19 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 }
 
 func parseErrorFromAnotherChaincode(message string) error {
-	var baseError BaseError
+	var baseError cc_errors.BaseError
 
 	err := json.Unmarshal([]byte(message), &baseError)
 
 	if err != nil {
-		return CreateError(ErrorDefault, fmt.Sprintf("Ошибка при вызове чейнкода: %s", message))
+		return CreateError(cc_errors.ErrorDefault, fmt.Sprintf("Ошибка при вызове чейнкода: %s", message))
 	}
 
 	return CreateError(baseError.Code, fmt.Sprintf("Ошибка при вызове чейнкода: %s", baseError.Message))
 
 }
 
-func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*Bank, error) {
+func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, address string) (*models.Bank, error) {
 	request := requests.GetBankRequest{
 		Address: address,
 		MSPId:   mspId,
@@ -102,7 +103,7 @@ func GetBankByRemoteContract(stub shim.ChaincodeStubInterface, mspId string, add
 	err = json.Unmarshal(response, &bankResponse)
 
 	if err != nil {
-		return nil, CreateError(ErrorJsonUnmarshal, fmt.Sprintf("Ошибка десерилизации ответа после вызова чейнкода banks. %s", err.Error()))
+		return nil, CreateError(cc_errors.ErrorJsonUnmarshal, fmt.Sprintf("Ошибка десерилизации ответа после вызова чейнкода banks. %s", err.Error()))
 	}
 
 	return &bankResponse.Data, nil
@@ -113,7 +114,7 @@ func SenderBankIsAvailable(ctx contractapi.TransactionContextInterface) error {
 	return SenderBankIsAvailableWithBank(ctx, bank)
 }
 
-func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, bank *Bank) error {
+func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, bank *models.Bank) error {
 	if bank == nil {
 		var err error = nil
 		bank, err = GetSenderBank(ctx)
@@ -122,18 +123,18 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 		}
 	}
 
-	if bank == nil || bank.State == state.Available {
-		return CreateError(ErrorBankNotAvailable, "Банк отправителя не доступен")
+	if bank == nil || bank.State == state_enum.Available {
+		return CreateError(cc_errors.ErrorBankNotAvailable, "Банк отправителя не доступен")
 	}
 
 	return nil
 }
 
-func CheckAccess(ctx contractapi.TransactionContextInterface, role roles.AccessRole, checkAvailable bool) error {
+func CheckAccess(ctx contractapi.TransactionContextInterface, role access_role_enum.AccessRole, checkAvailable bool) error {
 	return CheckAccessWithBank(ctx, nil, role, checkAvailable)
 }
 
-func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank, role roles.AccessRole, checkAvailable bool) error {
+func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *models.Bank, role access_role_enum.AccessRole, checkAvailable bool) error {
 	if bank == nil {
 		var err error = nil
 		bank, err = GetSenderBank(ctx)
@@ -150,15 +151,15 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank
 	}
 
 	switch role {
-	case roles.Undefined:
-		return CreateError(ErrorForbidden, "Права доступа к методу не определены")
-	case roles.Regulator:
+	case access_role_enum.Undefined:
+		return CreateError(cc_errors.ErrorForbidden, "Права доступа к методу не определены")
+	case access_role_enum.Regulator:
 		if !bank.IsRegulator {
-			return CreateError(ErrorForbidden, "Для досупа банк должен быть регулятором")
+			return CreateError(cc_errors.ErrorForbidden, "Для досупа банк должен быть регулятором")
 		}
-	case roles.Owner:
+	case access_role_enum.Owner:
 		if !bank.IsRegulator {
-			return CreateError(ErrorForbidden, "Для досупа банк должен быть владельцем")
+			return CreateError(cc_errors.ErrorForbidden, "Для досупа банк должен быть владельцем")
 		}
 	}
 
@@ -166,7 +167,7 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *Bank
 }
 
 func CreateError(code uint, message string) error {
-	baseError := BaseError{
+	baseError := cc_errors.BaseError{
 		Code:    code,
 		Message: message,
 	}
@@ -175,7 +176,7 @@ func CreateError(code uint, message string) error {
 }
 
 func CreateErrorWithData(code uint, message, data string) error {
-	baseError := BaseError{
+	baseError := cc_errors.BaseError{
 		Code:    code,
 		Message: message,
 		Data:    data,
@@ -188,12 +189,12 @@ func CheckArgs(args string, request interface{}) error {
 	err := json.Unmarshal([]byte(args), &request)
 
 	if err != nil {
-		return CreateError(ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error())) // TODO
+		return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error())) // TODO
 	}
 
-	err = Validate.Struct(request)
+	err = validation.Validate.Struct(request)
 	if err != nil {
-		return CreateError(ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error())) // TODO
+		return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error())) // TODO
 	}
 
 	requestInterface, ok := request.(interface{ SetDefaults() })
@@ -205,10 +206,12 @@ func CheckArgs(args string, request interface{}) error {
 	return nil
 }
 
-func createError(baseError *BaseError) error {
+func createError(baseError *cc_errors.BaseError) error {
 	byteError, err := json.Marshal(baseError)
 	if err != nil {
-		return errors.New(fmt.Sprintf("{\"code\": %d, \"message\": \"Ошибка при формирование структуры ошибки. %s\", \"data\": \"\"}", ErrorDefault, err.Error()))
+		return errors.New(
+			fmt.Sprintf("{\"code\": %d, \"message\": \"Ошибка при формирование структуры ошибки. %s\", \"data\": \"\"}",
+				cc_errors.ErrorDefault, err.Error()))
 	}
 
 	return errors.New(string(byteError))

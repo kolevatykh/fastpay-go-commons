@@ -1,4 +1,4 @@
-package access_role
+package access_role_enum
 
 type AccessRole int
 

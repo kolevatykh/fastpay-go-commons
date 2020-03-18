@@ -1,4 +1,4 @@
-package account_type
+package account_type_enum
 
 type AccountType int
 

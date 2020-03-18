@@ -1,4 +1,4 @@
-package identity_type
+package identity_type_enum
 
 type IdentityType int
 

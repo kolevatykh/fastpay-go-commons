@@ -2,13 +2,14 @@ package test_helper
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/SolarLabRU/fastpay-go-commons/helpers"
 	"github.com/golang/protobuf/proto"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-protos-go/msp"
 	"github.com/hyperledger/fabric-protos-go/peer"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 const (

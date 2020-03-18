@@ -2,8 +2,9 @@ package validation
 
 import (
 	"fmt"
-	"github.com/go-playground/validator"
 	"regexp"
+
+	"github.com/go-playground/validator"
 )
 
 var (
