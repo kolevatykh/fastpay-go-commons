@@ -35,9 +35,17 @@ func (createAccount *CreateAccountRequest) SetDefaults() {
 
 type AddIdentifierRequest struct {
 	Address    string  `json:"address" validate:"required,validHex40"`
-	Identifier string  `json:"identifier" validate:"required"`
+	Identifier string  `json:"identifier" validate:"required,validHex64"`
 	MsgHash    string  `json:"msgHash" validate:"required"`
 	Sig        SignDto `json:"sig" validate:"required,dive"`
+}
+
+type GetByAddressRequest struct {
+	Address string `json:"address" validate:"required,validHex40"`
+}
+
+type GetByIdentifierRequest struct {
+	Identifier string `json:"identifier" validate:"required,validHex64"`
 }
 
 type RemoveIdentifierRequest struct {
