@@ -11,3 +11,8 @@ type AccountResponse struct {
 	Data models.Account
 	BaseResponse
 }
+
+type AccountListResponse struct {
+	Data []models.Account
+	BaseResponse
+}
