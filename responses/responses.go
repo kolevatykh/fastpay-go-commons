@@ -21,11 +21,16 @@ type AccountListResponse struct {
 }
 
 type AccountPageResponse struct {
-	Data AccountDataPageResponse `json:"data"`
+	Data struct {
+		Metadata peer.QueryResponseMetadata `json:"metadata"`
+		Items    []models.Account           `json:"items"`
+	}
 	BaseResponse
 }
 
-type AccountDataPageResponse struct {
-	Metadata peer.QueryResponseMetadata `json:"metadata"`
-	Items    []models.Account           `json:"items"`
+type SenderAddressResponse struct {
+	Data struct {
+		Address string `json:"address"`
+	} `json:"data"`
+	BaseResponse
 }
