@@ -422,19 +422,25 @@ func splitCompositeKey(compositeKey string) (string, []string, error) {
 // GetStateByRangeWithPagination ...
 func (stub *MockStub) GetStateByRangeWithPagination(startKey, endKey string, pageSize int32,
 	bookmark string) (shim.StateQueryIteratorInterface, *pb.QueryResponseMetadata, error) {
-	return stub.GetStateByRangeWithPagination(startKey, endKey, pageSize, bookmark)
+	return nil, nil, nil
 }
 
 // GetStateByPartialCompositeKeyWithPagination ...
 func (stub *MockStub) GetStateByPartialCompositeKeyWithPagination(objectType string, keys []string,
 	pageSize int32, bookmark string) (shim.StateQueryIteratorInterface, *pb.QueryResponseMetadata, error) {
-	return stub.GetStateByPartialCompositeKeyWithPagination(objectType, keys, pageSize, bookmark)
+	return nil, nil, nil
 }
 
-// GetQueryResultWithPagination ...
+// GetQueryResultWithPagination ... TODO working as GetQueryResult
 func (stub *MockStub) GetQueryResultWithPagination(query string, pageSize int32,
 	bookmark string) (shim.StateQueryIteratorInterface, *pb.QueryResponseMetadata, error) {
-	return stub.GetQueryResultWithPagination(query, pageSize, bookmark)
+
+	stateQuery, err := stub.GetQueryResult(query)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return stateQuery, nil, nil
 }
 
 // InvokeChaincode locally calls the specified chaincode `Invoke`.
@@ -460,12 +466,12 @@ func (stub *MockStub) GetCreator() ([]byte, error) {
 
 // GetTransient Not implemented ...
 func (stub *MockStub) GetTransient() (map[string][]byte, error) {
-	return stub.GetTransient()
+	return nil, nil
 }
 
 // GetBinding Not implemented ...
 func (stub *MockStub) GetBinding() ([]byte, error) {
-	return stub.GetBinding()
+	return nil, nil
 }
 
 // GetSignedProposal Not implemented ...
@@ -479,7 +485,7 @@ func (stub *MockStub) setSignedProposal(sp *pb.SignedProposal) {
 
 // GetArgsSlice Not implemented ...
 func (stub *MockStub) GetArgsSlice() ([]byte, error) {
-	return stub.GetArgsSlice()
+	return nil, nil
 }
 
 func (stub *MockStub) setTxTimestamp(time *timestamp.Timestamp) {
