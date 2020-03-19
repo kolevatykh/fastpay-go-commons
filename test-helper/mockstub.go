@@ -422,19 +422,19 @@ func splitCompositeKey(compositeKey string) (string, []string, error) {
 // GetStateByRangeWithPagination ...
 func (stub *MockStub) GetStateByRangeWithPagination(startKey, endKey string, pageSize int32,
 	bookmark string) (shim.StateQueryIteratorInterface, *pb.QueryResponseMetadata, error) {
-	return nil, nil, nil
+	return stub.GetStateByRangeWithPagination(startKey, endKey, pageSize, bookmark)
 }
 
 // GetStateByPartialCompositeKeyWithPagination ...
 func (stub *MockStub) GetStateByPartialCompositeKeyWithPagination(objectType string, keys []string,
 	pageSize int32, bookmark string) (shim.StateQueryIteratorInterface, *pb.QueryResponseMetadata, error) {
-	return nil, nil, nil
+	return stub.GetStateByPartialCompositeKeyWithPagination(objectType, keys, pageSize, bookmark)
 }
 
 // GetQueryResultWithPagination ...
 func (stub *MockStub) GetQueryResultWithPagination(query string, pageSize int32,
 	bookmark string) (shim.StateQueryIteratorInterface, *pb.QueryResponseMetadata, error) {
-	return nil, nil, nil
+	return stub.GetQueryResultWithPagination(query, pageSize, bookmark)
 }
 
 // InvokeChaincode locally calls the specified chaincode `Invoke`.
@@ -460,12 +460,12 @@ func (stub *MockStub) GetCreator() ([]byte, error) {
 
 // GetTransient Not implemented ...
 func (stub *MockStub) GetTransient() (map[string][]byte, error) {
-	return nil, nil
+	return stub.GetTransient()
 }
 
 // GetBinding Not implemented ...
 func (stub *MockStub) GetBinding() ([]byte, error) {
-	return nil, nil
+	return stub.GetBinding()
 }
 
 // GetSignedProposal Not implemented ...
@@ -479,7 +479,7 @@ func (stub *MockStub) setSignedProposal(sp *pb.SignedProposal) {
 
 // GetArgsSlice Not implemented ...
 func (stub *MockStub) GetArgsSlice() ([]byte, error) {
-	return nil, nil
+	return stub.GetArgsSlice()
 }
 
 func (stub *MockStub) setTxTimestamp(time *timestamp.Timestamp) {
