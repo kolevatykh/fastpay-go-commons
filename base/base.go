@@ -123,7 +123,7 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 		}
 	}
 
-	if bank == nil || bank.State == state_enum.Available {
+	if bank == nil || bank.State != state_enum.Available {
 		return CreateError(cc_errors.ErrorBankNotAvailable, "Банк отправителя не доступен")
 	}
 
