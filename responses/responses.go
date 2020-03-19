@@ -20,17 +20,21 @@ type AccountListResponse struct {
 	BaseResponse
 }
 
+type AccountPageData struct {
+	Metadata peer.QueryResponseMetadata `json:"metadata"`
+	Items    []models.Account           `json:"items"`
+}
+
 type AccountPageResponse struct {
-	Data struct {
-		Metadata peer.QueryResponseMetadata `json:"metadata"`
-		Items    []models.Account           `json:"items"`
-	}
+	Data AccountPageData `json:"data"`
 	BaseResponse
 }
 
+type SenderAddressData struct {
+	Address string `json:"address"`
+}
+
 type SenderAddressResponse struct {
-	Data struct {
-		Address string `json:"address"`
-	} `json:"data"`
+	Data SenderAddressData `json:"data"`
 	BaseResponse
 }
