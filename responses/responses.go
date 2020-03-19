@@ -2,7 +2,6 @@ package responses
 
 import (
 	"github.com/SolarLabRU/fastpay-go-commons/models"
-	"github.com/hyperledger/fabric-protos-go/peer"
 )
 
 type BankResponse struct {
@@ -20,17 +19,18 @@ type AccountListResponse struct {
 	BaseResponse
 }
 
-// TODO Если вынести внутрению струкутра Data будет ошибка валидации Cannot use metadata. Metadata did not match schema:
-// 1. components.schemas..required: Array must have at least 1 items [recovered]
-// При создании чейнкода аккаунтов в тесте
+type Metadata struct {
+	FetchedRecordsCount int32  `json:"fetchedRecordsCount"`
+	Bookmark            string `json:"bookmark"`
+}
 
-type d struct {
-	Metadata peer.QueryResponseMetadata `json:"metadata"`
-	Items    []models.Account           `json:"items"`
+type AccountPageData struct {
+	Metadata Metadata         `json:"metadata"`
+	Items    []models.Account `json:"items"`
 }
 
 type AccountPageResponse struct {
-	Data d `json:"data"`
+	Data AccountPageData `json:"data"`
 	BaseResponse
 }
 
