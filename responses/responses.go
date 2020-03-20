@@ -42,3 +42,37 @@ type SenderAddressResponse struct {
 	Data SenderAddressData `json:"data"`
 	BaseResponse
 }
+
+type BankListResponse struct {
+	Data []models.Bank `json:"data"`
+	BaseResponse
+}
+
+type BankTotalData struct {
+	Total int `json:"total"`
+}
+
+type BankTotalResponse struct {
+	Data BankTotalData `json:"data"`
+	BaseResponse
+}
+
+type BankPageData struct {
+	Metadata Metadata      `json:"metadata"`
+	Items    []models.Bank `json:"items"`
+}
+
+type BankPageResponse struct {
+	Data BankPageData `json:"data"`
+	BaseResponse
+}
+
+type SenderIsBankResponse struct {
+	Data bool `json:"data"`
+	BaseResponse
+}
+
+type GetAvailablePlatformsResponse struct {
+	Data string `json:"data"`
+	BaseResponse
+}
