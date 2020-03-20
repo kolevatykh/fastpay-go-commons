@@ -162,7 +162,7 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *mode
 			return CreateError(cc_errors.ErrorForbidden, "Для досупа банк должен быть регулятором")
 		}
 	case access_role_enum.Owner:
-		if !bank.IsRegulator {
+		if !bank.IsOwner {
 			return CreateError(cc_errors.ErrorForbidden, "Для досупа банк должен быть владельцем")
 		}
 	}
