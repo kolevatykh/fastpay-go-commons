@@ -135,6 +135,10 @@ func CheckAccess(ctx contractapi.TransactionContextInterface, role access_role_e
 }
 
 func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *models.Bank, role access_role_enum.AccessRole, checkAvailable bool) error {
+	if role == access_role_enum.Any {
+		return nil
+	}
+
 	if bank == nil {
 		var err error = nil
 		bank, err = GetSenderBank(ctx)
