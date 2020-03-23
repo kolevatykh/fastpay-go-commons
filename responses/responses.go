@@ -76,3 +76,23 @@ type GetAvailablePlatformsResponse struct {
 	Data string `json:"data"`
 	BaseResponse
 }
+
+type CurrencyListResponse struct {
+	Data []models.Currency `json:"data"`
+	BaseResponse
+}
+
+type CurrencyPageData struct {
+	Metadata Metadata          `json:"metadata"`
+	Items    []models.Currency `json:"items"`
+}
+
+type CurrencyPageResponse struct {
+	Data CurrencyPageData `json:"data"`
+	BaseResponse
+}
+
+type CurrencyResponse struct {
+	Data models.Currency `json:"data"`
+	BaseResponse
+}

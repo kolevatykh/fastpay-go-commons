@@ -72,7 +72,23 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 	}
 
 	return response.GetPayload(), nil
+}
 
+func InvokeChaincodeWithEmptyParams(stub shim.ChaincodeStubInterface, chaincodeName string, nameFunc string) ([]byte, error) {
+	var args [][]byte
+
+	args = append(args, []byte(nameFunc))
+	args = append(args, []byte(""))
+
+	response := stub.InvokeChaincode(chaincodeName, args, "")
+
+	if response.GetStatus() == 500 { // TODO спарсить код ошибки
+		fmt.Println("TODO спарсить код ошибки", response.GetMessage())
+
+		return nil, parseErrorFromAnotherChaincode(response.GetMessage())
+	}
+
+	return response.GetPayload(), nil
 }
 
 func parseErrorFromAnotherChaincode(message string) error {

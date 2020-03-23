@@ -36,3 +36,12 @@ type Bank struct {
 	Conf        string           `json:"conf"`
 	DocType     string           `json:"docType"`
 }
+
+type Currency struct {
+	Code     int    `json:"code"`
+	Name     string `json:"name"`
+	Symbol   string `json:"symbol"`
+	Decimals int    `json:"decimals"`
+	Enabled  bool   `json:"enabled"`
+	DocType  string `json:"docType"`
+}
