@@ -1,12 +1,12 @@
 package models
 
 import (
-	"fastpay-go-commons/enums/transaction-status-enum"
-	"fastpay-go-commons/enums/transaction-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/account-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
 )
 
 type Account struct {
