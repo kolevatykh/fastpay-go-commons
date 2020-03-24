@@ -45,3 +45,29 @@ type Currency struct {
 	Enabled  bool   `json:"enabled"`
 	DocType  string `json:"docType"`
 }
+
+type AmountOfBank struct {
+	Address string `json:"address"`
+	Amount  int    `json:"amount"`
+}
+
+type TransactionHistory struct {
+	TxId          string `json:"txId"`
+	AddressFrom   string `json:"addressFrom"`
+	Atc           int    `json:"atc"` // TODO Убрать
+	AddressTo     string `json:"addressTo"`
+	TxType        int    `json:"txType"`
+	Status        int    `json:"status"`
+	Amount        int    `json:"amount"`
+	CurrencyCode  int    `json:"currencyCode"`
+	ErrorCode     int    `json:"errorCode"`
+	Payload       string `json:"payload"`
+	Timestamp     int    `json:"timestamp"`
+	TransactionId int    `json:"transactionId"`
+	SenderAddress string `json:"senderAddress"`
+	Data          string `json:"data"`
+}
+
+type TransactionHistoryEvent struct {
+	history TransactionHistory
+}

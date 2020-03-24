@@ -96,3 +96,8 @@ type CurrencyResponse struct {
 	Data models.Currency `json:"data"`
 	BaseResponse
 }
+
+type AccountBalanceResponse struct {
+	Items []models.AmountOfBank `json:"items"`
+	Total int                   `json:"total"`
+}
