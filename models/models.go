@@ -69,5 +69,5 @@ type TransactionHistory struct {
 }
 
 type TransactionHistoryEvent struct {
-	history TransactionHistory
+	History TransactionHistory `json:"history"`
 }
