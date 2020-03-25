@@ -50,21 +50,20 @@ type Currency struct {
 
 type AmountOfBank struct {
 	Address string `json:"address"`
-	Amount  int    `json:"amount"`
+	Amount  int64  `json:"amount"`
 }
 
 type TransactionHistory struct {
 	TxId          string                                    `json:"txId"`
 	AddressFrom   string                                    `json:"addressFrom"`
-	Atc           int                                       `json:"atc"` // TODO Убрать
 	AddressTo     string                                    `json:"addressTo"`
 	TxType        transaction_type_enum.TransactionType     `json:"txType"`
 	Status        transaction_status_enum.TransactionStatus `json:"status"`
-	Amount        int                                       `json:"amount"`
+	Amount        int64                                     `json:"amount"`
 	CurrencyCode  int                                       `json:"currencyCode"`
 	ErrorCode     int                                       `json:"errorCode"`
 	Payload       string                                    `json:"payload"`
-	Timestamp     int                                       `json:"timestamp"`
+	Timestamp     int64                                     `json:"timestamp"`
 	TransactionId int                                       `json:"transactionId"`
 	SenderAddress string                                    `json:"senderAddress"`
 	Data          string                                    `json:"data"`

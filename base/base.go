@@ -226,6 +226,18 @@ func CheckArgs(args string, request interface{}) error {
 	return nil
 }
 
+func getTimestamp(stub shim.ChaincodeStubInterface) (int64, error) {
+	timestamp, err := stub.GetTxTimestamp()
+	if err != nil {
+		// TODO
+		return 0, CreateError(cc_errors.ErrorDefault, fmt.Sprintf("Ошибка при получении времени создания транзакции. %s", err.Error()))
+	}
+
+	time := timestamp.GetSeconds()*1000 + int64(timestamp.GetNanos()/1e6)
+
+	return time, nil
+}
+
 func createError(baseError *cc_errors.BaseError) error {
 	byteError, err := json.Marshal(baseError)
 	if err != nil {
