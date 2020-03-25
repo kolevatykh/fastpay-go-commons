@@ -226,7 +226,7 @@ func CheckArgs(args string, request interface{}) error {
 	return nil
 }
 
-func getTimestamp(stub shim.ChaincodeStubInterface) (int64, error) {
+func GetTimestamp(stub shim.ChaincodeStubInterface) (int64, error) {
 	timestamp, err := stub.GetTxTimestamp()
 	if err != nil {
 		// TODO

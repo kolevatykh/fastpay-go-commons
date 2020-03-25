@@ -99,5 +99,5 @@ type CurrencyResponse struct {
 
 type AccountBalanceResponse struct {
 	Items []models.AmountOfBank `json:"items"`
-	Total int                   `json:"total"`
+	Total int64                 `json:"total"`
 }
