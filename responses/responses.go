@@ -101,3 +101,15 @@ type AccountBalanceResponse struct {
 	Items []models.AmountOfBank `json:"items"`
 	Total int64                 `json:"total"`
 }
+
+type WithdrawResultResponse struct {
+	Data models.WithdrawResult `json:"data"`
+	BaseResponse
+}
+
+type WithdrawConfirmResponse struct {
+	Data models.TransactionHistory `json:"data"`
+	BaseResponse
+}
+
+type WithdrawRejectResponse WithdrawConfirmResponse

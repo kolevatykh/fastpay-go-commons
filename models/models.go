@@ -72,3 +72,16 @@ type TransactionHistory struct {
 type TransactionHistoryEvent struct {
 	History TransactionHistory `json:"history"`
 }
+
+type DepositedBalance struct {
+	WithdrawResult
+	IssueBankAddress string           `json:"issueBankAddress"`
+	BanksBalance     map[string]int64 `json:"banksBalance"`
+}
+
+type WithdrawResult struct {
+	AccountAmount    int64  `json:"accountAmount"`
+	IssueBankAmount  int64  `json:"issueBankAmount"`
+	BanksTotalAmount int64  `json:"banksTotalAmount"`
+	TxId             string `json:"txId"`
+}
