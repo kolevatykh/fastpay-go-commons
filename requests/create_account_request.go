@@ -30,4 +30,7 @@ func (createAccount *CreateAccountRequest) SetDefaults() {
 	if createAccount.Type == account_type_enum.Undefined {
 		createAccount.Type = account_type_enum.Client
 	}
+	if createAccount.Identifiers == nil {
+		createAccount.Identifiers = []string{}
+	}
 }
