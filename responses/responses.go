@@ -112,4 +112,16 @@ type WithdrawConfirmResponse struct {
 	BaseResponse
 }
 
+type BankBalanceData struct {
+	Liabilities []models.AmountOfBank `json:"liabilities"`
+	Claims      []models.AmountOfBank `json:"claims"`
+	Issue       int64                 `json:"issue"`
+	IssueLimit  int64                 `json:"issueLimit"` // TODO убрать если не быдет использоваться
+}
+
+type BankBalanceResponse struct {
+	Data BankBalanceData `json:"data"`
+	BaseResponse
+}
+
 type WithdrawRejectResponse WithdrawConfirmResponse

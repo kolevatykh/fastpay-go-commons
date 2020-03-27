@@ -14,7 +14,7 @@ type CreateAccountRequest struct {
 	JuridicalType juridical_type_enum.JuridicalType `json:"juridicalType"`
 	IdentityType  identity_type_enum.IdentityType   `json:"identityType"`
 	Type          account_type_enum.AccountType     `json:"type"`
-	Identifiers   []string                          `json:"identifiers" validate:"required,dive,validHex64"`
+	Identifiers   []string                          `json:"identifiers" validate:"dive,validHex64"`
 	PublicKey     string                            `json:"publicKey"`
 	MsgHash       string                            `json:"msgHash" validate:"required"`
 	Sig           SignDto                           `json:"sig" validate:"required,dive"`
