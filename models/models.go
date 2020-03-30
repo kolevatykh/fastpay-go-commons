@@ -93,3 +93,9 @@ type ClaimsItem struct {
 	Amount          int64  `json:"amount" validate:"required"`
 	Unconfirmed     int64  `json:"unconfirmed" validate:"required"`
 }
+
+type ClaimsItemDoc struct {
+	ClaimsItem
+	DocType string `json:"docType"`
+	Id      string `json:"id"`
+}
