@@ -90,8 +90,8 @@ type ClaimsItem struct {
 	CurrencyCode    int    `json:"currencyCode" validate:"required,gte=0"`
 	BankClaims      string `json:"bankClaims" validate:"required,validHex40"`
 	BankLiabilities string `json:"bankLiabilities" validate:"required,validHex40"`
-	Amount          int64  `json:"amount" validate:"required"`
-	Unconfirmed     int64  `json:"unconfirmed" validate:"required"`
+	Amount          int64  `json:"amount"`
+	Unconfirmed     int64  `json:"unconfirmed"`
 }
 
 type ClaimsItemDoc struct {
