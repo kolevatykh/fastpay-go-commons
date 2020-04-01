@@ -120,7 +120,7 @@ type ClearingInfo struct {
 	DocType     string                   `json:"docType"`
 }
 
-func (ci *ClearingInfo) getSortBanksKeys() []string {
+func (ci *ClearingInfo) GetSortBanksKeys() []string {
 	keys := make([]string, 0)
 	for k, _ := range ci.Banks {
 		keys = append(keys, k)
@@ -130,7 +130,7 @@ func (ci *ClearingInfo) getSortBanksKeys() []string {
 	return keys
 }
 
-func (ci *ClearingInfo) getSortNettingKeys() []string {
+func (ci *ClearingInfo) GetSortNettingKeys() []string {
 	keys := make([]string, 0)
 	for k, _ := range ci.Netting {
 		keys = append(keys, k)
