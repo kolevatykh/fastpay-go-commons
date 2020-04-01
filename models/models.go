@@ -7,6 +7,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
+	"sort"
 )
 
 type Account struct {
@@ -117,6 +118,26 @@ type ClearingInfo struct {
 	Procedure   []ClaimsItem             `json:"procedure"`
 	Created     int64                    `json:"created"`
 	DocType     string                   `json:"docType"`
+}
+
+func (ci *ClearingInfo) getSortBanksKeys() []string {
+	keys := make([]string, 0)
+	for k, _ := range ci.Banks {
+		keys = append(keys, k)
+	}
+
+	sort.Strings(keys)
+	return keys
+}
+
+func (ci *ClearingInfo) getSortNettingKeys() []string {
+	keys := make([]string, 0)
+	for k, _ := range ci.Netting {
+		keys = append(keys, k)
+	}
+
+	sort.Strings(keys)
+	return keys
 }
 
 type ClearingBank struct {
