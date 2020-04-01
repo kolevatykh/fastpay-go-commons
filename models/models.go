@@ -99,3 +99,33 @@ type ClaimsItemDoc struct {
 	DocType string `json:"docType"`
 	Id      string `json:"id"`
 }
+
+type BankInfo struct {
+	Address string `json:"address"`
+	Name    string `json:"name"`
+	Bik     string `json:"bik"`
+}
+
+type ClearingInfo struct {
+	Id          string                   `json:"id"`
+	Banks       map[string]*ClearingBank `json:"banks"`
+	Owner       string                   `json:"owner"`
+	Claims      int64                    `json:"claims"`
+	Liabilities int64                    `json:"liabilities"`
+	History     []ClaimsItem             `json:"history"`
+	Netting     map[string]int64         `json:"netting"`
+	Procedure   []ClaimsItem             `json:"procedure"`
+	Created     int64                    `json:"created"`
+	DocType     string                   `json:"docType"`
+}
+
+type ClearingBank struct {
+	Claims      int64 `json:"claims"`
+	Liabilities int64 `json:"liabilities"`
+}
+
+type ClaimsAggregate struct {
+	Amount      int64    `json:"amount"`
+	Unconfirmed int64    `json:"unconfirmed"`
+	Ids         []string `json:"ids"`
+}

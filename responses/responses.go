@@ -125,3 +125,66 @@ type BankBalanceResponse struct {
 }
 
 type WithdrawRejectResponse WithdrawConfirmResponse
+
+type ClaimsItemResponse struct {
+	CurrencyCode    int             `json:"currencyCode"`
+	BankClaims      models.BankInfo `json:"bankClaims"`
+	BankLiabilities models.BankInfo `json:"bankLiabilities"`
+	Amount          int64           `json:"amount"`
+	Unconfirmed     int64           `json:"unconfirmed"`
+}
+
+type ClearingResultResponseData struct {
+	Id          string                `json:"id"`
+	Owner       string                `json:"owner"`
+	Claims      int64                 `json:"claims"`
+	Liabilities int64                 `json:"liabilities"`
+	History     []ClaimsItemResponse  `json:"history"`
+	Netting     []models.AmountOfBank `json:"netting"`
+	Procedure   []ClaimsItemResponse  `json:"procedure"`
+	Created     int64                 `json:"created"`
+}
+
+type ClearingResultResponse struct {
+	Data ClearingResultResponseData `json:"data"`
+	BaseResponse
+}
+
+type ClearingListResponse struct {
+	Data []ClearingResultResponseData `json:"data"`
+	BaseResponse
+}
+
+type ClaimsListResponse struct {
+	Data []models.ClaimsItem `json:"data"`
+	BaseResponse
+}
+
+type ClearingPageData struct {
+	Metadata Metadata                     `json:"metadata"`
+	Items    []ClearingResultResponseData `json:"items"`
+}
+
+type ClearingPageResponse struct {
+	Data ClearingPageData `json:"data"`
+	BaseResponse
+}
+
+type ClaimsPageData struct {
+	Metadata Metadata            `json:"metadata"`
+	Items    []models.ClaimsItem `json:"items"`
+}
+
+type ClaimsPageResponse struct {
+	Data ClaimsPageData `json:"data"`
+	BaseResponse
+}
+
+type BankClaimsLiabilities struct {
+	Claims      map[string]int64 `json:"claims"`
+	Liabilities map[string]int64 `json:"liabilities"`
+}
+type BankClaimsLiabilitiesResponse struct {
+	Data BankClaimsLiabilities `json:"data"`
+	BaseResponse
+}
