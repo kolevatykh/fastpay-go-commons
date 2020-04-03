@@ -225,6 +225,18 @@ func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function strin
 	return false, nil
 }
 
+func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
+	address, isFound, _ := identity.GetAttributeValue("bankId")
+
+	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
+
+	if !isFound {
+		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
+	}
+
+	return address, nil
+}
+
 func CreateError(code uint, message string) error {
 	baseError := cc_errors.BaseError{
 		Code:    code,

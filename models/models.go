@@ -172,10 +172,10 @@ func (cb *ClientBank) GetSortParamsKeys() []string {
 }
 
 func (cb *ClientBank) GetResponse() *responses.ClientBankItemResponse {
-	clientBankParam := []ClientBankParam{}
+	clientBankParam := []responses.ClientBankParam{}
 	keys := cb.GetSortParamsKeys()
 	for _, key := range keys {
-		clientBankParam = append(clientBankParam, ClientBankParam{
+		clientBankParam = append(clientBankParam, responses.ClientBankParam{
 			Key:   key,
 			Value: cb.Params[key],
 		})
@@ -188,9 +188,4 @@ func (cb *ClientBank) GetResponse() *responses.ClientBankItemResponse {
 		CountryCode:     cb.CountryCode,
 		Params:          clientBankParam,
 	}
-}
-
-type ClientBankParam struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
 }

@@ -3,7 +3,6 @@ package responses
 import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/models"
-	"github.com/SolarLabRU/fastpay-go-commons/responses"
 )
 
 type BankResponse struct {
@@ -215,4 +214,9 @@ type ClientBankPageData struct {
 type ClientBankPageResponse struct {
 	Data ClientBankPageData `json:"data"`
 	BaseResponse
+}
+
+type ClientBankParam struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
