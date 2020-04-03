@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	log "github.com/sirupsen/logrus"
+	"regexp"
+	"strings"
 
 	"github.com/SolarLabRU/fastpay-go-commons/cc-errors"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/access-role-enum"
@@ -184,6 +187,42 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *mode
 	}
 
 	return nil
+}
+
+func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function string) (bool, error) {
+	signedProposal, err := stub.GetSignedProposal()
+	if err != nil {
+		return false, err
+	}
+	stringSignedProposal := string(signedProposal.GetProposalBytes())
+	filterString := regexp.MustCompile(`[^a-zA-Z 0-9\n_-]`).ReplaceAllString(stringSignedProposal, "")
+	filterString2 := regexp.MustCompile(`[\t\r\n]+`).ReplaceAllString(strings.TrimSpace(filterString), "\n")
+	splitResult := strings.Split(filterString2, "\n")
+
+	nameChaincode := "not set"
+	nameFunc := "not set"
+
+	if len(stringSignedProposal) > 0 && len(splitResult) > 2 && stringSignedProposal[len(stringSignedProposal)-1] == '}' { // Если есть входные парметры
+		nameFunc = splitResult[len(splitResult)-2]
+		nameChaincode = splitResult[len(splitResult)-3]
+	} else if len(splitResult) > 1 { // Если нет входных парметров
+		nameFunc = splitResult[len(splitResult)-1]
+		nameChaincode = splitResult[len(splitResult)-2]
+	}
+
+	// TODO Убрать
+	log.Info("nameChaincode: ", nameChaincode)
+	log.Info("nameFunc: ", nameFunc)
+
+	if name == nameChaincode {
+		if len(function) == 0 {
+			return true, nil
+		}
+
+		return function == nameFunc, nil
+	}
+
+	return false, nil
 }
 
 func CreateError(code uint, message string) error {
