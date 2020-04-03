@@ -7,7 +7,6 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
-	"github.com/SolarLabRU/fastpay-go-commons/responses"
 	"sort"
 )
 
@@ -169,23 +168,4 @@ func (cb *ClientBank) GetSortParamsKeys() []string {
 
 	sort.Strings(keys)
 	return keys
-}
-
-func (cb *ClientBank) GetResponse() *responses.ClientBankItemResponse {
-	clientBankParam := []responses.ClientBankParam{}
-	keys := cb.GetSortParamsKeys()
-	for _, key := range keys {
-		clientBankParam = append(clientBankParam, responses.ClientBankParam{
-			Key:   key,
-			Value: cb.Params[key],
-		})
-	}
-
-	return &responses.ClientBankItemResponse{
-		BankId:          cb.BankId,
-		BankDisplayName: cb.BankDisplayName,
-		State:           cb.State,
-		CountryCode:     cb.CountryCode,
-		Params:          clientBankParam,
-	}
 }
