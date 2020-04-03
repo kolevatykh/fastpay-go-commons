@@ -195,11 +195,11 @@ type BankClaimsLiabilitiesResponse struct {
 }
 
 type ClientBankItemResponse struct {
-	BankId          string                   `json:"bankId"`
-	BankDisplayName string                   `json:"bankDisplayName"`
-	State           state_enum.State         `json:"state"`
-	CountryCode     string                   `json:"countryCode"`
-	Params          []models.ClientBankParam `json:"params"`
+	BankId          string            `json:"bankId"`
+	BankDisplayName string            `json:"bankDisplayName"`
+	State           state_enum.State  `json:"state"`
+	CountryCode     string            `json:"countryCode"`
+	Params          []ClientBankParam `json:"params"`
 }
 type ClientBankResponse struct {
 	Data ClientBankItemResponse `json:"data"`
