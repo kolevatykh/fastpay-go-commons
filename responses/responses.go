@@ -1,7 +1,9 @@
 package responses
 
 import (
+	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/models"
+	"github.com/SolarLabRU/fastpay-go-commons/responses"
 )
 
 type BankResponse struct {
@@ -190,5 +192,27 @@ type BankClaimsLiabilities struct {
 }
 type BankClaimsLiabilitiesResponse struct {
 	Data BankClaimsLiabilities `json:"data"`
+	BaseResponse
+}
+
+type ClientBankItemResponse struct {
+	BankId          string                   `json:"bankId"`
+	BankDisplayName string                   `json:"bankDisplayName"`
+	State           state_enum.State         `json:"state"`
+	CountryCode     string                   `json:"countryCode"`
+	Params          []models.ClientBankParam `json:"params"`
+}
+type ClientBankResponse struct {
+	Data ClientBankItemResponse `json:"data"`
+	BaseResponse
+}
+
+type ClientBankPageData struct {
+	Metadata Metadata                 `json:"metadata"`
+	Items    []ClientBankItemResponse `json:"items"`
+}
+
+type ClientBankPageResponse struct {
+	Data ClientBankPageData `json:"data"`
 	BaseResponse
 }

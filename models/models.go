@@ -7,6 +7,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/responses"
 	"sort"
 )
 
@@ -149,4 +150,47 @@ type ClaimsAggregate struct {
 	Amount      int64    `json:"amount"`
 	Unconfirmed int64    `json:"unconfirmed"`
 	Ids         []string `json:"ids"`
+}
+
+type ClientBank struct {
+	BankId          string            `json:"bankId"`
+	BankDisplayName string            `json:"bankDisplayName"`
+	State           state_enum.State  `json:"state"`
+	CountryCode     string            `json:"countryCode"`
+	Params          map[string]string `json:"params"`
+	DocType         string            `json:"docType"`
+}
+
+func (cb *ClientBank) GetSortParamsKeys() []string {
+	keys := make([]string, 0)
+	for k, _ := range cb.Params {
+		keys = append(keys, k)
+	}
+
+	sort.Strings(keys)
+	return keys
+}
+
+func (cb *ClientBank) GetResponse() *responses.ClientBankItemResponse {
+	clientBankParam := []ClientBankParam{}
+	keys := cb.GetSortParamsKeys()
+	for _, key := range keys {
+		clientBankParam = append(clientBankParam, ClientBankParam{
+			Key:   key,
+			Value: cb.Params[key],
+		})
+	}
+
+	return &responses.ClientBankItemResponse{
+		BankId:          cb.BankId,
+		BankDisplayName: cb.BankDisplayName,
+		State:           cb.State,
+		CountryCode:     cb.CountryCode,
+		Params:          clientBankParam,
+	}
+}
+
+type ClientBankParam struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
