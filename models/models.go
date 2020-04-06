@@ -169,3 +169,12 @@ func (cb *ClientBank) GetSortParamsKeys() []string {
 	sort.Strings(keys)
 	return keys
 }
+
+type Customer struct {
+	Identifier          string `json:"identifier"`
+	BankId              string `json:"bankId"`
+	BankDisplayName     string `json:"bankDisplayName"`
+	CountryCode         string `json:"countryCode"`
+	CustomerDisplayName string `json:"customerDisplayName"`
+	DocType             string `json:"docType"`
+}

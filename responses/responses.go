@@ -220,3 +220,18 @@ type ClientBankParam struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
 }
+
+type CustomerPageData struct {
+	Metadata Metadata          `json:"metadata"`
+	Items    []models.Customer `json:"items"`
+}
+
+type CustomerPageResponse struct {
+	Data CustomerPageData `json:"data"`
+	BaseResponse
+}
+
+type CustomersListResponse struct {
+	Data []models.Customer `json:"data"`
+	BaseResponse
+}
