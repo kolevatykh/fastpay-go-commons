@@ -235,3 +235,8 @@ type CustomersListResponse struct {
 	Data []models.Customer `json:"data"`
 	BaseResponse
 }
+
+type CustomerResponse struct {
+	Data models.Customer
+	BaseResponse
+}
