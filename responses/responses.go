@@ -264,7 +264,7 @@ type CurrencyExchangeContractPageData struct {
 }
 
 type CurrencyExchangeContractPageResponse struct {
-	Data models.CurrencyExchangeContractPageData `json:"data"`
+	Data CurrencyExchangeContractPageData `json:"data"`
 	BaseResponse
 }
 
