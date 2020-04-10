@@ -240,3 +240,35 @@ type CustomerResponse struct {
 	Data models.Customer
 	BaseResponse
 }
+
+type CurrencyContractRoutingItemResponse struct {
+	models.CurrencyExchangeContract
+	AmountInput  int64 `json:"amountInput"`
+	AmountOutput int64 `json:"amountOutput"`
+}
+
+type RoutesItem struct {
+	Commission *CurrencyContractRoutingItemResponse
+	Middle     *CurrencyContractRoutingItemResponse
+	Input      *CurrencyContractRoutingItemResponse
+}
+
+type ContractResponse struct {
+	Data models.CurrencyExchangeContract `json:"data"`
+	BaseResponse
+}
+
+type CurrencyExchangeContractPageData struct {
+	Metadata Metadata                          `json:"metadata"`
+	Items    []models.CurrencyExchangeContract `json:"items"`
+}
+
+type CurrencyExchangeContractPageResponse struct {
+	Data models.CurrencyExchangeContractPageData `json:"data"`
+	BaseResponse
+}
+
+type GetBestRoutesResponse struct {
+	Data [][]CurrencyContractRoutingItemResponse `json:"data"`
+	BaseResponse
+}
