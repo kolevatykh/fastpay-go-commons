@@ -1,6 +1,6 @@
 package requests
 
-import "github.com/SolarLabRU/fastpay-go-commons/enums/filter_contract_state"
+import "github.com/SolarLabRU/fastpay-go-commons/enums/filter-contract-state"
 
 type GetContractPageRequest struct {
 	PageSize     int32                                     `json:"pageSize" validate:"required"`
