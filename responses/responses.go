@@ -241,16 +241,10 @@ type CustomerResponse struct {
 	BaseResponse
 }
 
-type CurrencyContractRoutingItemResponse struct {
-	models.CurrencyExchangeContract
-	AmountInput  int64 `json:"amountInput"`
-	AmountOutput int64 `json:"amountOutput"`
-}
-
 type RoutesItem struct {
-	Commission *CurrencyContractRoutingItemResponse
-	Middle     *CurrencyContractRoutingItemResponse
-	Input      *CurrencyContractRoutingItemResponse
+	Commission *models.CurrencyContractRoutingItem
+	Middle     *models.CurrencyContractRoutingItem
+	Input      *models.CurrencyContractRoutingItem
 }
 
 type ContractResponse struct {
@@ -269,6 +263,24 @@ type CurrencyExchangeContractPageResponse struct {
 }
 
 type GetBestRoutesResponse struct {
-	Data [][]CurrencyContractRoutingItemResponse `json:"data"`
+	Data [][]models.CurrencyContractRoutingItem `json:"data"`
+	BaseResponse
+}
+
+type TransferResponse struct {
+	Data models.TransactionHistory `json:"data"`
+	BaseResponse
+}
+
+type ExecutedTransactionCurrencyExchangeContractData struct {
+	Transactions         []models.ExecutedTransactionCurrencyExchangeContractItem `json:"transactions"`
+	Commission           int64                                                    `json:"commission"`
+	AmountInput          int64                                                    `json:"amountInput"`
+	AmountOutput         int64                                                    `json:"amountOutput"`
+	TransactionHistories []models.TransactionHistory                              `json:"transactionHistories"`
+}
+
+type ExecutedTransactionCurrencyExchangeContractResponse struct {
+	Data ExecutedTransactionCurrencyExchangeContractData `json:"data"`
 	BaseResponse
 }

@@ -74,6 +74,46 @@ type TransactionHistoryEvent struct {
 	History TransactionHistory `json:"history"`
 }
 
+type ExecutedTransactionCurrencyExchangeContractItem struct {
+	From         string `json:"from"`
+	To           string `json:"to"`
+	CurrencyCode int    `json:"currencyCode"`
+	Amount       int64  `json:"amount"`
+	Payload      string `json:"payload"` // TODO add enum CrossTransactionPayload
+}
+
+type CrossTransactionHistory struct {
+	Routes               []CurrencyContractRoutingItem                     `json:"routes"`
+	AddressFrom          string                                            `json:"addressFrom"`
+	Timestamp            int64                                             `json:"timestamp"`
+	TransactionId        int                                               `json:"transactionId"`
+	Amount               int64                                             `json:"amount"`
+	Payload              string                                            `json:"payload"`
+	To                   string                                            `json:"to"`
+	CurrencyCodeFrom     int                                               `json:"currencyCodeFrom"`
+	CurrencyCodeTo       int                                               `json:"currencyCodeTo"`
+	CustomerIdentifier   string                                            `json:"customerIdentifier"`
+	CountryCode          string                                            `json:"countryCode"`
+	Details              []ExecutedTransactionCurrencyExchangeContractItem `json:"details"`
+	SenderAddress        string                                            `json:"senderAddress"`
+	BankId               string                                            `json:"bankId"`
+	Status               int                                               `json:"status"` // TODO add enum CrossTransactionStatus
+	TxId                 string                                            `json:"txId"`
+	ErrorCode            int                                               `json:"errorCode"`
+	Data                 string                                            `json:"data"`
+	TransactionHistories []TransactionHistory
+}
+
+type CrossTransactionHistoryEvent struct {
+	Data CrossTransactionHistory `json:"history"`
+}
+
+type CurrencyContractRoutingItem struct {
+	CurrencyExchangeContract
+	AmountInput  int64 `json:"amountInput"`
+	AmountOutput int64 `json:"amountOutput"`
+}
+
 type DepositedBalance struct {
 	WithdrawResult
 	IssueBankAddress string           `json:"issueBankAddress"`

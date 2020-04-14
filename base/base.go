@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	log "github.com/sirupsen/logrus"
+	"math"
 	"regexp"
 	"strings"
 
@@ -298,4 +299,14 @@ func createError(baseError *cc_errors.BaseError) error {
 	}
 
 	return errors.New(string(byteError))
+}
+
+func GetContractCommission(contract models.CurrencyExchangeContract, amountOutput int64) float64 {
+	calcCommission := float64(amountOutput) * contract.Price * contract.FractionalCommission / (1 - contract.FractionalCommission)
+
+	if contract.MaxCommission == 0 {
+		return calcCommission
+	}
+
+	return math.Min(calcCommission, float64(contract.MaxCommission))
 }
