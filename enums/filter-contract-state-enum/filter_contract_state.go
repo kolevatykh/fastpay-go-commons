@@ -1,4 +1,4 @@
-package filter_contract_state
+package filter_contract_state_enum
 
 type FilterContractState int
 

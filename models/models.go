@@ -2,6 +2,8 @@ package models
 
 import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/account-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-payload-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
@@ -75,32 +77,32 @@ type TransactionHistoryEvent struct {
 }
 
 type ExecutedTransactionCurrencyExchangeContractItem struct {
-	From         string `json:"from"`
-	To           string `json:"to"`
-	CurrencyCode int    `json:"currencyCode"`
-	Amount       int64  `json:"amount"`
-	Payload      string `json:"payload"` // TODO add enum CrossTransactionPayload
+	From         string                                                 `json:"from"`
+	To           string                                                 `json:"to"`
+	CurrencyCode int                                                    `json:"currencyCode"`
+	Amount       int64                                                  `json:"amount"`
+	Payload      cross_transaction_payload_enum.CrossTransactionPayload `json:"payload"` // TODO add enum CrossTransactionPayload
 }
 
 type CrossTransactionHistory struct {
-	Routes               []CurrencyContractRoutingItem                     `json:"routes"`
-	AddressFrom          string                                            `json:"addressFrom"`
-	Timestamp            int64                                             `json:"timestamp"`
-	TransactionId        int                                               `json:"transactionId"`
-	Amount               int64                                             `json:"amount"`
-	Payload              string                                            `json:"payload"`
-	To                   string                                            `json:"to"`
-	CurrencyCodeFrom     int                                               `json:"currencyCodeFrom"`
-	CurrencyCodeTo       int                                               `json:"currencyCodeTo"`
-	CustomerIdentifier   string                                            `json:"customerIdentifier"`
-	CountryCode          string                                            `json:"countryCode"`
-	Details              []ExecutedTransactionCurrencyExchangeContractItem `json:"details"`
-	SenderAddress        string                                            `json:"senderAddress"`
-	BankId               string                                            `json:"bankId"`
-	Status               int                                               `json:"status"` // TODO add enum CrossTransactionStatus
-	TxId                 string                                            `json:"txId"`
-	ErrorCode            int                                               `json:"errorCode"`
-	Data                 string                                            `json:"data"`
+	Routes               []CurrencyContractRoutingItem                        `json:"routes"`
+	AddressFrom          string                                               `json:"addressFrom"`
+	Timestamp            int64                                                `json:"timestamp"`
+	TransactionId        int                                                  `json:"transactionId"`
+	Amount               int64                                                `json:"amount"`
+	Payload              string                                               `json:"payload"`
+	To                   string                                               `json:"to"`
+	CurrencyCodeFrom     int                                                  `json:"currencyCodeFrom"`
+	CurrencyCodeTo       int                                                  `json:"currencyCodeTo"`
+	CustomerIdentifier   string                                               `json:"customerIdentifier"`
+	CountryCode          string                                               `json:"countryCode"`
+	Details              []ExecutedTransactionCurrencyExchangeContractItem    `json:"details"`
+	SenderAddress        string                                               `json:"senderAddress"`
+	BankId               string                                               `json:"bankId"`
+	Status               cross_transaction_status_enum.CrossTransactionStatus `json:"status"`
+	TxId                 string                                               `json:"txId"`
+	ErrorCode            int                                                  `json:"errorCode"`
+	Data                 string                                               `json:"data"`
 	TransactionHistories []TransactionHistory
 }
 
