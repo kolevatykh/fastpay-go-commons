@@ -2,7 +2,6 @@ package requests
 
 import (
 	"github.com/SolarLabRU/fastpay-go-commons/models"
-	"github.com/SolarLabRU/fastpay-go-commons/requests"
 )
 
 type CrossTransferRequest struct {
@@ -16,6 +15,6 @@ type CrossTransferRequest struct {
 	CountryCode        string                               `json:"countryCode" validate:"omitempty,min=3,max=3"`
 	Payload            string                               `json:"payload"`
 	MsgHash            string                               `json:"msgHash" validate:"required"`
-	Sig                requests.SignDto                     `json:"sig" validate:"required,dive"`
+	Sig                SignDto                              `json:"sig" validate:"required,dive"`
 	TransactionId      int                                  `json:"transactionId" validate:"required,min=0"`
 }
