@@ -6,8 +6,8 @@ type TransferRequest struct {
 	CurrencyCode  int     `json:"currencyCode" validate:"required,min=0"`
 	Amount        int64   `json:"amount" validate:"required"`
 	Payload       string  `json:"payload"`
-	MsgHash       string  `json:"msgHash" validate:"required"`
-	Sig           SignDto `json:"sig" validate:"required,dive"`
+	MsgHash       string  `json:"msgHash"`
+	Sig           SignDto `json:"sig" validate:"omitempty,dive"`
 	InvoiceNumber string  `json:"invoiceNumber" validate:"max=255"`
 	TransactionId int     `json:"transactionId" validate:"required,min=0"`
 }

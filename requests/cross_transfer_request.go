@@ -7,7 +7,7 @@ import (
 type CrossTransferRequest struct {
 	Routes             []models.CurrencyContractRoutingItem `json:"routes" validate:"required,dive"`
 	AddressFrom        string                               `json:"addressFrom" validate:"required,validHex40"`
-	To                 string                               `json:"to" validate:"required,validHex40or64"`
+	To                 string                               `json:"to" validate:"omitempty,validHex40or64"`
 	Amount             int64                                `json:"amount" validate:"required"`
 	CurrencyCodeFrom   int                                  `json:"currencyCodeFrom" validate:"required,min=0"`
 	CurrencyCodeTo     int                                  `json:"currencyCodeTo" validate:"required,min=0"`
