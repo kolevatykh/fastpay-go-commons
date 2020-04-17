@@ -272,6 +272,11 @@ type TransferResponse struct {
 	BaseResponse
 }
 
+type TransfersFromResponse struct {
+	Data []models.TransactionHistory `json:"data"`
+	BaseResponse
+}
+
 type ExecutedTransactionCurrencyExchangeContractData struct {
 	Transactions         []models.ExecutedTransactionCurrencyExchangeContractItem `json:"transactions"`
 	Commission           int64                                                    `json:"commission"`
