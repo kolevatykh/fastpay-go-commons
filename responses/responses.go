@@ -289,3 +289,13 @@ type ExecutedTransactionCurrencyExchangeContractResponse struct {
 	Data ExecutedTransactionCurrencyExchangeContractData `json:"data"`
 	BaseResponse
 }
+
+type CrossTransactionHistoryPageData struct {
+	Metadata Metadata                         `json:"metadata"`
+	Items    []models.CrossTransactionHistory `json:"items"`
+}
+
+type CrossTransactionHistoryPageResponse struct {
+	Data CrossTransactionHistoryPageData `json:"data"`
+	BaseResponse
+}
