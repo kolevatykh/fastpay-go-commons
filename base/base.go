@@ -46,10 +46,22 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*models.Bank, e
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	//address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
+	}
+
+	return address, nil
+}
+
+func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
+	address, isFound, _ := identity.GetAttributeValue("bankId")
+
+	//address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
+
+	if !isFound {
+		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
 	}
 
 	return address, nil
@@ -226,18 +238,6 @@ func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function strin
 	return false, nil
 }
 
-func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
-	address, isFound, _ := identity.GetAttributeValue("bankId")
-
-	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
-
-	if !isFound {
-		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
-	}
-
-	return address, nil
-}
-
 func CreateError(code uint, message string) error {
 	baseError := cc_errors.BaseError{
 		Code:    code,
@@ -281,7 +281,7 @@ func CheckArgs(args string, request interface{}) error {
 func GetTimestamp(stub shim.ChaincodeStubInterface) (int64, error) {
 	timestamp, err := stub.GetTxTimestamp()
 	if err != nil {
-		// TODO
+		// TODO добавить код ошибки
 		return 0, CreateError(cc_errors.ErrorDefault, fmt.Sprintf("Ошибка при получении времени создания транзакции. %s", err.Error()))
 	}
 
