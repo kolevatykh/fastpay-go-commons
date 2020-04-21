@@ -9,6 +9,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/models"
 	"sort"
 )
 
@@ -244,4 +245,29 @@ type CurrencyExchangeContract struct {
 	BankId          string `json:"bankId"`
 	BankDisplayName string `json:"bankDisplayName"`
 	DocType         string `json:"docType"`
+}
+
+type BaseEvent struct {
+	ChaincodeName string `json:"chaincodeName"`
+	FunctionName  string `json:"functionName"`
+}
+
+type CurrencyEvent struct {
+	BaseEvent
+	Data models.Currency `json:"data"`
+}
+
+type AccountEvent struct {
+	BaseEvent
+	Data models.Account `json:"data"`
+}
+
+type BankEvent struct {
+	BaseEvent
+	Data models.Bank `json:"data"`
+}
+
+type AvailablePlatformsEvent struct {
+	BaseEvent
+	Data string `json:"data"`
 }
