@@ -229,7 +229,9 @@ func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function strin
 
 	// TODO Убрать
 	log.Info("nameChaincode: ", nameChaincode)
+	log.Info("name: ", name)
 	log.Info("nameFunc: ", nameFunc)
+	log.Info("function: ", function)
 
 	if name == nameChaincode {
 		if len(function) == 0 {
