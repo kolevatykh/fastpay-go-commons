@@ -253,17 +253,17 @@ type BaseEvent struct {
 
 type CurrencyEvent struct {
 	BaseEvent
-	Data models.Currency `json:"data"`
+	Data Currency `json:"data"`
 }
 
 type AccountEvent struct {
 	BaseEvent
-	Data models.Account `json:"data"`
+	Data Account `json:"data"`
 }
 
 type BankEvent struct {
 	BaseEvent
-	Data models.Bank `json:"data"`
+	Data Bank `json:"data"`
 }
 
 type AvailablePlatformsEvent struct {
