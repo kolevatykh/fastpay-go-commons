@@ -270,3 +270,47 @@ type AvailablePlatformsEvent struct {
 	BaseEvent
 	Data string `json:"data"`
 }
+
+type ClaimsItemResponse struct {
+	CurrencyCode    int      `json:"currencyCode"`
+	BankClaims      BankInfo `json:"bankClaims"`
+	BankLiabilities BankInfo `json:"bankLiabilities"`
+	Amount          int64    `json:"amount"`
+	Unconfirmed     int64    `json:"unconfirmed"`
+}
+
+type ClearingData struct {
+	Id          string               `json:"id"`
+	Owner       string               `json:"owner"`
+	Claims      int64                `json:"claims"`
+	Liabilities int64                `json:"liabilities"`
+	History     []ClaimsItemResponse `json:"history"`
+	Netting     []AmountOfBank       `json:"netting"`
+	Procedure   []ClaimsItemResponse `json:"procedure"`
+	Created     int64                `json:"created"`
+}
+
+type ClearingEvent struct {
+	BaseEvent
+	Data ClearingData `json:"data"`
+}
+
+type ClaimsEvent struct {
+	BaseEvent
+	Data []ClaimsItem `json:"data"`
+}
+
+type ClientBankEvent struct {
+	BaseEvent
+	Data ClientBank `json:"data"`
+}
+
+type CustomerEvent struct {
+	BaseEvent
+	Data Customer `json:"data"`
+}
+
+type ContractEvent struct {
+	BaseEvent
+	Data CurrencyExchangeContract `json:"data"`
+}

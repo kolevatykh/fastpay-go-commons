@@ -131,32 +131,13 @@ type BankBalanceResponse struct {
 
 type WithdrawRejectResponse WithdrawConfirmResponse
 
-type ClaimsItemResponse struct {
-	CurrencyCode    int             `json:"currencyCode"`
-	BankClaims      models.BankInfo `json:"bankClaims"`
-	BankLiabilities models.BankInfo `json:"bankLiabilities"`
-	Amount          int64           `json:"amount"`
-	Unconfirmed     int64           `json:"unconfirmed"`
-}
-
-type ClearingResultResponseData struct {
-	Id          string                `json:"id"`
-	Owner       string                `json:"owner"`
-	Claims      int64                 `json:"claims"`
-	Liabilities int64                 `json:"liabilities"`
-	History     []ClaimsItemResponse  `json:"history"`
-	Netting     []models.AmountOfBank `json:"netting"`
-	Procedure   []ClaimsItemResponse  `json:"procedure"`
-	Created     int64                 `json:"created"`
-}
-
 type ClearingResultResponse struct {
-	Data ClearingResultResponseData `json:"data"`
+	Data models.ClearingData `json:"data"`
 	BaseResponse
 }
 
 type ClearingListResponse struct {
-	Data []ClearingResultResponseData `json:"data"`
+	Data []models.ClearingData `json:"data"`
 	BaseResponse
 }
 
@@ -166,8 +147,8 @@ type ClaimsListResponse struct {
 }
 
 type ClearingPageData struct {
-	Metadata Metadata                     `json:"metadata"`
-	Items    []ClearingResultResponseData `json:"items"`
+	Metadata Metadata              `json:"metadata"`
+	Items    []models.ClearingData `json:"items"`
 }
 
 type ClearingPageResponse struct {
