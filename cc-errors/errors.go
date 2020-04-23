@@ -586,14 +586,29 @@ const (
 	ErrorGetState = 60511
 
 	/**
+	 * Ошибка при удалении данных в БД
+	 */
+	ErrorDeleteState = 60512
+
+	/**
+	 * Ошибка создании композитного ключа
+	 */
+	ErrorCreateCompositeKey = 60513
+
+	/**
 	 * Ошибка при серилизации JSON
 	 */
-	ErrorJsonMarshal = 60512
+	ErrorJsonMarshal = 60514
 
 	/**
 	 * Ошибка при десерилизации JSON
 	 */
-	ErrorJsonUnmarshal = 60513
+	ErrorJsonUnmarshal = 60515
+
+	/**
+	 * Ошибка при получении времени создания транзакции
+	 */
+	ErrorGetTxTime = 60516
 
 	/**
 	 * Не доступен для этого владельца
@@ -642,6 +657,11 @@ const (
 	 * Клиринг. Расхождение требований и обязательств
 	 */
 	ErrorClearingBadClaimsLiabilities = 60701
+
+	/**
+	 * Клиринг. Информация о клиринге не найдена
+	 */
+	ErrorClearingInfoNotFound = 60702
 
 	/**
 	 * Сертификат. Ошибка валидация сертификаты

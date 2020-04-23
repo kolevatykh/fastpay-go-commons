@@ -81,7 +81,7 @@ type ExecutedTransactionCurrencyExchangeContractItem struct {
 	To           string                                                 `json:"to"`
 	CurrencyCode int                                                    `json:"currencyCode"`
 	Amount       int64                                                  `json:"amount"`
-	Payload      cross_transaction_payload_enum.CrossTransactionPayload `json:"payload"` // TODO add enum CrossTransactionPayload
+	Payload      cross_transaction_payload_enum.CrossTransactionPayload `json:"payload"`
 }
 
 type CrossTransactionHistory struct {

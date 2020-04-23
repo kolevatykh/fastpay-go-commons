@@ -81,8 +81,8 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 
 	response := stub.InvokeChaincode(chaincodeName, args, "")
 
-	if response.GetStatus() == 500 { // TODO спарсить код ошибки
-		fmt.Println("TODO спарсить код ошибки", response.GetMessage())
+	if response.GetStatus() == 500 {
+		fmt.Println("Ошибка при вызове чейнкода: ", response.GetMessage())
 
 		return nil, parseErrorFromAnotherChaincode(response.GetMessage())
 	}
@@ -102,8 +102,8 @@ func InvokeChaincodeWithEmptyParams(stub shim.ChaincodeStubInterface, chaincodeN
 
 	response := stub.InvokeChaincode(chaincodeName, args, "")
 
-	if response.GetStatus() == 500 { // TODO спарсить код ошибки
-		fmt.Println("TODO спарсить код ошибки", response.GetMessage())
+	if response.GetStatus() == 500 {
+		fmt.Println("Ошибка при вызове чейнкода: ", response.GetMessage())
 
 		return nil, parseErrorFromAnotherChaincode(response.GetMessage())
 	}
@@ -287,8 +287,7 @@ func CheckArgs(args string, request interface{}) error {
 func GetTimestamp(stub shim.ChaincodeStubInterface) (int64, error) {
 	timestamp, err := stub.GetTxTimestamp()
 	if err != nil {
-		// TODO добавить код ошибки
-		return 0, CreateError(cc_errors.ErrorDefault, fmt.Sprintf("Ошибка при получении времени создания транзакции. %s", err.Error()))
+		return 0, CreateError(cc_errors.ErrorGetTxTime, fmt.Sprintf("Ошибка при получении времени создания транзакции. %s", err.Error()))
 	}
 
 	time := timestamp.GetSeconds()*1000 + int64(timestamp.GetNanos()/1e6)
