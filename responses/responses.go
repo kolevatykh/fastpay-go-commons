@@ -280,3 +280,8 @@ type CrossTransactionHistoryPageResponse struct {
 	Data CrossTransactionHistoryPageData `json:"data"`
 	BaseResponse
 }
+
+type AccountAddressResponse struct {
+	Data string `json:"data"`
+	BaseResponse
+}
