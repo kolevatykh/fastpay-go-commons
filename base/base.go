@@ -166,11 +166,11 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 	return nil
 }
 
-func CheckAccess(ctx contractapi.TransactionContextInterface, role access_role_enum.AccessRole, checkAvailable bool) error {
-	return CheckAccessWithBank(ctx, nil, role, checkAvailable)
+func CheckAccess(ctx contractapi.TransactionContextInterface, role access_role_enum.AccessRole, addressOwnerShip string, checkAvailable bool) error {
+	return CheckAccessWithBank(ctx, nil, role, addressOwnerShip, checkAvailable)
 }
 
-func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *models.Bank, role access_role_enum.AccessRole, checkAvailable bool) error {
+func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *models.Bank, role access_role_enum.AccessRole, addressOwnerShip string, checkAvailable bool) error {
 	if role == access_role_enum.Any {
 		return nil
 	}
@@ -190,20 +190,31 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *mode
 		}
 	}
 
-	switch role {
-	case access_role_enum.Undefined:
-		return CreateError(cc_errors.ErrorForbidden, "Права доступа к методу не определены")
-	case access_role_enum.Regulator:
-		if !bank.IsRegulator {
-			return CreateError(cc_errors.ErrorForbidden, "Для досупа банк должен быть регулятором")
-		}
-	case access_role_enum.Owner:
-		if !bank.IsOwner {
-			return CreateError(cc_errors.ErrorForbidden, "Для досупа банк должен быть владельцем")
-		}
+	currentRoles := getRoles(bank, addressOwnerShip)
+	result := currentRoles & role
+
+	if result == 0 {
+		return CreateError(cc_errors.ErrorForbidden, "Недостаточно прав для вызова метода")
 	}
 
 	return nil
+}
+
+func getRoles(bank *models.Bank, addressOwnerShip string) access_role_enum.AccessRole {
+	roles := access_role_enum.Bank
+
+	if bank.IsOwner {
+		roles |= access_role_enum.Owner
+	}
+	if bank.IsRegulator {
+		roles |= access_role_enum.Regulator
+	}
+
+	if len(addressOwnerShip) > 0 && bank.Address == addressOwnerShip {
+		roles |= access_role_enum.OwnerShip
+	}
+
+	return roles
 }
 
 func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function string) (bool, error) {
