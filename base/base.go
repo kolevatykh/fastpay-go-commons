@@ -45,6 +45,7 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*models.Bank, e
 	return GetBankByRemoteContract(stub, mspId, address)
 }
 
+// Метод получения клиентского банка отправителя
 func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*responses.ClientBankItemResponse, error) {
 	stub := ctx.GetStub()
 
@@ -67,7 +68,7 @@ func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*response
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	//address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
@@ -80,7 +81,7 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("bankId")
 
-	//address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
