@@ -181,13 +181,16 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 	return nil
 }
 
-func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface) error {
-	clientBank, err := GetSenderClientBank(ctx)
-	if err != nil {
-		return err
+func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse) error {
+	if senderClientBank == nil {
+		var err error = nil
+		senderClientBank, err = GetSenderClientBank(ctx)
+		if err != nil {
+			return err
+		}
 	}
 
-	if clientBank == nil || clientBank.State != state_enum.Available {
+	if senderClientBank == nil || senderClientBank.State != state_enum.Available {
 		return CreateError(cc_errors.ErrorClientBankNotAvailable, "Клиентский банк отправителя не доступен")
 	}
 
