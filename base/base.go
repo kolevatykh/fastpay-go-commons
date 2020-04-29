@@ -22,7 +22,8 @@ import (
 )
 
 const (
-	ChaincodeBankName = "banks"
+	ChaincodeBankName       = "banks"
+	ChaincodeClientBankName = "client-banks"
 )
 
 // Метод получения банка отправителя
@@ -42,6 +43,24 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*models.Bank, e
 	}
 
 	return GetBankByRemoteContract(stub, mspId, address)
+}
+
+func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*responses.ClientBankItemResponse, error) {
+	stub := ctx.GetStub()
+
+	response, err := InvokeChaincodeWithEmptyParams(stub, ChaincodeClientBankName, "getOwnerClientBank")
+	if err != nil {
+		return nil, err
+	}
+
+	var bankResponse responses.ClientBankResponse
+	err = json.Unmarshal(response, &bankResponse)
+
+	if err != nil {
+		return nil, CreateError(cc_errors.ErrorJsonUnmarshal, fmt.Sprintf("Ошибка десерилизации ответа вовремя вызова чейнкода client-banks. %s", err.Error()))
+	}
+
+	return &bankResponse.Data, nil
 }
 
 // Метод получения адреса банка из сертификата
@@ -157,6 +176,19 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 
 	if bank == nil || bank.State != state_enum.Available {
 		return CreateError(cc_errors.ErrorBankNotAvailable, "Банк отправителя не доступен")
+	}
+
+	return nil
+}
+
+func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface) error {
+	clientBank, err := GetSenderClientBank(ctx)
+	if err != nil {
+		return err
+	}
+
+	if clientBank == nil || clientBank.State != state_enum.Available {
+		return CreateError(cc_errors.ErrorClientBankNotAvailable, "Клиентский банк отправителя не доступен")
 	}
 
 	return nil

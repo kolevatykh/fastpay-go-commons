@@ -103,6 +103,11 @@ const (
 	ErrorCustomerNotFound = 60128
 
 	/**
+	 * Клиентский банк не доступен
+	 */
+	ErrorClientBankNotAvailable = 60129
+
+	/**
 	 * Аккаунт создан без идентификатора
 	 */
 	ErrorAccountCreatedWithoutIdentifier = 60130
@@ -527,10 +532,16 @@ const (
 	 * Невозможно выполнить операцию с текущим статусом транзакции
 	 */
 	ErrorStatusConflict = 60464
+
 	/**
-	 * Неверный адрес или сумма для выполнения вывода средств по трансграничному переводу
+	 * Неверный адрес аккаунта для выполнения вывода средств в рамках трансграничного перевода
 	 */
-	ErrorCrossTransactionWithdrawAddressOrAmount = 60465
+	ErrorCrossTransactionWithdrawIncorrectAddress = 60465
+
+	/**
+	 * Неверный сумма для выполнения вывода средств в рамках трансграничномого перевода
+	 */
+	ErrorCrossTransactionWithdrawIncorrectAmount = 60466
 
 	/**
 	 * Другая ошибка
