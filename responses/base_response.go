@@ -1,7 +1,7 @@
 package responses
 
 type BaseResponse struct {
-	ErrorCode     uint   `json:"errorCode"`
-	TransactionId uint   `json:"transactionId"`
+	ErrorCode     int    `json:"errorCode"`
+	TransactionId int    `json:"transactionId"`
 	SenderAddress string `json:"senderAddress"`
 }
