@@ -314,3 +314,11 @@ type ContractEvent struct {
 	BaseEvent
 	Data CurrencyExchangeContract `json:"data"`
 }
+
+type SetBalanceAccountParam struct {
+	Address     string
+	AddressBank string
+	Value       int64
+	Operation   string
+	TxId        string
+}
