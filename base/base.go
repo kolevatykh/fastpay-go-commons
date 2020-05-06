@@ -26,14 +26,31 @@ var Logger = logrus.New()
 
 func init() {
 	Logger.Info("GO_ENV: ", os.Getenv("GO_ENV"))
+	Logger.Info("CORE_CHAINCODE_LOGGING_LEVEL: ", os.Getenv("CORE_CHAINCODE_LOGGING_LEVEL"))
 	Logger.Info("-----------------All_ENV---------------------")
 	for _, pair := range os.Environ() {
 		fmt.Println(pair)
 	}
 
+	var loggerLevel logrus.Level
+	var err error
+
+	loggerLevel, err = logrus.ParseLevel(os.Getenv("CORE_CHAINCODE_LOGGING_LEVEL"))
+	if err != nil {
+		loggerLevel = logrus.PanicLevel
+	}
+
+	Logger.SetLevel(loggerLevel)
 	Logger.SetFormatter(&logrus.JSONFormatter{})
 	Logger.SetOutput(os.Stdout)
-	Logger.SetLevel(logrus.DebugLevel)
+
+	Logger.Panic("Panic")
+	Logger.Fatal("Fatal")
+	Logger.Error("Error")
+	Logger.Warn("Warn")
+	Logger.Info("Info")
+	Logger.Debug("Debug")
+	Logger.Trace("Trace")
 }
 
 const (
