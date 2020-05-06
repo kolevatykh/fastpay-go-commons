@@ -114,11 +114,6 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 	return response.GetPayload(), nil
 }
 
-// Метод получения названия события
-func GetEventName(chaincodeName, functionName string) string {
-	return fmt.Sprintf("%s_%s", chaincodeName, functionName)
-}
-
 // Метод вызова внешнего чейнкода без входных параметров
 func InvokeChaincodeWithEmptyParams(stub shim.ChaincodeStubInterface, chaincodeName string, nameFunc string) ([]byte, error) {
 	var args [][]byte
