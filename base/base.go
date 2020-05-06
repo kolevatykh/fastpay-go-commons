@@ -45,7 +45,7 @@ func init() {
 	Logger.SetOutput(os.Stdout)
 
 	//Logger.Panic("Panic")
-	Logger.Fatal("Fatal")
+	//Logger.Fatal("Fatal")
 	Logger.Error("Error")
 	Logger.Warn("Warn")
 	Logger.Info("Info")
