@@ -44,7 +44,7 @@ func init() {
 	Logger.SetFormatter(&logrus.JSONFormatter{})
 	Logger.SetOutput(os.Stdout)
 
-	Logger.Panic("Panic")
+	//Logger.Panic("Panic")
 	Logger.Fatal("Fatal")
 	Logger.Error("Error")
 	Logger.Warn("Warn")
