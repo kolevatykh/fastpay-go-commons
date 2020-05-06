@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"math"
+	"os"
 	"regexp"
 	"strings"
 
@@ -19,7 +19,22 @@ import (
 	"github.com/hyperledger/fabric-chaincode-go/pkg/cid"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
+	"github.com/sirupsen/logrus"
 )
+
+var Logger = logrus.New()
+
+func init() {
+	Logger.Info("GO_ENV: ", os.Getenv("GO_ENV"))
+	Logger.Info("-----------------All_ENV---------------------")
+	for _, pair := range os.Environ() {
+		fmt.Println(pair)
+	}
+
+	Logger.SetFormatter(&logrus.JSONFormatter{})
+	Logger.SetOutput(os.Stdout)
+	Logger.SetLevel(logrus.DebugLevel)
+}
 
 const (
 	ChaincodeBankName       = "banks"
@@ -252,10 +267,10 @@ func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function strin
 	}
 
 	// TODO Убрать
-	log.Info("nameChaincode: ", nameChaincode)
-	log.Info("name: ", name)
-	log.Info("nameFunc: ", nameFunc)
-	log.Info("function: ", function)
+	Logger.Info("nameChaincode: ", nameChaincode)
+	Logger.Info("name: ", name)
+	Logger.Info("nameFunc: ", nameFunc)
+	Logger.Info("function: ", function)
 
 	if name == nameChaincode {
 		if len(function) == 0 {
