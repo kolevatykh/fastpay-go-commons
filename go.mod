@@ -8,6 +8,7 @@ require (
 	github.com/hyperledger/fabric-chaincode-go v0.0.0-20200128192331-2d899240a7ed
 	github.com/hyperledger/fabric-contract-api-go v1.0.0
 	github.com/hyperledger/fabric-protos-go v0.0.0-20200124220212-e9cfc186ba7b
+	github.com/sirupsen/logrus v1.4.2
 	github.com/wearetheledger/go-couchdb-query-engine v0.0.0-20181028083156-74445b61f15e // indirect
 	golang.org/x/crypto v0.0.0-20200317142112-1b76d66859c6 // indirect
 )

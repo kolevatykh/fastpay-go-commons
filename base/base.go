@@ -22,9 +22,12 @@ import (
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
-var Logger logger.Logger
+var Logger *logger.Logger
 
 func init() {
+	Logger = new(logger.Logger)
+	Logger.Init()
+
 	Logger.Info("GO_ENV: ", os.Getenv("GO_ENV"))
 	Logger.Info("CORE_CHAINCODE_LOGGING_LEVEL: ", os.Getenv("CORE_CHAINCODE_LOGGING_LEVEL"))
 	Logger.Info("-----------------All_ENV---------------------")
