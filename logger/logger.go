@@ -30,13 +30,13 @@ func (logger *Logger) Init() {
 }
 
 func (logger *Logger) Error(args ...interface{}) {
-	logger._logger.Error(args)
+	logger._logger.Error(args...)
 }
 
 func (logger *Logger) Info(args ...interface{}) {
-	logger._logger.Info(args)
+	logger._logger.Info(args...)
 }
 
 func (logger *Logger) Debug(args ...interface{}) {
-	logger._logger.Debug(args)
+	logger._logger.Debug(args...)
 }
