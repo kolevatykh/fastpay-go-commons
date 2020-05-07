@@ -12,6 +12,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/cc-errors"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/access-role-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
+	"github.com/SolarLabRU/fastpay-go-commons/logger"
 	"github.com/SolarLabRU/fastpay-go-commons/models"
 	"github.com/SolarLabRU/fastpay-go-commons/requests"
 	"github.com/SolarLabRU/fastpay-go-commons/responses"
@@ -19,10 +20,9 @@ import (
 	"github.com/hyperledger/fabric-chaincode-go/pkg/cid"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	"github.com/sirupsen/logrus"
 )
 
-var Logger = logrus.New()
+var Logger logger.Logger
 
 func init() {
 	Logger.Info("GO_ENV: ", os.Getenv("GO_ENV"))
@@ -31,26 +31,9 @@ func init() {
 	for _, pair := range os.Environ() {
 		fmt.Println(pair)
 	}
-
-	var loggerLevel logrus.Level
-	var err error
-
-	loggerLevel, err = logrus.ParseLevel(os.Getenv("CORE_CHAINCODE_LOGGING_LEVEL"))
-	if err != nil {
-		loggerLevel = logrus.PanicLevel
-	}
-
-	Logger.SetLevel(loggerLevel)
-	Logger.SetFormatter(&logrus.JSONFormatter{})
-	Logger.SetOutput(os.Stdout)
-
-	//Logger.Panic("Panic")
-	//Logger.Fatal("Fatal")
 	Logger.Error("Error")
-	Logger.Warn("Warn")
 	Logger.Info("Info")
 	Logger.Debug("Debug")
-	Logger.Trace("Trace")
 }
 
 const (
