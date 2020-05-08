@@ -28,6 +28,7 @@ func init() {
 	Logger = new(logger.Logger)
 	Logger.Init()
 
+	// TODO убрать
 	Logger.Info("GO_ENV: ", os.Getenv("GO_ENV"))
 	Logger.Info("CORE_CHAINCODE_LOGGING_LEVEL: ", os.Getenv("CORE_CHAINCODE_LOGGING_LEVEL"))
 	Logger.Info("-----------------All_ENV---------------------")

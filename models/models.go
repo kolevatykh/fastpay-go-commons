@@ -271,6 +271,16 @@ type AvailablePlatformsEvent struct {
 	Data string `json:"data"`
 }
 
+type TransactionEvent struct {
+	BaseEvent
+	Data TransactionHistory `json:"data"`
+}
+
+type CrossTransactionEvent struct {
+	BaseEvent
+	Data CrossTransactionHistory `json:"data"`
+}
+
 type ClaimsItemResponse struct {
 	CurrencyCode    int      `json:"currencyCode"`
 	BankClaims      BankInfo `json:"bankClaims"`
