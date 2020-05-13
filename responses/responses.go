@@ -285,3 +285,16 @@ type AccountAddressResponse struct {
 	Data string `json:"data"`
 	BaseResponse
 }
+
+type GetBankBalanceTotalResponseData struct {
+	Bank        models.BankInfo       `json:"bank"`
+	Liabilities []models.AmountOfBank `json:"liabilities"`
+	Claims      []models.AmountOfBank `json:"claims"`
+	Issue       int64                 `json:"issue"`
+	IssueLimit  int64                 `json:"issueLimit"`
+}
+
+type GetBankBalanceTotalResponse struct {
+	Data []GetBankBalanceTotalResponseData `json:"data"`
+	BaseResponse
+}
