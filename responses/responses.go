@@ -253,6 +253,11 @@ type TransferResponse struct {
 	BaseResponse
 }
 
+type TransferBatchResponse struct {
+	Data []models.TransactionHistory `json:"data"`
+	BaseResponse
+}
+
 type TransfersFromResponse struct {
 	Data []models.TransactionHistory `json:"data"`
 	BaseResponse

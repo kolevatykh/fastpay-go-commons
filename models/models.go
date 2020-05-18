@@ -273,7 +273,7 @@ type AvailablePlatformsEvent struct {
 
 type TransactionEvent struct {
 	BaseEvent
-	Data TransactionHistory `json:"data"`
+	Data []TransactionHistory `json:"data"`
 }
 
 type CrossTransactionEvent struct {
@@ -331,4 +331,9 @@ type SetBalanceAccountParam struct {
 	Value       int64
 	Operation   string
 	TxId        string
+}
+
+type BalancesDetails struct {
+	Details map[string]int64
+	Total   int64
 }
