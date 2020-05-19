@@ -332,8 +332,3 @@ type SetBalanceAccountParam struct {
 	Operation   string
 	TxId        string
 }
-
-type BalancesDetails struct {
-	Details map[string]int64
-	Total   int64
-}

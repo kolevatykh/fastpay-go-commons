@@ -1,3 +1,5 @@
 package requests
 
-type TransferBatchRequest []TransferRequest
+type TransferBatchRequest struct {
+	Transfers []TransferRequest `json:"transfers" validate:"required,dive"`
+}
