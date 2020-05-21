@@ -303,3 +303,23 @@ type GetBankBalanceTotalResponse struct {
 	Data []GetBankBalanceTotalResponseData `json:"data"`
 	BaseResponse
 }
+
+type InvoiceResponse struct {
+	Data models.Invoice `json:"data"`
+	BaseResponse
+}
+
+type InvoiceListResponse struct {
+	Data []models.Invoice `json:"data"`
+	BaseResponse
+}
+
+type InvoicePageData struct {
+	Metadata Metadata         `json:"metadata"`
+	Items    []models.Invoice `json:"items"`
+}
+
+type InvoicePageResponse struct {
+	Data InvoicePageData `json:"data"`
+	BaseResponse
+}

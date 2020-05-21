@@ -5,6 +5,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-payload-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
@@ -331,4 +332,24 @@ type SetBalanceAccountParam struct {
 	Value       int64
 	Operation   string
 	TxId        string
+}
+
+type Invoice struct {
+	Number       string                          `json:"number"`
+	CurrencyCode int                             `json:"currencyCode"`
+	Amount       int64                           `json:"amount"`
+	Description  string                          `json:"description"`
+	Recipient    string                          `json:"recipient"`
+	Payer        string                          `json:"payer"`
+	State        invoice_state_enum.InvoiceState `json:"state"`
+	Created      int64                           `json:"created"`
+	Updated      int64                           `json:"updated"`
+	ErrorCode    int                             `json:"errorCode"`
+	Owner        string                          `json:"owner"`
+	DocType      string                          `json:"docType"`
+}
+
+type InvoiceEvent struct {
+	BaseEvent
+	Data Invoice `json:"data"`
 }
