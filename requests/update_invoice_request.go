@@ -1,6 +1,6 @@
 package requests
 
-import invoice_state_enum "github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
+import "github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
 
 type UpdateInvoiceRequest struct {
 	Number       string                          `json:"number" validate:"required,lte=255"`
