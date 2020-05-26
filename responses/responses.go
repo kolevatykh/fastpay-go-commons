@@ -323,3 +323,8 @@ type InvoicePageResponse struct {
 	Data InvoicePageData `json:"data"`
 	BaseResponse
 }
+
+type LimitResponse struct {
+	Data int64 `json:"data"`
+	BaseResponse
+}

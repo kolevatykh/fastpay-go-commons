@@ -353,3 +353,8 @@ type InvoiceEvent struct {
 	BaseEvent
 	Data Invoice `json:"data"`
 }
+
+type AccountLimit struct {
+	Total      int64 `json:"total"`
+	LastPeriod int64 `json:"lastPeriod"`
+}

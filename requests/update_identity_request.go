@@ -1,6 +1,6 @@
 package requests
 
-import identity_type_enum "github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
+import "github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 
 type UpdateIdentityRequest struct {
 	Address      string                          `json:"address" validate:"required,validHex40"`

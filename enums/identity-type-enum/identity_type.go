@@ -12,3 +12,20 @@ const (
 func (identityType IdentityType) String() string {
 	return [...]string{"Undefined", "None", "Simple", "Identified"}[identityType]
 }
+
+func Parse(stringIdentityType string) IdentityType {
+	switch stringIdentityType {
+	case "None":
+		return None
+	case "Simple":
+		return Simple
+	case "Identified":
+		return Identified
+	default:
+		return Undefined
+	}
+}
+
+func GetAllIdentityTypes() []IdentityType {
+	return []IdentityType{Undefined, None, Simple, Identified}
+}
