@@ -358,3 +358,8 @@ type AccountLimit struct {
 	Total      int64 `json:"total"`
 	LastPeriod int64 `json:"lastPeriod"`
 }
+
+type LimitsAccount struct {
+	Daily   *AccountLimit
+	Monthly *AccountLimit
+}
