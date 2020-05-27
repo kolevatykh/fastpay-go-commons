@@ -8,6 +8,6 @@ import (
 type SetLimitRequest struct {
 	LimitType    limit_type_enum.LimitType       `json:"limitType" validate:"required,gte=0"`
 	IdentityType identity_type_enum.IdentityType `json:"identityType" validate:"required,gte=0"`
-	Value        int64                           `json:"value" validate:"required,gt=0"`
+	Value        int64                           `json:"value" validate:"required,gte=0"`
 	CurrencyCode int                             `json:"currencyCode" validate:"required,gte=0,lte=999"`
 }
