@@ -328,3 +328,10 @@ type LimitResponse struct {
 	Data int64 `json:"data"`
 	BaseResponse
 }
+
+type AccountLimitsResponse struct {
+	OperationLimit int64 `json:"operationLimit"`
+	BalanceLimit   int64 `json:"balanceLimit"`
+	DailyLimit     int64 `json:"dailyLimit"`
+	MonthlyLimit   int64 `json:"monthlyLimit"`
+}
