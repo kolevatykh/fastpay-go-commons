@@ -10,8 +10,8 @@ type ContractCreateRequest struct {
 	CurrencySymbolSell   string  `json:"currencySymbolSell" validate:"required,min=3,max=3"`
 	CurrencySymbolBuy    string  `json:"currencySymbolBuy" validate:"required,min=3,max=3"`
 	Price                float64 `json:"price" validate:"required,gte=0.0000000001"`
-	FractionalCommission float64 `json:"fractionalCommission" validate:"required,gte=0,lte=1"`
-	MaxCommission        int64   `json:"maxCommission" validate:"required,min=0"`
+	FractionalCommission float64 `json:"fractionalCommission" validate:"gte=0,lte=1"`
+	MaxCommission        int64   `json:"maxCommission" validate:"gte=0"`
 	MinAmount            int64   `json:"minAmount" validate:"omitempty,min=0"`
 	MaxAmount            int64   `json:"maxAmount" validate:"required,min=0"`
 	StartDate            int64   `json:"startDate" validate:"required,min=0"`

@@ -104,7 +104,7 @@ type CrossTransactionHistory struct {
 	TxId                 string                                               `json:"txId"`
 	ErrorCode            int                                                  `json:"errorCode"`
 	Data                 string                                               `json:"data"`
-	TransactionHistories []TransactionHistory
+	TransactionHistories []TransactionHistory                                 `json:"transactionHistories"`
 }
 
 type CrossTransactionHistoryEvent struct {
