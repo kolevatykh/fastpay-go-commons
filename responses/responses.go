@@ -180,8 +180,9 @@ type ClientBankItemResponse struct {
 	BankDisplayName string            `json:"bankDisplayName"`
 	State           state_enum.State  `json:"state"`
 	CountryCode     string            `json:"countryCode"`
-	Params          []ClientBankParam `json:"params"`
+	Params          map[string]string `json:"params"`
 }
+
 type ClientBankResponse struct {
 	Data ClientBankItemResponse `json:"data"`
 	BaseResponse
