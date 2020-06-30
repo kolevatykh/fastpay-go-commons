@@ -354,12 +354,7 @@ type InvoiceEvent struct {
 	Data Invoice `json:"data"`
 }
 
-type AccountLimit struct {
-	Total      int64 `json:"total"`
-	LastPeriod int64 `json:"lastPeriod"`
-}
-
 type LimitsAccount struct {
-	Daily   *AccountLimit
-	Monthly *AccountLimit
+	Daily   int64 `json:"daily"`
+	Monthly int64 `json:"monthly"`
 }
