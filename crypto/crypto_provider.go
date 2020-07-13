@@ -98,8 +98,12 @@ func compressPubKey(pubKey *ecdsa.PublicKey) []byte {
 	curveOrderByteSize := params.P.BitLen() / 8
 
 	pubKeyAsBytes := make([]byte, curveOrderByteSize*2)
-	copy(pubKeyAsBytes[:curveOrderByteSize], pubKey.X.Bytes())
-	copy(pubKeyAsBytes[curveOrderByteSize:], pubKey.Y.Bytes())
+	pubKeyXBytes := pubKey.X.Bytes()
+	pubKeyYBytes := pubKey.Y.Bytes()
+
+	copy(pubKeyAsBytes[:curveOrderByteSize], pubKeyXBytes)
+	copy(pubKeyAsBytes[curveOrderByteSize+(curveOrderByteSize-len(pubKeyYBytes)):], pubKeyYBytes)
+
 	return pubKeyAsBytes
 }
 
