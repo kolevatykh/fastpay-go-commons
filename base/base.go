@@ -377,7 +377,8 @@ func CheckTransactionError(err error) (error, *cc_errors.BaseError) {
 
 	baseError := ParseError(err)
 
-	errorsRejectTransactions := []int{cc_errors.ErrorPutState, cc_errors.ErrorGetState, cc_errors.ErrorCreateCompositeKey, cc_errors.ErrorDefault}
+	errorsRejectTransactions := []int{cc_errors.ErrorDefault, cc_errors.ErrorPutState, cc_errors.ErrorGetState, cc_errors.ErrorDeleteState,
+		cc_errors.ErrorCreateCompositeKey, cc_errors.ErrorJsonMarshal, cc_errors.ErrorJsonUnmarshal}
 
 	if Contains(errorsRejectTransactions, baseError.Code) {
 		return err, baseError
