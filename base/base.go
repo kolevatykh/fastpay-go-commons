@@ -353,6 +353,48 @@ func GetContractCommission(contract models.CurrencyExchangeContract, amountOutpu
 	return math.Min(calcCommission, float64(contract.MaxCommission))
 }
 
+func ParseError(err error) *cc_errors.BaseError {
+	var baseError *cc_errors.BaseError
+
+	errUnmarshal := json.Unmarshal([]byte(err.Error()), &baseError)
+
+	if errUnmarshal != nil {
+
+		return &cc_errors.BaseError{
+			Code:    cc_errors.ErrorDefault,
+			Message: "Ошибка парсинга информации об ошибки: " + err.Error(),
+			Data:    "",
+		}
+	}
+
+	return baseError
+}
+
+func CheckTransactionError(err error) (error, *cc_errors.BaseError) {
+	if err == nil {
+		return nil, nil
+	}
+
+	baseError := ParseError(err)
+
+	errorsRejectTransactions := []int{cc_errors.ErrorPutState, cc_errors.ErrorGetState, cc_errors.ErrorCreateCompositeKey, cc_errors.ErrorDefault}
+
+	if Contains(errorsRejectTransactions, baseError.Code) {
+		return err, baseError
+	}
+
+	return nil, baseError
+}
+
+func Contains(a []int, x int) bool {
+	for _, n := range a {
+		if x == n {
+			return true
+		}
+	}
+	return false
+}
+
 // Метод создания структуры ошибки
 func createError(baseError *cc_errors.BaseError) error {
 	byteError, err := json.Marshal(baseError)
