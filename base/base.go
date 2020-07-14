@@ -288,7 +288,7 @@ func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function strin
 }
 
 // Метод создания структуры ошибки
-func CreateError(code uint, message string) error {
+func CreateError(code int, message string) error {
 	baseError := cc_errors.BaseError{
 		Code:    code,
 		Message: message,
@@ -298,7 +298,7 @@ func CreateError(code uint, message string) error {
 }
 
 // Метод создания структуры ошибки с доп. информацией
-func CreateErrorWithData(code uint, message, data string) error {
+func CreateErrorWithData(code int, message, data string) error {
 	baseError := cc_errors.BaseError{
 		Code:    code,
 		Message: message,
