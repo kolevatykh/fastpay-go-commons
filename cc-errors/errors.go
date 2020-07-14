@@ -1,7 +1,7 @@
 package cc_errors
 
 type BaseError struct {
-	Code    uint   `json:"code"`
+	Code    int    `json:"code"`
 	Message string `json:"message"`
 	Data    string `json:"data"`
 }
