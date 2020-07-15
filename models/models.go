@@ -71,6 +71,7 @@ type TransactionHistory struct {
 	TransactionId int                                       `json:"transactionId"`
 	SenderAddress string                                    `json:"senderAddress"`
 	Data          string                                    `json:"data"`
+	InvoiceNumber string                                    `json:"invoiceNumber"`
 }
 
 type TransactionHistoryEvent struct {
