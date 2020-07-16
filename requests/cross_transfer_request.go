@@ -16,5 +16,6 @@ type CrossTransferRequest struct {
 	Payload            string                               `json:"payload"`
 	MsgHash            string                               `json:"msgHash" validate:"required"`
 	Sig                SignDto                              `json:"sig" validate:"required,dive"`
+	Exp                int64                                `json:"exp" validate:"required"`
 	TransactionId      int                                  `json:"transactionId" validate:"required,min=0"`
 }

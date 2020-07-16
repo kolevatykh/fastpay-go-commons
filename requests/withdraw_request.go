@@ -7,5 +7,6 @@ type WithdrawRequest struct {
 	Payload       string  `json:"payload"`
 	TransactionId int     `json:"transactionId" validate:"required,min=0"`
 	MsgHash       string  `json:"msgHash" validate:"required"`
+	Exp           int64   `json:"exp" validate:"required"`
 	Sig           SignDto `json:"sig" validate:"required,dive"`
 }

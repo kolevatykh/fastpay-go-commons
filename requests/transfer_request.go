@@ -9,5 +9,6 @@ type TransferRequest struct {
 	MsgHash       string  `json:"msgHash"`
 	Sig           SignDto `json:"sig" validate:"omitempty,dive"`
 	InvoiceNumber string  `json:"invoiceNumber" validate:"omitempty,max=255"`
+	Exp           int64   `json:"exp" validate:"required"`
 	TransactionId int     `json:"transactionId" validate:"required,min=0"`
 }
