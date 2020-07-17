@@ -108,7 +108,7 @@ type AccountBalanceData struct {
 }
 
 type WithdrawResultResponse struct {
-	Data models.WithdrawResult `json:"data"`
+	Data *models.WithdrawResult `json:"data"`
 	BaseResponse
 }
 
