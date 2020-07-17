@@ -484,6 +484,11 @@ const (
 	ErrorExpirationSign = 60371
 
 	/**
+	 * Подпись уже была использована
+	 */
+	ErrorSignUsed = 60372
+
+	/**
 	 * Попытка перевода средств между юр. лицами
 	 */
 	ErrorLimitLegalEntry = 60410
