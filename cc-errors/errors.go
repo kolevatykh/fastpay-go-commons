@@ -479,6 +479,11 @@ const (
 	ErrorGetMspId = 60370
 
 	/**
+	 * Время подписи истекло
+	 */
+	ErrorExpirationSign = 60371
+
+	/**
 	 * Попытка перевода средств между юр. лицами
 	 */
 	ErrorLimitLegalEntry = 60410
