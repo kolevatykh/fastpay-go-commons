@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/SolarLabRU/fastpay-go-commons/cc-errors"
+	"github.com/SolarLabRU/fastpay-go-commons/crypto"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/access-role-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/logger"
@@ -87,7 +88,7 @@ func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*response
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	// address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
@@ -100,7 +101,7 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("bankId")
 
-	// address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
@@ -330,6 +331,26 @@ func CheckArgs(args string, request interface{}) error {
 	return nil
 }
 
+// Метод публикации события в чейнкоде
+func PublicEvent(stub shim.ChaincodeStubInterface, event interface{}, eventName string) error {
+	_, ok := event.(models.BaseEvent)
+	if !ok {
+		return CreateError(cc_errors.ErrorDefault, "Ошибка сериализации события ")
+	}
+
+	eventAsBytes, err := json.Marshal(event)
+	if err != nil {
+		return CreateError(cc_errors.ErrorJsonMarshal, fmt.Sprintf("Ошибка при сериализации события. %s", err.Error()))
+	}
+
+	err = stub.SetEvent(eventName, eventAsBytes)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // Метод получения времени созджания транзакции(Из заголовка канала)
 func GetTimestamp(stub shim.ChaincodeStubInterface) (int64, error) {
 	timestamp, err := stub.GetTxTimestamp()
@@ -406,6 +427,20 @@ func createError(baseError *cc_errors.BaseError) error {
 	}
 
 	return errors.New(string(byteError))
+}
+
+// Метод проверки сигнатуры
+func CheckSign(address, msgHash string, sign requests.SignDto) error {
+	isSigned, err := crypto.IsSigned(address, msgHash, sign.R, sign.S, sign.V)
+	if err != nil {
+		return CreateError(cc_errors.ErrorSignVerify, fmt.Sprintf("Ошибка проверки сигнатуры. %s", err.Error()))
+	}
+
+	if !isSigned {
+		return CreateError(cc_errors.ErrorSignVerify, "Ошибка проверки сигнатуры.")
+	}
+
+	return nil
 }
 
 // Метод получения ролей
