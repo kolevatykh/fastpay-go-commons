@@ -4,9 +4,11 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/account-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-payload-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-status-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/measurement-unit-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
@@ -44,12 +46,14 @@ type Bank struct {
 }
 
 type Currency struct {
-	Code     int    `json:"code"`
-	Name     string `json:"name"`
-	Symbol   string `json:"symbol"`
-	Decimals int    `json:"decimals"`
-	Enabled  bool   `json:"enabled"`
-	DocType  string `json:"docType"`
+	Code     int                                   `json:"code"`
+	Name     string                                `json:"name"`
+	Type     currency_type_enum.CurrencyType       `json:"type"`
+	Unit     measurement_unit_enum.MeasurementUnit `json:"unit"`
+	Symbol   string                                `json:"symbol"`
+	Decimals int                                   `json:"decimals"`
+	Enabled  bool                                  `json:"enabled"`
+	DocType  string                                `json:"docType"`
 }
 
 type AmountOfBank struct {
