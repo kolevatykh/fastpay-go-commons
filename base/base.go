@@ -333,11 +333,6 @@ func CheckArgs(args string, request interface{}) error {
 
 // Метод публикации события в чейнкоде
 func PublicEvent(stub shim.ChaincodeStubInterface, event interface{}, eventName string) error {
-	_, ok := event.(models.BaseEvent)
-	if !ok {
-		return CreateError(cc_errors.ErrorDefault, "Ошибка сериализации события ")
-	}
-
 	eventAsBytes, err := json.Marshal(event)
 	if err != nil {
 		return CreateError(cc_errors.ErrorJsonMarshal, fmt.Sprintf("Ошибка при сериализации события. %s", err.Error()))
