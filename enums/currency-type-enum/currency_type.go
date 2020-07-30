@@ -3,25 +3,26 @@ package currency_type_enum
 type CurrencyType int
 
 const (
-	AccountDigitalUnit CurrencyType = iota
+	Undefined CurrencyType = iota
+	DigitalCurrency
 	DigitalAsset
 )
 
 func (currencyType CurrencyType) String() string {
-	return [...]string{"AccountDigitalUnit", "DigitalAsset"}[currencyType]
+	return [...]string{"Undefined", "DigitalCurrency", "DigitalAsset"}[currencyType]
 }
 
-func Parse(stringJuridicalType string) CurrencyType {
-	switch stringJuridicalType {
-	case "AccountDigitalUnit":
-		return AccountDigitalUnit
+func Parse(stringCurrencyType string) CurrencyType {
+	switch stringCurrencyType {
+	case "DigitalCurrency":
+		return DigitalCurrency
 	case "DigitalAsset":
 		return DigitalAsset
 	default:
-		return AccountDigitalUnit
+		return Undefined
 	}
 }
 
 func GetCurrencyTypes() []CurrencyType {
-	return []CurrencyType{AccountDigitalUnit, DigitalAsset}
+	return []CurrencyType{Undefined, DigitalCurrency, DigitalAsset}
 }
