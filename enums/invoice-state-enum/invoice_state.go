@@ -9,8 +9,9 @@ const (
 	Failed
 	Expired
 	Paid
+	ClarificationRequested
 )
 
 func (invoiceState InvoiceState) String() string {
-	return [...]string{"Undefined", "Created", "Billed", "Failed", "Expired", "Paid"}[invoiceState]
+	return [...]string{"Undefined", "Created", "Billed", "Failed", "Expired", "Paid", "ClarificationRequested"}[invoiceState]
 }
