@@ -7,6 +7,7 @@ import (
 	"math"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/SolarLabRU/fastpay-go-commons/cc-errors"
@@ -44,6 +45,7 @@ func init() {
 const (
 	ChaincodeBankName       = "banks"
 	ChaincodeClientBankName = "client-banks"
+	compositeExpSignKey     = "typeExpSign~sign"
 )
 
 // Метод получения банка отправителя
@@ -88,7 +90,7 @@ func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*response
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	// address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
@@ -101,7 +103,7 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("bankId")
 
-	// address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
@@ -424,21 +426,6 @@ func createError(baseError *cc_errors.BaseError) error {
 	return errors.New(string(byteError))
 }
 
-// Метод проверки сигнатуры
-func CheckSign(address, msgHash string, sign requests.SignDto) error {
-	isSigned, err := crypto.IsSigned(address, msgHash, sign.R, sign.S, sign.V)
-
-	if err != nil {
-		return CreateError(cc_errors.ErrorSignVerify, fmt.Sprintf("Ошибка проверки сигнатуры. %s", err.Error()))
-	}
-
-	if !isSigned {
-		return CreateError(cc_errors.ErrorSignVerify, "Ошибка проверки сигнатуры.")
-	}
-
-	return nil
-}
-
 // Метод получения ролей
 func getRoles(bank *models.Bank, addressOwnerShip string) access_role_enum.AccessRole {
 	roles := access_role_enum.Bank
@@ -469,4 +456,135 @@ func parseErrorFromAnotherChaincode(message string) error {
 
 	return CreateError(baseError.Code, fmt.Sprintf("Ошибка при вызове чейнкода: %s", baseError.Message))
 
+}
+
+// Метод проверки сигнатуры
+func CheckSign(address, msgHash string, sign requests.SignDto) error {
+	isSigned, err := crypto.IsSigned(address, msgHash, sign.R, sign.S, sign.V)
+
+	if err != nil {
+		return CreateError(cc_errors.ErrorSignVerify, fmt.Sprintf("Ошибка проверки сигнатуры. %s", err.Error()))
+	}
+
+	if !isSigned {
+		return CreateError(cc_errors.ErrorSignVerify, "Ошибка проверки сигнатуры.")
+	}
+
+	return nil
+}
+
+// Метод проверки сигнатуры и ее времени действия
+func CheckSignAndExpiration(stub shim.ChaincodeStubInterface, address, msgHash string, sign requests.SignDto, expiration int64, now int64) error {
+
+	if expiration == 0 {
+		return CreateError(cc_errors.ErrorValidateDefault, "Поле Exp не передано")
+	}
+
+	if msgHash == "" || sign.R == "" || sign.S == "" || sign.V == 0 {
+		return CreateError(cc_errors.ErrorValidateDefault, "Сигнатура не передана")
+	}
+
+	err := CheckSign(address, msgHash, sign)
+	if err != nil {
+		return err
+	}
+
+	err = CheckSignExpiration(stub, sign, expiration, now)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func CheckSignExpiration(stub shim.ChaincodeStubInterface, sign requests.SignDto, expiration int64, now int64) error {
+
+	if now > expiration {
+		return CreateError(cc_errors.ErrorExpirationSign, "Время подписи истекло")
+	}
+
+	isExist, err := GetExpirationSign(stub, sign)
+	if err != nil {
+		return err
+	}
+
+	if isExist {
+		return CreateError(cc_errors.ErrorSignUsed, "Подпись уже была использована")
+	}
+
+	err = SaveExpirationSign(stub, sign, expiration)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func GetExpirationSign(stub shim.ChaincodeStubInterface, sig requests.SignDto) (bool, error) {
+
+	stringSign := fmt.Sprintf("%s_%s_%d", sig.R, sig.S, sig.V)
+	compositeKey, err := stub.CreateCompositeKey(compositeExpSignKey, []string{"exp_sign", stringSign})
+
+	expirationAsBytes, err := stub.GetState(compositeKey)
+	if err != nil {
+		return false, CreateError(cc_errors.ErrorGetState, fmt.Sprintf("Ошибка при получении времени действия сигнатуры. %s", err.Error()))
+	}
+
+	if len(expirationAsBytes) == 0 {
+		return false, nil
+	}
+	return true, nil
+}
+
+func SaveExpirationSign(stub shim.ChaincodeStubInterface, sig requests.SignDto, expiration int64) error {
+
+	stringSign := fmt.Sprintf("%s_%s_%d", sig.R, sig.S, sig.V)
+	compositeKey, err := stub.CreateCompositeKey(compositeExpSignKey, []string{"exp_sign", stringSign})
+	if err != nil {
+		return CreateError(cc_errors.ErrorCreateCompositeKey, fmt.Sprintf("Ошибка создания композитного ключа: %s", err.Error()))
+	}
+
+	err = stub.PutState(compositeKey, []byte(strconv.FormatInt(expiration, 10)))
+	if err != nil {
+		return CreateError(cc_errors.ErrorPutState, fmt.Sprintf("Ошибка даты окончания действия подписи. %s.", err.Error()))
+	}
+
+	return nil
+}
+
+// Метод очистки используемых подписей
+// TODO По возможности изменить алгоритм очистки подписей, потому что он является не самым оптимальным(возможна ошибка PHANTOM_READ_CONFLICT)
+func DeleteExpirationSign(stub shim.ChaincodeStubInterface) error {
+	resultsIterator, err := stub.GetStateByPartialCompositeKey(compositeExpSignKey, []string{"exp_sign"})
+	if err != nil {
+		return CreateError(cc_errors.ErrorGetState, fmt.Sprintf("Ошибка создания композитного ключа:  %s.", err.Error()))
+	}
+
+	defer resultsIterator.Close()
+
+	timestampNow, err := GetTimestamp(stub)
+	if err != nil {
+		return err
+	}
+
+	for resultsIterator.HasNext() {
+		responseRange, err := resultsIterator.Next()
+		if err != nil {
+			return CreateError(cc_errors.ErrorGetState, fmt.Sprintf("Ошибка получения данных итератора из ответа по запросу к БД. %s", err.Error()))
+		}
+
+		expirationSign, err := strconv.ParseInt(string(responseRange.GetValue()), 10, 64)
+		if err != nil {
+			return CreateError(cc_errors.ErrorDefault, fmt.Sprintf("Ошибка при десериализации времени действия подписи. %s", err.Error()))
+		}
+
+		if timestampNow > expirationSign {
+			err = stub.DelState(responseRange.Key)
+			if err != nil {
+				return CreateError(cc_errors.ErrorDeleteState, fmt.Sprintf("Ошибка при удалении используемой сигнатуры. %s", err.Error()))
+			}
+		}
+	}
+
+	return nil
 }

@@ -549,7 +549,7 @@ const (
 	ErrorCrossTransactionWithdrawIncorrectAddress = 60465
 
 	/**
-	 * Неверный сумма для выполнения вывода средств в рамках трансграничномого перевода
+	 * Неверная сумма для выполнения вывода средств в рамках трансграничномого перевода
 	 */
 	ErrorCrossTransactionWithdrawIncorrectAmount = 60466
 
