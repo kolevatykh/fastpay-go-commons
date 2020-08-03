@@ -5,5 +5,5 @@ type TopupRequest struct {
 	Amount        int64  `json:"amount" validate:"required"`
 	CurrencyCode  int    `json:"currencyCode" validate:"required,min=0"`
 	Payload       string `json:"payload"`
-	TransactionId int    `json:"transactionId" validate:"required,min=0"`
+	TransactionId string `json:"transactionId" validate:"required,uuid4"`
 }

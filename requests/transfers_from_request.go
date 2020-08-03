@@ -4,7 +4,7 @@ type TransfersFromRequest struct {
 	AddressFrom   string            `json:"addressFrom" validate:"required,validHex40"`
 	To            []TransfersFromTo `json:"to" validate:"required,dive"`
 	CurrencyCode  int               `json:"currencyCode" validate:"required,min=0"`
-	TransactionId int               `json:"transactionId" validate:"required,min=0"`
+	TransactionId string            `json:"transactionId" validate:"required,uuid4"`
 }
 
 type TransfersFromTo struct {

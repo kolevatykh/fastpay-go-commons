@@ -10,5 +10,5 @@ type TransferRequest struct {
 	Sig           SignDto `json:"sig" validate:"omitempty,dive"`
 	InvoiceNumber string  `json:"invoiceNumber" validate:"omitempty,max=255"`
 	Exp           int64   `json:"exp"`
-	TransactionId int     `json:"transactionId" validate:"required,min=0"`
+	TransactionId string  `json:"transactionId" validate:"required,uuid4"`
 }

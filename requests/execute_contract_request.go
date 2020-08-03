@@ -7,6 +7,6 @@ type ExecuteContractRequest struct {
 	AddressFrom   string                             `json:"addressFrom" validate:"required,validHex40"`
 	To            string                             `json:"to" validate:"omitempty,validHex40or64"`
 	Amount        int64                              `json:"amount" validate:"required"`
-	TransactionId int                                `json:"transactionId" validate:"required,min=0"`
+	TransactionId string                             `json:"transactionId" validate:"required,uuid4"`
 	Payload       string                             `json:"payload"`
 }

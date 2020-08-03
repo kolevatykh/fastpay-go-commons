@@ -72,7 +72,7 @@ type TransactionHistory struct {
 	ErrorCode     int                                       `json:"errorCode"`
 	Payload       string                                    `json:"payload"`
 	Timestamp     int64                                     `json:"timestamp"`
-	TransactionId int                                       `json:"transactionId"`
+	TransactionId string                                    `json:"transactionId"`
 	SenderAddress string                                    `json:"senderAddress"`
 	Data          string                                    `json:"data"`
 	InvoiceNumber string                                    `json:"invoiceNumber"`
@@ -94,7 +94,7 @@ type CrossTransactionHistory struct {
 	Routes               []CurrencyContractRoutingItem                        `json:"routes"`
 	AddressFrom          string                                               `json:"addressFrom"`
 	Timestamp            int64                                                `json:"timestamp"`
-	TransactionId        int                                                  `json:"transactionId"`
+	TransactionId        string                                               `json:"transactionId"`
 	Amount               int64                                                `json:"amount"`
 	Payload              string                                               `json:"payload"`
 	To                   string                                               `json:"to"`
