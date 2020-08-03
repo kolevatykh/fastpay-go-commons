@@ -45,15 +45,15 @@ type Bank struct {
 }
 
 type Currency struct {
-	Code     int                             `json:"code"`
-	Name     string                          `json:"name"`
-	Type     currency_type_enum.CurrencyType `json:"type"`
-	Unit     string                          `json:"unit"`
-	Symbol   string                          `json:"symbol"`
-	Decimals int                             `json:"decimals"`
-	Params   map[string]string               `json:"params"`
-	Enabled  bool                            `json:"enabled"`
-	DocType  string                          `json:"docType"`
+	Code       int                             `json:"code"`
+	Name       string                          `json:"name"`
+	Type       currency_type_enum.CurrencyType `json:"type"`
+	Unit       string                          `json:"unit"`
+	Symbol     string                          `json:"symbol"`
+	Decimals   int                             `json:"decimals"`
+	Properties map[string]string               `json:"properties"`
+	Enabled    bool                            `json:"enabled"`
+	DocType    string                          `json:"docType"`
 }
 
 type AmountOfBank struct {
