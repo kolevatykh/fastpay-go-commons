@@ -51,6 +51,7 @@ type Currency struct {
 	Unit     string                          `json:"unit"`
 	Symbol   string                          `json:"symbol"`
 	Decimals int                             `json:"decimals"`
+	Params   map[string]string               `json:"params"`
 	Enabled  bool                            `json:"enabled"`
 	DocType  string                          `json:"docType"`
 }

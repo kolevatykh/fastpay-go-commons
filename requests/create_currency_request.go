@@ -11,11 +11,15 @@ type CreateCurrencyRequest struct {
 	Unit     string                          `json:"unit"`
 	Symbol   string                          `json:"symbol" validate:"required,min=3,max=3"`
 	Decimals int                             `json:"decimals" validate:"required,min=0,max=8"`
+	Params   map[string]string               `json:"params"`
 	Enabled  bool                            `json:"enabled"`
 }
 
 func (createCurrencyRequest *CreateCurrencyRequest) SetDefaults() {
 	if createCurrencyRequest.Type == currency_type_enum.Undefined {
 		createCurrencyRequest.Type = currency_type_enum.DigitalCurrency
+	}
+	if createCurrencyRequest.Params == nil {
+		createCurrencyRequest.Params = make(map[string]string)
 	}
 }
