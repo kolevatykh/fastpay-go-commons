@@ -71,6 +71,7 @@ type TransactionHistory struct {
 	Amount        int64                                     `json:"amount"`
 	CurrencyCode  int                                       `json:"currencyCode"`
 	ErrorCode     int                                       `json:"errorCode"`
+	ErrorMessage  string                                    `json:"errorMessage"`
 	Payload       string                                    `json:"payload"`
 	Timestamp     int64                                     `json:"timestamp"`
 	TransactionId string                                    `json:"transactionId"`
@@ -109,6 +110,7 @@ type CrossTransactionHistory struct {
 	Status               cross_transaction_status_enum.CrossTransactionStatus `json:"status"`
 	TxId                 string                                               `json:"txId"`
 	ErrorCode            int                                                  `json:"errorCode"`
+	ErrorMessage         string                                               `json:"errorMessage"`
 	Data                 string                                               `json:"data"`
 	TransactionHistories []TransactionHistory                                 `json:"transactionHistories"`
 }
