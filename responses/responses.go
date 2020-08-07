@@ -345,3 +345,8 @@ type AccountLimitsResponse struct {
 	Data AccountLimitsData `json:"data"`
 	BaseResponse
 }
+
+type SafeDealResponse struct {
+	Data models.Deal `json:"data"`
+	BaseResponse
+}

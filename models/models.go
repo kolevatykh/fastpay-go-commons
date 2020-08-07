@@ -5,6 +5,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-payload-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-state-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type-enum"
@@ -362,4 +363,19 @@ type InvoiceEvent struct {
 type LimitsAccount struct {
 	Daily   int64 `json:"daily"`
 	Monthly int64 `json:"monthly"`
+}
+
+type Deal struct {
+	Id                       string                    `json:"id"`
+	AddressInitiator         string                    `json:"addressInitiator"`
+	AddressAcceptor          string                    `json:"addressAcceptor"`
+	State                    deal_state_enum.DealState `json:"state"`
+	AmountVotesCloseContract int                       `json:"amountVotesCloseContract"`
+	CancelVotes              []string                  `json:"cancelVotes"`
+	PerformVotes             []string                  `json:"performVotes"`
+}
+
+type SafeDealEvent struct {
+	BaseEvent
+	Data *Deal `json:"data"`
 }
