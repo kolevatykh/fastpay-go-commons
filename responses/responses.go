@@ -102,19 +102,10 @@ type AccountBalanceResponse struct {
 	Data AccountBalanceData `json:"data"`
 	BaseResponse
 }
+
 type AccountBalanceData struct {
 	Items []models.AmountOfBank `json:"items"`
 	Total int64                 `json:"total"`
-}
-
-type WithdrawResultResponse struct {
-	Data *models.WithdrawResult `json:"data"`
-	BaseResponse
-}
-
-type WithdrawConfirmResponse struct {
-	Data models.TransactionHistory `json:"data"`
-	BaseResponse
 }
 
 type BankBalanceData struct {
@@ -128,8 +119,6 @@ type BankBalanceResponse struct {
 	Data BankBalanceData `json:"data"`
 	BaseResponse
 }
-
-type WithdrawRejectResponse WithdrawConfirmResponse
 
 type ClearingResultResponse struct {
 	Data models.ClearingData `json:"data"`
@@ -170,6 +159,7 @@ type BankClaimsLiabilities struct {
 	Claims      map[string]int64 `json:"claims"`
 	Liabilities map[string]int64 `json:"liabilities"`
 }
+
 type BankClaimsLiabilitiesResponse struct {
 	Data BankClaimsLiabilities `json:"data"`
 	BaseResponse
@@ -249,18 +239,33 @@ type GetBestRoutesResponse struct {
 	BaseResponse
 }
 
+type WithdrawResultResponse struct {
+	Data *models.WithdrawResult `json:"data"`
+	BaseResponse
+}
+
+type WithdrawConfirmResponse struct {
+	History models.TransactionHistory `json:"history"`
+	Data    string                    `json:"data"`
+	BaseResponse
+}
+
+type WithdrawRejectResponse WithdrawConfirmResponse
+
 type TransferResponse struct {
-	Data models.TransactionHistory `json:"data"`
+	History models.TransactionHistory `json:"history"`
+	Data    string                    `json:"data"`
 	BaseResponse
 }
 
 type TransferBatchResponse struct {
-	Data []models.TransactionHistory `json:"data"`
+	Histories []models.TransactionHistory `json:"histories"`
+	Data      string                      `json:"data"`
 	BaseResponse
 }
 
-type TransfersFromResponse struct {
-	Data []models.TransactionHistory `json:"data"`
+type TopupResponse struct {
+	Data string `json:"data"`
 	BaseResponse
 }
 
