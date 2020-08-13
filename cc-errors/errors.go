@@ -519,6 +519,16 @@ const (
 	ErrorCounterpartMadeChoice = 60378
 
 	/**
+	 * Операция запрещена аккаунту, который не явлется 2ым участником или арбитром сделки
+	 */
+	ErrorNotValidAddressAcceptorOrArbitrator = 60379
+
+	/**
+	 * Операция запрещена аккаунту, который не явлется инициатором
+	 */
+	ErrorNotValidAddressInitiator = 60380
+
+	/**
 	 * Попытка перевода средств между юр. лицами
 	 */
 	ErrorLimitLegalEntry = 60410
