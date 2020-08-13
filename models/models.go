@@ -239,6 +239,8 @@ type CurrencyExchangeContractMutable struct {
 	CurrencyCodeBuy      int     `json:"currencyCodeBuy" validate:"omitempty,min=0"`
 	CurrencySymbolSell   string  `json:"currencySymbolSell" validate:"omitempty,min=3,max=3"`
 	CurrencySymbolBuy    string  `json:"currencySymbolBuy" validate:"omitempty,min=3,max=3"`
+	CurrencyUnitSell     string  `json:"currencyUnitSell"`
+	CurrencyUnitBuy      string  `json:"currencyUnitBuy"`
 	Price                float64 `json:"price" validate:"omitempty,gte=0.0000000001"`
 	FractionalCommission float64 `json:"fractionalCommission" validate:"omitempty,gte=0,lte=1"`
 	MaxCommission        int64   `json:"maxCommission" validate:"omitempty,min=0"`
