@@ -3,14 +3,16 @@ package deal_state_enum
 type DealState int
 
 const (
-	Undefined            DealState = 0
-	ApplicationCreated   DealState = 1
-	ApplicationPublished DealState = 2
-	ContractAwarded      DealState = 3
-	ContractTerminated   DealState = 4
-	ContractExecuted     DealState = 5
+	Undefined                     DealState = 0
+	ApplicationCreated            DealState = 1
+	ApplicationDismissByInitiator DealState = 2
+	ApplicationRejectByAcceptor   DealState = 3
+	ApplicationPublished          DealState = 4
+	ContractAwarded               DealState = 5
+	ContractTerminated            DealState = 6
+	ContractExecuted              DealState = 7
 )
 
 func (state DealState) String() string {
-	return [...]string{"Undefined", "ApplicationCreated", "ApplicationPublished", "ContractAwarded", "ContractTerminated", "ContractExecuted"}[state]
+	return [...]string{"Undefined", "ApplicationCreated", "ApplicationDismissByInitiator", "ApplicationRejectByAcceptor", "ApplicationPublished", "ContractAwarded", "ContractTerminated", "ContractExecuted"}[state]
 }
