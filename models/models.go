@@ -384,7 +384,7 @@ type Deal struct {
 
 type ArbitratorTerms struct {
 	AmountCommission int64    `json:"amountCommission" validate:"required,min=0"`
-	CurrencyCode     int64    `json:"currencyCode" validate:"required,min=0"`
+	CurrencyCode     int      `json:"currencyCode" validate:"required,min=0"`
 	DepositIds       []string `json:"depositIds"`
 }
 
