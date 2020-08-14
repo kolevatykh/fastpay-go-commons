@@ -373,7 +373,7 @@ type Deal struct {
 	Id                            string                      `json:"id"`
 	AddressInitiator              string                      `json:"addressInitiator"`
 	AddressAcceptor               string                      `json:"addressAcceptor"`
-	IsAcceptApplicationByAcceptor string                      `json:"isAcceptApplicationByAcceptor"`
+	IsAcceptApplicationByAcceptor bool                        `json:"isAcceptApplicationByAcceptor"`
 	State                         deal_state_enum.DealState   `json:"state"`
 	AmountVotesCloseContract      int                         `json:"amountVotesCloseContract"`
 	WaitConfirmationArbitrators   []string                    `json:"waitConfirmationArbitrators"`
