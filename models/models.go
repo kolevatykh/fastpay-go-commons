@@ -370,13 +370,14 @@ type LimitsAccount struct {
 }
 
 type Deal struct {
-	Id                       string                    `json:"id"`
-	AddressInitiator         string                    `json:"addressInitiator"`
-	AddressAcceptor          string                    `json:"addressAcceptor"`
-	State                    deal_state_enum.DealState `json:"state"`
-	AmountVotesCloseContract int                       `json:"amountVotesCloseContract"`
-	CancelVotes              []string                  `json:"cancelVotes"`
-	PerformVotes             []string                  `json:"performVotes"`
+	Id                          string                    `json:"id"`
+	AddressInitiator            string                    `json:"addressInitiator"`
+	AddressAcceptor             string                    `json:"addressAcceptor"`
+	WaitConfirmationArbitrators []string                  `json:"waitConfirmationArbitrators"`
+	State                       deal_state_enum.DealState `json:"state"`
+	AmountVotesCloseContract    int                       `json:"amountVotesCloseContract"`
+	CancelVotes                 []string                  `json:"cancelVotes"`
+	PerformVotes                []string                  `json:"performVotes"`
 }
 
 type SafeDealEvent struct {
