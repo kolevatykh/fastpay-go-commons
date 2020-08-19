@@ -2,7 +2,6 @@ package validation
 
 import (
 	"github.com/asaskevich/govalidator"
-	"math"
 	"regexp"
 )
 
@@ -27,35 +26,6 @@ func init() {
 	govalidator.TagMap["validHex40or64"] = govalidator.Validator(func(str string) bool {
 		return hex40or64Regex.MatchString(str)
 	})
-
-	govalidator.ParamTagMap["min"] = govalidator.ParamValidator(func(str string, params ...string) bool {
-		if len(params) == 1 {
-			return govalidator.InRange(str, params[0], math.MaxInt64)
-		}
-		return false
-	})
-
-	govalidator.ParamTagMap["max"] = govalidator.ParamValidator(func(str string, params ...string) bool {
-		if len(params) == 1 {
-			return govalidator.InRange(str, math.MinInt64, params[0])
-		}
-		return false
-	})
-
-	govalidator.ParamTagMap["gte"] = govalidator.ParamValidator(func(str string, params ...string) bool {
-		if len(params) == 1 {
-			return govalidator.InRange(str, params[0], math.MaxInt64)
-		}
-		return false
-	})
-
-	govalidator.ParamTagMap["lte"] = govalidator.ParamValidator(func(str string, params ...string) bool {
-		if len(params) == 1 {
-			return govalidator.InRange(str, math.MinInt64, params[0])
-		}
-		return false
-	})
-
 }
 
 func ValidateStruct(s interface{}) (bool, error) {

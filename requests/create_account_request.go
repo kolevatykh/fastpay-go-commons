@@ -10,7 +10,7 @@ import (
 type CreateAccountRequest struct {
 	Address       string                            `json:"address" valid:"required~60302,validHex40~60301"`
 	State         state_enum.State                  `json:"state~60306"`
-	CurrencyCode  int                               `json:"currencyCode" valid:"required~60318,gte(0),lte(999)"`
+	CurrencyCode  int                               `json:"currencyCode" valid:"required~60318,range(0|999)"`
 	JuridicalType juridical_type_enum.JuridicalType `json:"juridicalType"`
 	IdentityType  identity_type_enum.IdentityType   `json:"identityType"`
 	Type          account_type_enum.AccountType     `json:"type"`
