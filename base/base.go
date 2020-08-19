@@ -319,7 +319,7 @@ func CheckArgs(args string, request interface{}) error {
 		return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error())) // TODO
 	}
 
-	err = validation.Validate.Struct(request)
+	_, err = validation.ValidateStruct(request)
 	if err != nil {
 
 		code, parseError := strconv.Atoi(err.Error())
