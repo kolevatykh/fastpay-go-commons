@@ -9,7 +9,7 @@ type ContractCreateRequest struct {
 	CurrencyCodeBuy      int     `json:"currencyCodeBuy" valid:"required~60318,range(0|999)~60317"`
 	CurrencySymbolSell   string  `json:"currencySymbolSell" valid:"required~60337,stringlength(3|3)"`
 	CurrencySymbolBuy    string  `json:"currencySymbolBuy" valid:"required~60337,stringlength(3|3)"`
-	Price                float64 `json:"price" valid:"required~60313,range(0.0000000001|9223372036854775807)"`
+	Price                float64 `json:"price" valid:"required~60313,range(0|9223372036854775807)"`
 	FractionalCommission float64 `json:"fractionalCommission" valid:"range(0|1)"`
 	MaxCommission        int64   `json:"maxCommission" valid:"range(0|9223372036854775807)"`
 	MinAmount            int64   `json:"minAmount" valid:"range(0|9223372036854775807)~60312"`
