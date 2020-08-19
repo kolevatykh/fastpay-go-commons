@@ -13,7 +13,7 @@ type ContractCreateRequest struct {
 	FractionalCommission float64 `json:"fractionalCommission" valid:"range(0|1)"`
 	MaxCommission        int64   `json:"maxCommission" valid:"range(0|9223372036854775807)"`
 	MinAmount            int64   `json:"minAmount" valid:"range(0|9223372036854775807)~60312"`
-	MaxAmount            int64   `json:"maxAmount" valid:"required,range(0|9223372036854775807)~60312"`
+	MaxAmount            int64   `json:"maxAmount" valid:"required~60313,range(0|9223372036854775807)~60312"`
 	StartDate            int64   `json:"startDate" valid:"required~60332,range(0|9223372036854775807)~60333"`
 	EndDate              int64   `json:"endDate" valid:"required~60332,range(0|9223372036854775807)~60333"`
 }

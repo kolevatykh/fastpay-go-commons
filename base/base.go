@@ -321,7 +321,13 @@ func CheckArgs(args string, request interface{}) error {
 
 	err = validation.Validate.Struct(request)
 	if err != nil {
-		return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error())) // TODO
+
+		code, parseError := strconv.Atoi(err.Error())
+		if parseError == nil {
+			return CreateError(code, cc_errors.ErrorMessages[code])
+		}
+
+		return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error()))
 	}
 
 	requestInterface, ok := request.(interface{ SetDefaults() })
