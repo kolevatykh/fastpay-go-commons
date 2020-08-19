@@ -5,12 +5,12 @@ import (
 )
 
 type CreateCurrencyRequest struct {
-	Code       int                             `json:"code" validate:"required,min=0"`
-	Name       string                          `json:"name" validate:"required"`
+	Code       int                             `json:"code" valid:"required,min(0)"`
+	Name       string                          `json:"name" valid:"required"`
 	Type       currency_type_enum.CurrencyType `json:"type"`
 	Unit       string                          `json:"unit"`
-	Symbol     string                          `json:"symbol" validate:"required,min=3,max=3"`
-	Decimals   int                             `json:"decimals" validate:"required,min=0,max=8"`
+	Symbol     string                          `json:"symbol" valid:"required,min(3),max(3)"`
+	Decimals   int                             `json:"decimals" valid:"required,min(0),max(8)"`
 	Properties map[string]string               `json:"properties"`
 	Enabled    bool                            `json:"enabled"`
 }

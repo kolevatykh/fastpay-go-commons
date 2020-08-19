@@ -1,9 +1,9 @@
 package requests
 
 type PerformContractRequest struct {
-	Id      string  `json:"id" validate:"required,uuid"`
-	Address string  `json:"address" validate:"required,validHex40"`
-	MsgHash string  `json:"msgHash" validate:"required"`
-	Sig     SignDto `json:"sig" validate:"required,dive"`
-	Exp     int64   `json:"exp" validate:"required"`
+	Id      string  `json:"id" valid:"required,uuid"`
+	Address string  `json:"address" valid:"required,validHex40"`
+	MsgHash string  `json:"msgHash" valid:"required"`
+	Sig     SignDto `json:"sig" valid:"required"`
+	Exp     int64   `json:"exp" valid:"required"`
 }

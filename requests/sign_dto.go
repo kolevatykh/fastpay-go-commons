@@ -1,7 +1,7 @@
 package requests
 
 type SignDto struct {
-	R string `json:"r" validate:"omitempty,validHex64"`
-	S string `json:"s" validate:"omitempty,validHex64"`
-	V int    `json:"v" validate:"omitempty,gte=27,lte=28"`
+	R string `json:"r" valid:"validHex64~60323"`
+	S string `json:"s" valid:"validHex64~60325"`
+	V int    `json:"v" valid:"range(27|28)~60327"`
 }

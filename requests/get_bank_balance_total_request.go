@@ -1,5 +1,5 @@
 package requests
 
 type GetBankBalanceTotalRequest struct {
-	CurrencyCode int `json:"currencyCode" validate:"required,min=0"`
+	CurrencyCode int `json:"currencyCode" valid:"required,min(0)"`
 }

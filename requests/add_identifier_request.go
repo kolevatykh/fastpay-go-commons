@@ -1,8 +1,8 @@
 package requests
 
 type AddIdentifierRequest struct {
-	Address    string  `json:"address" validate:"required,validHex40"`
-	Identifier string  `json:"identifier" validate:"required,validHex64"`
-	MsgHash    string  `json:"msgHash" validate:"required"`
-	Sig        SignDto `json:"sig" validate:"required,dive"`
+	Address    string  `json:"address" valid:"required~60302,validHex40~60303"`
+	Identifier string  `json:"identifier" valid:"required~60304,validHex64"`
+	MsgHash    string  `json:"msgHash" valid:"required"`
+	Sig        SignDto `json:"sig" valid:"required"`
 }

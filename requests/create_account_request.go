@@ -8,16 +8,16 @@ import (
 )
 
 type CreateAccountRequest struct {
-	Address       string                            `json:"address" validate:"required,validHex40"`
-	State         state_enum.State                  `json:"state"`
-	CurrencyCode  int                               `json:"currencyCode" validate:"required,gte=0,lte=999"`
+	Address       string                            `json:"address" valid:"required~60302,validHex40~60301"`
+	State         state_enum.State                  `json:"state~60306"`
+	CurrencyCode  int                               `json:"currencyCode" valid:"required~60318,gte(0),lte(999)"`
 	JuridicalType juridical_type_enum.JuridicalType `json:"juridicalType"`
 	IdentityType  identity_type_enum.IdentityType   `json:"identityType"`
 	Type          account_type_enum.AccountType     `json:"type"`
-	Identifiers   []string                          `json:"identifiers" validate:"dive,validHex64"`
+	Identifiers   []string                          `json:"identifiers" valid:"validHex64~60303"`
 	PublicKey     string                            `json:"publicKey"`
-	MsgHash       string                            `json:"msgHash" validate:"required"`
-	Sig           SignDto                           `json:"sig" validate:"required,dive"`
+	MsgHash       string                            `json:"msgHash" valid:"required"`
+	Sig           SignDto                           `json:"sig" valid:"required"`
 }
 
 func (createAccount *CreateAccountRequest) SetDefaults() {

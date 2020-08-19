@@ -1,5 +1,5 @@
 package requests
 
 type GetByAddressRequest struct {
-	Address string `json:"address" validate:"required,validHex40"`
+	Address string `json:"address" valid:"required,validHex40"`
 }
