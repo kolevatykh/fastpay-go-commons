@@ -1,5 +1,5 @@
 package requests
 
 type AddRegulatorRequest struct {
-	Address string `json:"address" valid:"required~60302,validHex40~60303"`
+	Address string `json:"address" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
 }

@@ -1,9 +1,9 @@
 package requests
 
 type InvoicePaymentRequest struct {
-	Number       string `json:"number" valid:"required~60352,maxstringlength(255)~60353"`
-	Recipient    string `json:"recipient" valid:"required~60302,validHex40~60301"`
-	Payer        string `json:"payer" valid:"required~60302,validHex40~60301"`
-	CurrencyCode int    `json:"currencyCode" valid:"required~60318,range(0|999)~60317"`
-	Amount       int64  `json:"amount" valid:"required~60313,range(1|9223372036854775807)~60312"`
+	Number       string `json:"number" valid:"required~ErrorNumberNotPassed,maxstringlength(255)~ErrorNumberInvoiceNotFolowingRegex"`
+	Recipient    string `json:"recipient" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	Payer        string `json:"payer" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	CurrencyCode int    `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
+	Amount       int64  `json:"amount" valid:"required~ErrorAmountNotPassed,range(1|9223372036854775807)~ErrorAmountNegative"`
 }

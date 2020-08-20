@@ -591,17 +591,16 @@ func DeleteExpirationSign(stub shim.ChaincodeStubInterface) error {
 
 // Обработка ошибки при валидации запроса
 func processValidationError(err error) error {
-	var code int
-	var parseError error
+	var errorData cc_errors.Error
 
 	if strings.Contains(err.Error(), ";") {
-		code, parseError = strconv.Atoi(strings.Split(err.Error(), ";")[0])
+		errorData = cc_errors.ErrorMessages[strings.Split(err.Error(), ";")[0]]
 	} else {
-		code, parseError = strconv.Atoi(err.Error())
+		errorData = cc_errors.ErrorMessages[err.Error()]
 	}
 
-	if parseError == nil {
-		return CreateError(code, cc_errors.ErrorMessages[code])
+	if errorData.Code != 0 {
+		return CreateError(errorData.Code, errorData.Message)
 	}
 
 	return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error()))

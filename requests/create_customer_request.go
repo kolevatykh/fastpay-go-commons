@@ -1,6 +1,6 @@
 package requests
 
 type CreateCustomerRequest struct {
-	Identifier          string `json:"identifier" valid:"required~60304,validHex64~60367"`
+	Identifier          string `json:"identifier" valid:"required~ErrorIdentifierNotPassed,validHex64~ErrorIdentifierNotFolowingRegex"`
 	CustomerDisplayName string `json:"customerDisplayName"`
 }

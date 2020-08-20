@@ -3,7 +3,7 @@ package requests
 import "github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 
 type CreateBankRequest struct {
-	Address string           `json:"address" valid:"required~60302,validHex40~60301"`
+	Address string           `json:"address" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
 	State   state_enum.State `json:"state"`
 	Name    string           `json:"name" valid:"required"`
 	BIK     string           `json:"bik" valid:"required"`

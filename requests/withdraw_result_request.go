@@ -1,6 +1,6 @@
 package requests
 
 type WithdrawResultRequest struct {
-	AddressFrom string `json:"addressFrom" valid:"required~60302,validHex40~60301"`
-	TxId        string `json:"txId" valid:"required~60331"`
+	AddressFrom string `json:"addressFrom" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	TxId        string `json:"txId" valid:"required~ErrorTxIdSNotPassed"`
 }

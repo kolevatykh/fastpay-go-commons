@@ -1,5 +1,5 @@
 package requests
 
 type GetListByPayerRequest struct {
-	Payer string `json:"payer" valid:"required~60302,validHex40~60301"`
+	Payer string `json:"payer" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
 }
