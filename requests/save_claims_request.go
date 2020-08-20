@@ -3,6 +3,6 @@ package requests
 import "github.com/SolarLabRU/fastpay-go-commons/models"
 
 type SaveClaimsRequest struct {
-	Claims       []models.ClaimsItem `json:"claims" validate:"required,dive"`
-	CurrencyCode int                 `json:"currencyCode" validate:"required,gte=0,lte=999"`
+	Claims       []models.ClaimsItem `json:"claims" valid:"required"`
+	CurrencyCode int                 `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
 }

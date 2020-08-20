@@ -3,10 +3,10 @@ package requests
 import "github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
 
 type UpdateInvoiceRequest struct {
-	Number       string                          `json:"number" validate:"required,lte=255"`
-	Recipient    string                          `json:"recipient" validate:"required,validHex40"`
-	Payer        string                          `json:"payer" validate:"required,validHex40"`
-	State        invoice_state_enum.InvoiceState `json:"state" validate:"required"`
-	CurrencyCode int                             `json:"currencyCode" validate:"required,gte=0,lte=999"`
+	Number       string                          `json:"number" valid:"required~ErrorNumberNotPassed,maxstringlength(255)~ErrorNumberInvoiceNotFolowingRegex"`
+	Recipient    string                          `json:"recipient" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	Payer        string                          `json:"payer" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	State        invoice_state_enum.InvoiceState `json:"state" valid:"required~ErrorInvoiceStateNotPassed"`
+	CurrencyCode int                             `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
 	ErrorCode    int                             `json:"errorCode"`
 }

@@ -1,9 +1,9 @@
 package requests
 
 type PublishApplicationRequest struct {
-	Id               string  `json:"id" validate:"required,uuid"`
-	AddressInitiator string  `json:"addressInitiator" validate:"required,validHex40"`
-	Exp              int64   `json:"exp" validate:"required"`
-	MsgHash          string  `json:"msgHash" validate:"required"`
-	Sig              SignDto `json:"sig" validate:"required,dive"`
+	Id               string  `json:"id" valid:"required,uuid"`
+	AddressInitiator string  `json:"addressInitiator" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	Exp              int64   `json:"exp" valid:"required~ErrorTimestampNotPassed"`
+	MsgHash          string  `json:"msgHash" valid:"required"`
+	Sig              SignDto `json:"sig" valid:"required"`
 }

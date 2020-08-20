@@ -7,8 +7,8 @@ import (
 )
 
 type GetLimitRequest struct {
-	LimitType     limit_type_enum.LimitType         `json:"limitType" validate:"required,gte=0"`
-	IdentityType  identity_type_enum.IdentityType   `json:"identityType" validate:"required,gte=0"`
-	JuridicalType juridical_type_enum.JuridicalType `json:"juridicalType" validate:"gte=0"`
-	CurrencyCode  int                               `json:"currencyCode" validate:"required,gte=0,lte=999"`
+	LimitType     limit_type_enum.LimitType         `json:"limitType" valid:"required,range(0|9223372036854775807)"`
+	IdentityType  identity_type_enum.IdentityType   `json:"identityType" valid:"required,range(0|9223372036854775807)~ErrorIdentityTypeIncorrect"`
+	JuridicalType juridical_type_enum.JuridicalType `json:"juridicalType" valid:"range(0|9223372036854775807)~ErrorJuridicalTypeIncorrect"`
+	CurrencyCode  int                               `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
 }

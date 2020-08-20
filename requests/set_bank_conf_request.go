@@ -1,5 +1,5 @@
 package requests
 
 type SetBankConfRequest struct {
-	Conf string `json:"conf" validate:"required"`
+	Conf string `json:"conf" valid:"required"`
 }

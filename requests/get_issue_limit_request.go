@@ -1,6 +1,6 @@
 package requests
 
 type GetIssueLimitRequest struct {
-	Address      string `json:"address" validate:"required,validHex40"`
-	CurrencyCode int    `json:"currencyCode" validate:"required,gte=0,lte=999"`
+	Address      string `json:"address" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	CurrencyCode int    `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
 }

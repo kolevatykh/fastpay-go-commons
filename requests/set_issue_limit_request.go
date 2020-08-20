@@ -1,7 +1,7 @@
 package requests
 
 type SetIssueLimitRequest struct {
-	Address      string `json:"address" validate:"required,validHex40"`
-	Value        int64  `json:"value" validate:"gte=0"`
-	CurrencyCode int    `json:"currencyCode" validate:"required,gte=0,lte=999"`
+	Address      string `json:"address" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	Value        int64  `json:"value" valid:"range(0|9223372036854775807)"`
+	CurrencyCode int    `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
 }

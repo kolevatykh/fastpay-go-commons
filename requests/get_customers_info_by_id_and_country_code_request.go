@@ -1,6 +1,6 @@
 package requests
 
 type GetCustomersInfoByIdAndCountryCodeRequest struct {
-	Identifier  string `json:"identifier" validate:"required,validHex64"`
-	CountryCode string `json:"countryCode" validate:"required,min=3,max=3"`
+	Identifier  string `json:"identifier" valid:"required~ErrorIdentifierNotPassed,validHex64~ErrorIdentifierNotFolowingRegex"`
+	CountryCode string `json:"countryCode" valid:"required~ErrorCountryCodeNotPassed,stringlength(3|3)"`
 }

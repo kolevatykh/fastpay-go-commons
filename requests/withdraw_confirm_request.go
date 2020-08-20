@@ -1,10 +1,10 @@
 package requests
 
 type WithdrawConfirmRequest struct {
-	AddressFrom   string `json:"addressFrom" validate:"required,validHex40"`
-	TxId          string `json:"txId" validate:"required"`
-	CurrencyCode  int    `json:"currencyCode" validate:"required,min=0"`
-	TransactionId string `json:"transactionId" validate:"required,uuid4"`
+	AddressFrom   string `json:"addressFrom" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	TxId          string `json:"txId" valid:"required~ErrorTxIdSNotPassed"`
+	CurrencyCode  int    `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
+	TransactionId string `json:"transactionId" valid:"required~ErrorTransactionIdNotPassed,uuidv4"`
 }
 
 type WithdrawRejectRequest WithdrawConfirmRequest

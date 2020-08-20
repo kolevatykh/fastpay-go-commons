@@ -1,5 +1,5 @@
 package requests
 
 type GetSafeDealByIdRequest struct {
-	Id string `json:"id" validate:"required"`
+	Id string `json:"id" valid:"required"`
 }

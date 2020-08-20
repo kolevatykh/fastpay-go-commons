@@ -1,5 +1,5 @@
 package requests
 
 type GetAllClaimsRequest struct {
-	CurrencyCode int `json:"currencyCode" validate:"required,gte=0,lte=999"`
+	CurrencyCode int `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
 }

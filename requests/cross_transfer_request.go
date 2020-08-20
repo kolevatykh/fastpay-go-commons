@@ -5,17 +5,17 @@ import (
 )
 
 type CrossTransferRequest struct {
-	Routes             []models.CurrencyContractRoutingItem `json:"routes" validate:"required,dive"`
-	AddressFrom        string                               `json:"addressFrom" validate:"required,validHex40"`
-	To                 string                               `json:"to" validate:"omitempty,validHex40or64"`
-	Amount             int64                                `json:"amount" validate:"required"`
-	CurrencyCodeFrom   int                                  `json:"currencyCodeFrom" validate:"required,min=0"`
-	CurrencyCodeTo     int                                  `json:"currencyCodeTo" validate:"required,min=0"`
-	CustomerIdentifier string                               `json:"customerIdentifier" validate:"omitempty,validHex64"`
-	CountryCode        string                               `json:"countryCode" validate:"omitempty,min=3,max=3"`
+	Routes             []models.CurrencyContractRoutingItem `json:"routes" valid:"required"`
+	AddressFrom        string                               `json:"addressFrom" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	To                 string                               `json:"to" valid:"validHex40or64~ErrorAddressNotFollowingRegex"`
+	Amount             int64                                `json:"amount" valid:"required~ErrorAmountNotPassed"`
+	CurrencyCodeFrom   int                                  `json:"currencyCodeFrom" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
+	CurrencyCodeTo     int                                  `json:"currencyCodeTo" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
+	CustomerIdentifier string                               `json:"customerIdentifier" valid:"validHex64~ErrorIdentifierNotFolowingRegex"`
+	CountryCode        string                               `json:"countryCode" valid:"stringlength(3|3)"`
 	Payload            string                               `json:"payload"`
-	MsgHash            string                               `json:"msgHash" validate:"required"`
-	Sig                SignDto                              `json:"sig" validate:"required,dive"`
-	Exp                int64                                `json:"exp" validate:"required"`
-	TransactionId      string                               `json:"transactionId" validate:"required,uuid4"`
+	MsgHash            string                               `json:"msgHash" valid:"required"`
+	Sig                SignDto                              `json:"sig" valid:"required"`
+	Exp                int64                                `json:"exp" valid:"required~ErrorTimestampNotPassed"`
+	TransactionId      string                               `json:"transactionId" valid:"required~ErrorTransactionIdNotPassed,uuidv4"`
 }

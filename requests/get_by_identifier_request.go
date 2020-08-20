@@ -1,5 +1,5 @@
 package requests
 
 type GetByIdentifierRequest struct {
-	Identifier string `json:"identifier" validate:"required,validHex64"`
+	Identifier string `json:"identifier" valid:"required~ErrorIdentifierNotPassed,validHex64~ErrorIdentifierNotFolowingRegex"`
 }

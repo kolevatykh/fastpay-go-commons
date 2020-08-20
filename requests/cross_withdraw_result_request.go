@@ -2,5 +2,5 @@ package requests
 
 type CrossWithdrawResultRequest struct {
 	WithdrawResultRequest
-	CurrencyCode int `json:"currencyCode" validate:"required,min=0"`
+	CurrencyCode int `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
 }
