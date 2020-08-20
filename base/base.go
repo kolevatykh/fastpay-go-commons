@@ -321,13 +321,7 @@ func CheckArgs(args string, request interface{}) error {
 
 	_, err = validation.ValidateStruct(request)
 	if err != nil {
-
-		code, parseError := strconv.Atoi(err.Error())
-		if parseError == nil {
-			return CreateError(code, cc_errors.ErrorMessages[code])
-		}
-
-		return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error()))
+		return processValidationError(err)
 	}
 
 	requestInterface, ok := request.(interface{ SetDefaults() })
@@ -593,4 +587,22 @@ func DeleteExpirationSign(stub shim.ChaincodeStubInterface) error {
 	}
 
 	return nil
+}
+
+// Обработка ошибки при валидации запроса
+func processValidationError(err error) error {
+	var code int
+	var parseError error
+
+	if strings.Contains(err.Error(), ";") {
+		code, parseError = strconv.Atoi(strings.Split(err.Error(), ";")[0])
+	} else {
+		code, parseError = strconv.Atoi(err.Error())
+	}
+
+	if parseError == nil {
+		return CreateError(code, cc_errors.ErrorMessages[code])
+	}
+
+	return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error()))
 }
