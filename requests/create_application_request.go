@@ -1,11 +1,15 @@
 package requests
 
+import (
+	"github.com/SolarLabRU/fastpay-go-commons/models"
+	"github.com/SolarLabRU/fastpay-go-commons/requests"
+)
+
 type CreateApplicationRequest struct {
-	Id                       string  `json:"id" valid:"required,uuid"`
-	AddressInitiator         string  `json:"addressInitiator" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
-	AddressAcceptor          string  `json:"addressAcceptor" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
-	AmountVotesCloseContract int     `json:"amountVotesCloseContract" valid:"required,range(0|9223372036854775807)"`
-	MsgHash                  string  `json:"msgHash" valid:"required"`
-	Sig                      SignDto `json:"sig" valid:"required"`
-	Exp                      int64   `json:"exp" valid:"required~ErrorTimestampNotPassed""`
+	Id      string           `json:"id" validate:"required,uuid"`
+	Owner   string           `json:"owner" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	Terms   models.TermsDeal `json:"terms" validate:"required"`
+	MsgHash string           `json:"msgHash" validate:"required"`
+	Sig     requests.SignDto `json:"sig" validate:"required"`
+	Exp     int64            `json:"exp" valid:"required~ErrorTimestampNotPassed"`
 }

@@ -9,6 +9,8 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/member-deal-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/operation-deal-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
@@ -370,16 +372,69 @@ type LimitsAccount struct {
 }
 
 type Deal struct {
-	Id                            string                      `json:"id"`
-	AddressInitiator              string                      `json:"addressInitiator"`
-	AddressAcceptor               string                      `json:"addressAcceptor"`
-	IsAcceptApplicationByAcceptor bool                        `json:"isAcceptApplicationByAcceptor"`
-	State                         deal_state_enum.DealState   `json:"state"`
-	AmountVotesCloseContract      int                         `json:"amountVotesCloseContract"`
-	WaitConfirmationArbitrators   []string                    `json:"waitConfirmationArbitrators"`
-	CancelVotes                   []string                    `json:"cancelVotes"`
-	PerformVotes                  []string                    `json:"performVotes"`
-	ArbitratorsTerms              map[string]*ArbitratorTerms `json:"arbitratorsTerms"`
+	Id                    string                            `json:"id"`
+	Owner                 string                            `json:"owner"`
+	State                 deal_state_enum.DealState         `json:"state"`
+	Terms                 TermsDeal                         `json:"terms"`
+	Invitations           map[string]*Invitation            `json:"invitations"`
+	Participants          map[string]*Participant           `json:"participants"`
+	TermsContractConclude map[string]*TermsContractConclude `json:"termsContractConclude"`
+	NecessaryTransfers    map[string]*TransferSafeDeal      `json:"necessaryTransfers"`
+	CancelVotes           []string                          `json:"cancelVotes"`
+	PerformVotes          []string                          `json:"performVotes"`
+}
+
+type TransferSafeDeal struct {
+	AddressFrom  string           `json:"addressFrom"`
+	AddressTo    string           `json:"addressTo"`
+	CurrencyInfo CurrencyDealInfo `json:"currencyInfo"`
+	Amount       int64            `json:"amount" validate:"omitempty,min=0"`
+}
+
+type TermsContractConclude struct {
+	AddressFrom   string                               `json:"addressFrom"`
+	AddressTo     string                               `json:"addressTo"`
+	MemberTypeTo  member_deal_type_enum.MemberDealType `json:"memberTypeTo"`
+	TxIds         []string                             `json:"txIds"`
+	IsComplete    bool                                 `json:"isComplete"`
+	CurrencyInfo  CurrencyDealInfo                     `json:"currencyInfo"`
+	CurrentAmount int64                                `json:"currentAmount"`
+	NeedAmount    int64                                `json:"needAmount"`
+}
+
+type Invitation struct {
+	AddressFrom   string                               `json:"addressFrom"`
+	InviteAddress string                               `json:"inviteAddress"`
+	Created       int64                                `json:"created"`
+	IsAccept      bool                                 `json:"isAccept"`
+	MemberType    member_deal_type_enum.MemberDealType `json:"memberType"`
+}
+
+type Participant struct {
+	Address      string                               `json:"address"`
+	MemberType   member_deal_type_enum.MemberDealType `json:"memberType"`
+	Created      int64                                `json:"created"`
+	IsWasInvited bool                                 `json:"isWasInvited"`
+}
+
+type TermsDeal struct {
+	AddressInitiator       string                                     `json:"addressInitiator" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	CurrencyInfoInitiator  CurrencyDealInfo                           `json:"currencyInfoInitiator" validate:"required"`
+	AmountInitiator        int64                                      `json:"amountInitiator" validate:"range(0|9223372036854775807)"` // Сумму которую инициатор отдает
+	OperationTypeInitiator operation_deal_type_enum.OperationDealType `json:"operationTypeInitiator" validate:"required,range(0|2)"`   // В каком виде инициатор отдает указанную сумму
+	Price                  float64                                    `json:"price" validate:"required,gte=0.0000000001"`
+	MinAmount              int64                                      `json:"minAmount" validate:"range(0|9223372036854775807)~ErrorAmountNegative"`
+	MaxAmount              int64                                      `json:"maxAmount" validate:"required,range(0|9223372036854775807)~ErrorAmountNegative"`
+	AddressAcceptor        string                                     `json:"addressAcceptor" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	CurrencyInfoAcceptor   CurrencyDealInfo                           `json:"currencyInfoAcceptor" validate:"required"`
+	OperationTypeAcceptor  operation_deal_type_enum.OperationDealType `json:"operationTypeAcceptor" validate:"required,range(0|2)"`
+	AmountAcceptor         int64                                      `json:"amountAcceptor" validate:"omitempty,range(0|9223372036854775807)~ErrorAmountNegative"`
+}
+
+type CurrencyDealInfo struct {
+	Code int    `json:"code" validate:"range(0|999)~ErrorCurrencyCodeRange"`
+	Name string `json:"name" validate:"required"`
+	Unit string `json:"unit"`
 }
 
 type ArbitratorTerms struct {
@@ -390,5 +445,36 @@ type ArbitratorTerms struct {
 
 type SafeDealEvent struct {
 	BaseEvent
-	Data *Deal `json:"data"`
+	Data DealResponseData `json:"data"`
+}
+
+type SafeDealDeposit struct {
+	SafeDealId         string                   `json:"safeDealId"`
+	Deposits           []DepositDetails         `json:"deposits"`
+	CurrentBalance     []SetBalanceAccountParam `json:"currentBalance"`
+	ForCompleteBalance []SetBalanceAccountParam `json:"forCompleteBalance"`
+	AddressTo          string                   `json:"addressTo"`
+	CurrencyCode       int                      `json:"currencyCode"`
+	IsComplete         bool                     `json:"isComplete"`
+	CurrentAmount      int64                    `json:"currentAmount"`
+	NeedAmount         int64                    `json:"needAmount"`
+}
+
+type DepositDetails struct {
+	AddressFrom string `json:"addressFrom"`
+	Amount      int64  `json:"amount"`
+	TxID        string `json:"txID"`
+}
+
+type DealResponseData struct {
+	Id                    string                    `json:"id"`
+	Owner                 string                    `json:"owner"`
+	State                 deal_state_enum.DealState `json:"state"`
+	Terms                 TermsDeal                 `json:"terms"`
+	Invitations           []Invitation              `json:"invitations"`
+	Participants          []Participant             `json:"participants"`
+	TermsContractConclude []TermsContractConclude   `json:"termsContractConclude"`
+	NecessaryTransfers    []TransferSafeDeal        `json:"necessaryTransfers"`
+	CancelVotes           []string                  `json:"cancelVotes"`
+	PerformVotes          []string                  `json:"performVotes"`
 }
