@@ -141,9 +141,9 @@ type WithdrawResult struct {
 }
 
 type ClaimsItem struct {
-	CurrencyCode    int    `json:"currencyCode" validate:"required,gte=0"`
-	BankClaims      string `json:"bankClaims" validate:"required,validHex40"`
-	BankLiabilities string `json:"bankLiabilities" validate:"required,validHex40"`
+	CurrencyCode    int    `json:"currencyCode" valid:"required,range(0|999)~ErrorCurrencyCodeRange"`
+	BankClaims      string `json:"bankClaims" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	BankLiabilities string `json:"bankLiabilities" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
 	Amount          int64  `json:"amount"`
 	Unconfirmed     int64  `json:"unconfirmed"`
 }
@@ -233,23 +233,23 @@ type Customer struct {
 }
 
 type CurrencyExchangeContractMutable struct {
-	Id                   string  `json:"id" validate:"required"`
-	AddressAccountSell   string  `json:"addressAccountSell" validate:"omitempty,validHex40"`
-	AddressAccountBuy    string  `json:"addressAccountBuy" validate:"omitempty,validHex40"`
-	AddressCommission    string  `json:"addressCommission" validate:"omitempty,validHex40"`
-	CurrencyCodeSell     int     `json:"currencyCodeSell" validate:"omitempty,min=0"`
-	CurrencyCodeBuy      int     `json:"currencyCodeBuy" validate:"omitempty,min=0"`
-	CurrencySymbolSell   string  `json:"currencySymbolSell" validate:"omitempty,min=3,max=3"`
-	CurrencySymbolBuy    string  `json:"currencySymbolBuy" validate:"omitempty,min=3,max=3"`
+	Id                   string  `json:"id" valid:"required"`
+	AddressAccountSell   string  `json:"addressAccountSell" valid:"optional,validHex40~ErrorAddressNotFollowingRegex"`
+	AddressAccountBuy    string  `json:"addressAccountBuy" valid:"optional,validHex40~ErrorAddressNotFollowingRegex"`
+	AddressCommission    string  `json:"addressCommission" valid:"optional,validHex40~ErrorAddressNotFollowingRegex"`
+	CurrencyCodeSell     int     `json:"currencyCodeSell" valid:"optional,range(0|999)~ErrorCurrencyCodeRange"`
+	CurrencyCodeBuy      int     `json:"currencyCodeBuy" valid:"optional,range(0|999)~ErrorCurrencyCodeRange"`
+	CurrencySymbolSell   string  `json:"currencySymbolSell" valid:"optional,stringlength(3|3)"`
+	CurrencySymbolBuy    string  `json:"currencySymbolBuy" valid:"optional,stringlength(3|3)"`
 	CurrencyUnitSell     string  `json:"currencyUnitSell"`
 	CurrencyUnitBuy      string  `json:"currencyUnitBuy"`
-	Price                float64 `json:"price" validate:"omitempty,gte=0.0000000001"`
-	FractionalCommission float64 `json:"fractionalCommission" validate:"omitempty,gte=0,lte=1"`
-	MaxCommission        int64   `json:"maxCommission" validate:"omitempty,min=0"`
-	MinAmount            int64   `json:"minAmount" validate:"omitempty,min=0"`
-	MaxAmount            int64   `json:"maxAmount" validate:"omitempty,min=0"`
-	StartDate            int64   `json:"startDate" validate:"omitempty,min=0"`
-	EndDate              int64   `json:"endDate" validate:"omitempty,min=0"`
+	Price                float64 `json:"price" valid:"optional,range(0|9223372036854775807)"`
+	FractionalCommission float64 `json:"fractionalCommission" valid:"optional,range(0|1)"`
+	MaxCommission        int64   `json:"maxCommission" valid:"optional,range(0|9223372036854775807)"`
+	MinAmount            int64   `json:"minAmount" valid:"optional,range(0|9223372036854775807)"`
+	MaxAmount            int64   `json:"maxAmount" valid:"optional,range(0|9223372036854775807)"`
+	StartDate            int64   `json:"startDate" valid:"optional,range(0|9223372036854775807)"`
+	EndDate              int64   `json:"endDate" valid:"optional,range(0|9223372036854775807)"`
 }
 
 type CurrencyExchangeContract struct {
@@ -388,7 +388,7 @@ type TransferSafeDeal struct {
 	AddressFrom  string           `json:"addressFrom"`
 	AddressTo    string           `json:"addressTo"`
 	CurrencyInfo CurrencyDealInfo `json:"currencyInfo"`
-	Amount       int64            `json:"amount" validate:"omitempty,min=0"`
+	Amount       int64            `json:"amount" valid:"optional,range(0|9223372036854775807)"`
 }
 
 type TermsContractConclude struct {
@@ -419,28 +419,22 @@ type Participant struct {
 
 type TermsDeal struct {
 	AddressInitiator       string                                     `json:"addressInitiator" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
-	CurrencyInfoInitiator  CurrencyDealInfo                           `json:"currencyInfoInitiator" validate:"required"`
-	AmountInitiator        int64                                      `json:"amountInitiator" validate:"range(0|9223372036854775807)"` // Сумму которую инициатор отдает
-	OperationTypeInitiator operation_deal_type_enum.OperationDealType `json:"operationTypeInitiator" validate:"required,range(0|2)"`   // В каком виде инициатор отдает указанную сумму
-	Price                  float64                                    `json:"price" validate:"required,gte=0.0000000001"`
-	MinAmount              int64                                      `json:"minAmount" validate:"range(0|9223372036854775807)~ErrorAmountNegative"`
-	MaxAmount              int64                                      `json:"maxAmount" validate:"required,range(0|9223372036854775807)~ErrorAmountNegative"`
+	CurrencyInfoInitiator  CurrencyDealInfo                           `json:"currencyInfoInitiator" valid:"required"`
+	AmountInitiator        int64                                      `json:"amountInitiator" valid:"range(0|9223372036854775807)"` // Сумму которую инициатор отдает
+	OperationTypeInitiator operation_deal_type_enum.OperationDealType `json:"operationTypeInitiator" valid:"required,range(0|2)"`   // В каком виде инициатор отдает указанную сумму
+	Price                  float64                                    `json:"price" valid:"required,gte=0.0000000001"`
+	MinAmount              int64                                      `json:"minAmount" valid:"range(0|9223372036854775807)~ErrorAmountNegative"`
+	MaxAmount              int64                                      `json:"maxAmount" valid:"required,range(0|9223372036854775807)~ErrorAmountNegative"`
 	AddressAcceptor        string                                     `json:"addressAcceptor" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
-	CurrencyInfoAcceptor   CurrencyDealInfo                           `json:"currencyInfoAcceptor" validate:"required"`
-	OperationTypeAcceptor  operation_deal_type_enum.OperationDealType `json:"operationTypeAcceptor" validate:"required,range(0|2)"`
-	AmountAcceptor         int64                                      `json:"amountAcceptor" validate:"omitempty,range(0|9223372036854775807)~ErrorAmountNegative"`
+	CurrencyInfoAcceptor   CurrencyDealInfo                           `json:"currencyInfoAcceptor" valid:"required"`
+	OperationTypeAcceptor  operation_deal_type_enum.OperationDealType `json:"operationTypeAcceptor" valid:"required,range(0|2)"`
+	AmountAcceptor         int64                                      `json:"amountAcceptor" valid:"optional,range(0|9223372036854775807)~ErrorAmountNegative"`
 }
 
 type CurrencyDealInfo struct {
-	Code int    `json:"code" validate:"range(0|999)~ErrorCurrencyCodeRange"`
-	Name string `json:"name" validate:"required"`
+	Code int    `json:"code" valid:"range(0|999)~ErrorCurrencyCodeRange"`
+	Name string `json:"name" valid:"required"`
 	Unit string `json:"unit"`
-}
-
-type ArbitratorTerms struct {
-	AmountCommission int64    `json:"amountCommission" validate:"required,min=0"`
-	CurrencyCode     int      `json:"currencyCode" validate:"required,min=0"`
-	DepositIds       []string `json:"depositIds"`
 }
 
 type SafeDealEvent struct {

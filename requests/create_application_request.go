@@ -5,10 +5,10 @@ import (
 )
 
 type CreateApplicationRequest struct {
-	Id      string           `json:"id" validate:"required,uuid"`
+	Id      string           `json:"id" valid:"required,uuid"`
 	Owner   string           `json:"owner" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
-	Terms   models.TermsDeal `json:"terms" validate:"required"`
-	MsgHash string           `json:"msgHash" validate:"required"`
-	Sig     SignDto          `json:"sig" validate:"required"`
+	Terms   models.TermsDeal `json:"terms" valid:"required"`
+	MsgHash string           `json:"msgHash" valid:"required"`
+	Sig     SignDto          `json:"sig" valid:"required"`
 	Exp     int64            `json:"exp" valid:"required~ErrorTimestampNotPassed"`
 }
