@@ -425,7 +425,7 @@ type TermsDeal struct {
 	Price                  float64                                    `json:"price" valid:"required,range(0|9223372036854775807)~ErrorAmountNegative"`
 	MinAmount              int64                                      `json:"minAmount" valid:"range(0|9223372036854775807)~ErrorAmountNegative"`
 	MaxAmount              int64                                      `json:"maxAmount" valid:"required,range(0|9223372036854775807)~ErrorAmountNegative"`
-	AddressAcceptor        string                                     `json:"addressAcceptor" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
+	AddressAcceptor        string                                     `json:"addressAcceptor" valid:"validHex40~ErrorAddressNotFollowingRegex"`
 	CurrencyInfoAcceptor   CurrencyDealInfo                           `json:"currencyInfoAcceptor" valid:"required"`
 	OperationTypeAcceptor  operation_deal_type_enum.OperationDealType `json:"operationTypeAcceptor" valid:"required,range(0|2)"`
 	AmountAcceptor         int64                                      `json:"amountAcceptor" valid:"optional,range(0|9223372036854775807)~ErrorAmountNegative"`
