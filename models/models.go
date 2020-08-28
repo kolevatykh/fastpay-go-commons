@@ -7,6 +7,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-state-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/invite-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/member-deal-type-enum"
@@ -406,7 +407,7 @@ type Invitation struct {
 	AddressFrom   string                               `json:"addressFrom"`
 	InviteAddress string                               `json:"inviteAddress"`
 	Created       int64                                `json:"created"`
-	IsAccept      bool                                 `json:"isAccept"`
+	InviteStatus  invite_status_enum.InviteStatus      `json:"inviteStatus"`
 	MemberType    member_deal_type_enum.MemberDealType `json:"memberType"`
 }
 
