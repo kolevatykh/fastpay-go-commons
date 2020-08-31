@@ -12,6 +12,8 @@ var (
 	hex40Regex     = regexp.MustCompile(hex40)
 	hex40or64      = "^([a-f0-9]{40}|[a-f0-9]{64})$"
 	hex40or64Regex = regexp.MustCompile(hex40or64)
+	hex62or64      = "^([a-f0-9]{62}|[a-f0-9]{64})$"
+	hex62or64Regex = regexp.MustCompile(hex62or64)
 )
 
 func init() {
@@ -25,6 +27,10 @@ func init() {
 
 	govalidator.TagMap["validHex40or64"] = govalidator.Validator(func(str string) bool {
 		return hex40or64Regex.MatchString(str)
+	})
+
+	govalidator.TagMap["validHex62or64"] = govalidator.Validator(func(str string) bool {
+		return hex62or64Regex.MatchString(str)
 	})
 }
 
