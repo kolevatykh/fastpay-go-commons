@@ -549,6 +549,21 @@ const (
 	ErrorEnoughParticipants = 60384
 
 	/**
+	 * Некорректная сумма сделки
+	 */
+	ErrorIncorrectSafeDealAmount = 60385
+
+	/**
+	 * Депозит безопасной сделики не найден или уже был пополнен
+	 */
+	ErrorSafeDealDepositNotFound = 60386
+
+	/**
+	 * Некорректный код валюты аккаунта
+	 */
+	ErrorIncorrectCurrencyCodeAccount = 60387
+
+	/**
 	 * Попытка перевода средств между юр. лицами
 	 */
 	ErrorLimitLegalEntry = 60410
