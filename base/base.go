@@ -739,5 +739,9 @@ func GetChaincodeCurrencyCode() string {
 func GetChaincodeName() string {
 	name, currencyCode := GetChaincodeNameCurrencyCode()
 
+	if currencyCode == "" {
+		return name
+	}
+
 	return name + "_" + currencyCode
 }
