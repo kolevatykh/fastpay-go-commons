@@ -44,6 +44,7 @@ func init() {
 
 const (
 	ChaincodeBankName       = "banks"
+	ChaincodeAccountsName   = "accounts"
 	ChaincodeClientBankName = "client-banks"
 	compositeExpSignKey     = "typeExpSign~sign"
 )
@@ -90,7 +91,7 @@ func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*response
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	// address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
@@ -103,7 +104,7 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("bankId")
 
-	// address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
@@ -604,4 +605,94 @@ func processValidationError(err error) error {
 	}
 
 	return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error()))
+}
+
+// Метод получение аккаунта с использованием кеша
+func GetAccount(stub shim.ChaincodeStubInterface, addressOrIdentifier string, cache map[string]*models.Account) (*models.Account, error) {
+
+	var account *models.Account
+	var err error
+	if cache == nil {
+		if len(addressOrIdentifier) == 40 {
+			account, err = GetAccountByAddress(stub, addressOrIdentifier)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			account, err = GetAccountByIdentifier(stub, addressOrIdentifier)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		return account, nil
+	}
+
+	var isAccount bool
+	account, isAccount = cache[addressOrIdentifier]
+	if !isAccount {
+		var account *models.Account
+		var err error
+
+		if len(addressOrIdentifier) == 40 {
+			account, err = GetAccountByAddress(stub, addressOrIdentifier)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			account, err = GetAccountByIdentifier(stub, addressOrIdentifier)
+			if err != nil {
+				return nil, err
+			}
+
+			cache[account.Address] = account
+		}
+		cache[addressOrIdentifier] = account
+
+		return account, nil
+	}
+
+	return account, nil
+}
+
+// Метод получения аккаунта по его идентификатору
+func GetAccountByIdentifier(stub shim.ChaincodeStubInterface, identifier string) (*models.Account, error) {
+
+	request := requests.GetByIdentifierRequest{
+		Identifier: identifier,
+	}
+
+	response, err := InvokeChaincode(stub, ChaincodeAccountsName, "getByIdentifier", request)
+	if err != nil {
+		return nil, err
+	}
+
+	var accountResponse responses.AccountResponse
+	err = json.Unmarshal(response, &accountResponse)
+	if err != nil {
+		return nil, CreateError(cc_errors.ErrorJsonUnmarshal, fmt.Sprintf("Ошибка десериализации ответа после вызова чейнкода accounts. %s", err.Error()))
+	}
+
+	return &accountResponse.Data, nil
+}
+
+// Метод получения аккаунта по его адресу
+func GetAccountByAddress(stub shim.ChaincodeStubInterface, address string) (*models.Account, error) {
+
+	request := requests.GetByAddressRequest{
+		Address: address,
+	}
+
+	response, err := InvokeChaincode(stub, ChaincodeAccountsName, "getByAddress", request)
+	if err != nil {
+		return nil, err
+	}
+
+	var accountResponse responses.AccountResponse
+	err = json.Unmarshal(response, &accountResponse)
+	if err != nil {
+		return nil, CreateError(cc_errors.ErrorJsonUnmarshal, fmt.Sprintf("Ошибка десериализации ответа после вызова чейнкода accounts. %s", err.Error()))
+	}
+
+	return &accountResponse.Data, nil
 }
