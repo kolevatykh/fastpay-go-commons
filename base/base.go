@@ -91,7 +91,7 @@ func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*response
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	// address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
@@ -104,7 +104,7 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("bankId")
 
-	// address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
@@ -695,4 +695,49 @@ func GetAccountByAddress(stub shim.ChaincodeStubInterface, address string) (*mod
 	}
 
 	return &accountResponse.Data, nil
+}
+
+func GetChaincodeNameCurrencyCode() (string, string) {
+
+	str := os.Getenv("CORE_CHAINCODE_ID_NAME")
+
+	Logger.Info("CORE_CHAINCODE_ID_NAME: ", str)
+
+	chaincodeName := ""
+	currencyCode := ""
+
+	if len(str) == 0 {
+		return chaincodeName, currencyCode
+	}
+
+	res := strings.Split(str, "_")
+	if len(res) == 1 {
+		tempSplit := strings.Split(res[0], ":")
+		chaincodeName = tempSplit[0]
+	}
+	if len(res) == 2 {
+		chaincodeName = res[0]
+		tempSplit := strings.Split(res[1], ":")
+		if len(tempSplit[1]) != 64 {
+			currencyCode = tempSplit[0]
+		}
+	}
+	if len(res) == 3 {
+		chaincodeName = res[0]
+		currencyCode = res[1]
+	}
+
+	return chaincodeName, currencyCode
+}
+
+func GetChaincodeCurrencyCode() string {
+	_, currencyCode := GetChaincodeNameCurrencyCode()
+
+	return currencyCode
+}
+
+func GetChaincodeName() string {
+	name, currencyCode := GetChaincodeNameCurrencyCode()
+
+	return name + currencyCode
 }
