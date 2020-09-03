@@ -281,6 +281,11 @@ type AccountEvent struct {
 	Data Account `json:"data"`
 }
 
+type ArbitratorEvent struct {
+	BaseEvent
+	Data Arbitrator `json:"data"`
+}
+
 type BankEvent struct {
 	BaseEvent
 	Data Bank `json:"data"`
