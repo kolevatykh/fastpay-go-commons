@@ -568,6 +568,11 @@ const (
 	 */
 	ErrorArbitratorExist = 60388
 
+	/*
+	 * Арбитра не существует
+	 */
+	ErrorArbitratorNotExist = 60389
+
 	/**
 	 * Попытка перевода средств между юр. лицами
 	 */
