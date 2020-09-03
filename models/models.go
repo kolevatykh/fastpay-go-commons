@@ -34,6 +34,12 @@ type Account struct {
 	DocType                    string                            `json:"docType"`
 }
 
+type Arbitrator struct {
+	Address string `json:"address"`
+	Name    string `json:"name"`
+	DocType string `json:"docType"`
+}
+
 type Bank struct {
 	Address     string           `json:"address"`
 	Name        string           `json:"name"`
