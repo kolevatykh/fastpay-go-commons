@@ -20,6 +20,11 @@ type AccountListResponse struct {
 	BaseResponse
 }
 
+type ArbitratorListResponse struct {
+	Data []models.Arbitrator `json:"data"`
+	BaseResponse
+}
+
 type Metadata struct {
 	FetchedRecordsCount int32  `json:"fetchedRecordsCount"`
 	Bookmark            string `json:"bookmark"`

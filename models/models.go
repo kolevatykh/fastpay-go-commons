@@ -34,6 +34,12 @@ type Account struct {
 	DocType                    string                            `json:"docType"`
 }
 
+type Arbitrator struct {
+	Address string `json:"address"`
+	Name    string `json:"name"`
+	DocType string `json:"docType"`
+}
+
 type Bank struct {
 	Address     string           `json:"address"`
 	Name        string           `json:"name"`
@@ -273,6 +279,11 @@ type CurrencyEvent struct {
 type AccountEvent struct {
 	BaseEvent
 	Data Account `json:"data"`
+}
+
+type ArbitratorEvent struct {
+	BaseEvent
+	Data Arbitrator `json:"data"`
 }
 
 type BankEvent struct {

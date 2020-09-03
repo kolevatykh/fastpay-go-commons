@@ -563,6 +563,11 @@ const (
 	 */
 	ErrorIncorrectCurrencyCodeAccount = 60387
 
+	/*
+	 * Арбитр уже добавлен
+	 */
+	ErrorArbitratorExist = 60388
+
 	/**
 	 * Попытка перевода средств между юр. лицами
 	 */
