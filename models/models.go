@@ -6,6 +6,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-state-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-transfer-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/invite-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/invoice-state-enum"
@@ -392,8 +393,6 @@ type Deal struct {
 	Participants          map[string]*Participant           `json:"participants"`
 	TermsContractConclude map[string]*TermsContractConclude `json:"termsContractConclude"`
 	NecessaryTransfers    map[string]*TransferSafeDeal      `json:"necessaryTransfers"`
-	CancelVotes           []string                          `json:"cancelVotes"`
-	PerformVotes          []string                          `json:"performVotes"`
 }
 
 type TransferSafeDeal struct {
@@ -423,10 +422,11 @@ type Invitation struct {
 }
 
 type Participant struct {
-	Address      string                               `json:"address"`
-	MemberType   member_deal_type_enum.MemberDealType `json:"memberType"`
-	Created      int64                                `json:"created"`
-	IsWasInvited bool                                 `json:"isWasInvited"`
+	Address        string                                       `json:"address"`
+	MemberType     member_deal_type_enum.MemberDealType         `json:"memberType"`
+	Created        int64                                        `json:"created"`
+	IsWasInvited   bool                                         `json:"isWasInvited"`
+	TransferStatus deal_transfer_status_enum.DealTransferStatus `json:"transferStatus"`
 }
 
 type TermsDeal struct {
@@ -481,6 +481,4 @@ type DealResponseData struct {
 	Participants          []Participant             `json:"participants"`
 	TermsContractConclude []TermsContractConclude   `json:"termsContractConclude"`
 	NecessaryTransfers    []TransferSafeDeal        `json:"necessaryTransfers"`
-	CancelVotes           []string                  `json:"cancelVotes"`
-	PerformVotes          []string                  `json:"performVotes"`
 }
