@@ -482,6 +482,7 @@ type DepositSafeDealHistory struct {
 	Amount       int64                                           `json:"amount"`
 	Type         safe_deal_deposit_type_enum.SafeDealDepositType `json:"type"`
 	TxID         string                                          `json:"txID"`
+	Timestamp    int64                                           `json:"timestamp"`
 }
 
 type DealResponseData struct {
