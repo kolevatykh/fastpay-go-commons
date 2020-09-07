@@ -397,14 +397,6 @@ type Deal struct {
 	DepositHistory        []DepositSafeDealHistory          `json:"depositHistory"`
 }
 
-type DepositSafeDealHistory struct {
-	AddressFrom  string                                          `json:"addressFrom"`
-	AddressTo    string                                          `json:"addressTo"`
-	CurrencyInfo CurrencyDealInfo                                `json:"currencyInfo"`
-	Amount       int64                                           `json:"amount"`
-	Type         safe_deal_deposit_type_enum.SafeDealDepositType `json:"type"`
-}
-
 type TransferSafeDeal struct {
 	AddressFrom  string           `json:"addressFrom"`
 	AddressTo    string           `json:"addressTo"`
@@ -471,7 +463,7 @@ type SafeDealDeposit struct {
 	CurrentBalance     []SetBalanceAccountParam `json:"currentBalance"`
 	ForCompleteBalance []SetBalanceAccountParam `json:"forCompleteBalance"`
 	AddressTo          string                   `json:"addressTo"`
-	CurrencyCode       int                      `json:"currencyCode"`
+	CurrencyInfo       CurrencyDealInfo         `json:"currencyInfo"`
 	IsComplete         bool                     `json:"isComplete"`
 	CurrentAmount      int64                    `json:"currentAmount"`
 	NeedAmount         int64                    `json:"needAmount"`
@@ -481,6 +473,15 @@ type DepositDetails struct {
 	AddressFrom string `json:"addressFrom"`
 	Amount      int64  `json:"amount"`
 	TxID        string `json:"txID"`
+}
+
+type DepositSafeDealHistory struct {
+	AddressFrom  string                                          `json:"addressFrom"`
+	AddressTo    string                                          `json:"addressTo"`
+	CurrencyInfo CurrencyDealInfo                                `json:"currencyInfo"`
+	Amount       int64                                           `json:"amount"`
+	Type         safe_deal_deposit_type_enum.SafeDealDepositType `json:"type"`
+	TxID         string                                          `json:"txID"`
 }
 
 type DealResponseData struct {
