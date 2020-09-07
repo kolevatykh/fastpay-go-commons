@@ -492,4 +492,5 @@ type DealResponseData struct {
 	Participants          []Participant             `json:"participants"`
 	TermsContractConclude []TermsContractConclude   `json:"termsContractConclude"`
 	NecessaryTransfers    []TransferSafeDeal        `json:"necessaryTransfers"`
+	DepositHistory        []DepositSafeDealHistory  `json:"depositHistory"`
 }
