@@ -13,6 +13,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/juridical-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/member-deal-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/operation-deal-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/safe-deal-deposit-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
@@ -393,6 +394,15 @@ type Deal struct {
 	Participants          map[string]*Participant           `json:"participants"`
 	TermsContractConclude map[string]*TermsContractConclude `json:"termsContractConclude"`
 	NecessaryTransfers    map[string]*TransferSafeDeal      `json:"necessaryTransfers"`
+	DepositHistory        []DepositSafeDealHistory          `json:"depositHistory"`
+}
+
+type DepositSafeDealHistory struct {
+	AddressFrom  string                                          `json:"addressFrom"`
+	AddressTo    string                                          `json:"addressTo"`
+	CurrencyInfo CurrencyDealInfo                                `json:"currencyInfo"`
+	Amount       int64                                           `json:"amount"`
+	Type         safe_deal_deposit_type_enum.SafeDealDepositType `json:"type"`
 }
 
 type TransferSafeDeal struct {
