@@ -417,18 +417,20 @@ type TermsContractConclude struct {
 }
 
 type Invitation struct {
-	AddressFrom   string                               `json:"addressFrom"`
-	InviteAddress string                               `json:"inviteAddress"`
-	Created       int64                                `json:"created"`
-	InviteStatus  invite_status_enum.InviteStatus      `json:"inviteStatus"`
-	MemberType    member_deal_type_enum.MemberDealType `json:"memberType"`
+	AddressFrom        string                               `json:"addressFrom"`
+	InviteAddress      string                               `json:"inviteAddress"`
+	InviteCurrencyInfo CurrencyDealInfo                     `json:"inviteCurrencyInfo"`
+	Created            int64                                `json:"created"`
+	InviteStatus       invite_status_enum.InviteStatus      `json:"inviteStatus"`
+	MemberType         member_deal_type_enum.MemberDealType `json:"memberType"`
 }
 
 type Participant struct {
 	Address        string                                       `json:"address"`
+	CurrencyInfo   CurrencyDealInfo                             `json:"currencyInfo"`
 	MemberType     member_deal_type_enum.MemberDealType         `json:"memberType"`
 	Created        int64                                        `json:"created"`
-	IsWasInvited   bool                                         `json:"isWasInvited"`
+	WasInvited     bool                                         `json:"wasInvited"`
 	TransferStatus deal_transfer_status_enum.DealTransferStatus `json:"transferStatus"`
 }
 
