@@ -11,8 +11,9 @@ const (
 	ContractAwarded      DealState = 5
 	ContractTerminated   DealState = 6
 	ContractExecuted     DealState = 7
+	ContractDisputeOpen  DealState = 8
 )
 
 func (state DealState) String() string {
-	return [...]string{"Undefined", "ApplicationCreated", "ApplicationDismissed", "ApplicationRejected", "ApplicationPublished", "ContractAwarded", "ContractTerminated", "ContractExecuted"}[state]
+	return [...]string{"Undefined", "ApplicationCreated", "ApplicationDismissed", "ApplicationRejected", "ApplicationPublished", "ContractAwarded", "ContractTerminated", "ContractExecuted", "ContractDisputeOpen"}[state]
 }
