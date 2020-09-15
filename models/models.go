@@ -390,6 +390,7 @@ type Deal struct {
 	Owner                 string                            `json:"owner"`
 	State                 deal_state_enum.DealState         `json:"state"`
 	Terms                 TermsDeal                         `json:"terms"`
+	ActualTerms           TermsDeal                         `json:"actualTerms"`
 	Invitations           map[string]*Invitation            `json:"invitations"`
 	Participants          map[string]*Participant           `json:"participants"`
 	TermsContractConclude map[string]*TermsContractConclude `json:"termsContractConclude"`
@@ -492,6 +493,7 @@ type DealResponseData struct {
 	Owner                 string                    `json:"owner"`
 	State                 deal_state_enum.DealState `json:"state"`
 	Terms                 TermsDeal                 `json:"terms"`
+	ActualTerms           TermsDeal                 `json:"actualTerms"`
 	Invitations           []Invitation              `json:"invitations"`
 	Participants          []Participant             `json:"participants"`
 	TermsContractConclude []TermsContractConclude   `json:"termsContractConclude"`
