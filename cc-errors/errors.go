@@ -573,6 +573,31 @@ const (
 	 */
 	ErrorArbitratorNotExist = 60389
 
+	/*
+	 * Арбитр не может частично исполнить сделку
+	 */
+	ErrorArbitratorCannotPartialPerform = 60390
+
+	/*
+	 * В сделке не задействован физический актив
+	 */
+	ErrorPhysicalAssetNotPresent = 60391
+
+	/*
+	 * Инициатор не является владельцем физического актива
+	 */
+	ErrorInitiatorNotOwnPhysicalAsset = 60392
+
+	/*
+	 * Акцептант не является владельцем физического актива
+	 */
+	ErrorAcceptorNotOwnPhysicalAsset = 60393
+
+	/*
+	 * Внести данные об частичном исполнении сделки может только первый заявитель об исполнении сделки
+	 */
+	ErrorPartialPerformOrder = 60394
+
 	/**
 	 * Попытка перевода средств между юр. лицами
 	 */
