@@ -599,9 +599,9 @@ const (
 	ErrorPartialPerformOrder = 60394
 
 	/*
-	 * Предложение не может быть адресовано
+	 * В предложении можно указать только адрес аккаунта покупки
 	 */
-	ErrorOfferCannotBeDirect = 60395
+	ErrorOfferAccountBuyOnly = 60395
 
 	/*
 	 * Переданный контракт не является предложением
