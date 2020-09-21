@@ -634,7 +634,7 @@ const (
 	ErrorAssetAmountNotCorrespondMaxMinInterval = 60401
 
 	/*
-	 * Физический актив не может начисляться депозит
+	 * Физический актив не может начисляться на депозит
 	 */
 	ErrorPhysicalAssetDeposit = 60402
 
