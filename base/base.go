@@ -334,6 +334,20 @@ func CheckArgs(args string, request interface{}) error {
 	return nil
 }
 
+// Проверка аккаунта на соответствие валюты по его адресу
+func CheckAccountCurrencyCode(stub shim.ChaincodeStubInterface, address string, currencyCode int) error {
+	account, err := GetAccountByAddress(stub, address)
+	if err != nil {
+		return err
+	}
+
+	if account.CurrencyCode != currencyCode {
+		return CreateError(0, fmt.Sprintf("Аккаунт %s не соответствует указанной валюте", account.Address))
+	}
+
+	return nil
+}
+
 // Метод публикации события в чейнкоде
 func PublicEvent(stub shim.ChaincodeStubInterface, event interface{}, eventName string) error {
 	eventAsBytes, err := json.Marshal(event)

@@ -4,6 +4,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/account-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-payload-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-status-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-exchange-contracts-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-state-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-transfer-status-enum"
@@ -242,23 +243,24 @@ type Customer struct {
 }
 
 type CurrencyExchangeContractMutable struct {
-	Id                   string  `json:"id" valid:"required"`
-	AddressAccountSell   string  `json:"addressAccountSell" valid:"optional,validHex40~ErrorAddressNotFollowingRegex"`
-	AddressAccountBuy    string  `json:"addressAccountBuy" valid:"optional,validHex40~ErrorAddressNotFollowingRegex"`
-	AddressCommission    string  `json:"addressCommission" valid:"optional,validHex40~ErrorAddressNotFollowingRegex"`
-	CurrencyCodeSell     int     `json:"currencyCodeSell" valid:"optional,range(0|999)~ErrorCurrencyCodeRange"`
-	CurrencyCodeBuy      int     `json:"currencyCodeBuy" valid:"optional,range(0|999)~ErrorCurrencyCodeRange"`
-	CurrencySymbolSell   string  `json:"currencySymbolSell" valid:"optional,stringlength(3|3)"`
-	CurrencySymbolBuy    string  `json:"currencySymbolBuy" valid:"optional,stringlength(3|3)"`
-	CurrencyUnitSell     string  `json:"currencyUnitSell"`
-	CurrencyUnitBuy      string  `json:"currencyUnitBuy"`
-	Price                float64 `json:"price" valid:"optional,range(0|9223372036854775807)"`
-	FractionalCommission float64 `json:"fractionalCommission" valid:"optional,range(0|1)"`
-	MaxCommission        int64   `json:"maxCommission" valid:"optional,range(0|9223372036854775807)"`
-	MinAmount            int64   `json:"minAmount" valid:"optional,range(0|9223372036854775807)"`
-	MaxAmount            int64   `json:"maxAmount" valid:"optional,range(0|9223372036854775807)"`
-	StartDate            int64   `json:"startDate" valid:"optional,range(0|9223372036854775807)"`
-	EndDate              int64   `json:"endDate" valid:"optional,range(0|9223372036854775807)"`
+	Id                   string                                                              `json:"id" valid:"required"`
+	AddressAccountSell   string                                                              `json:"addressAccountSell" valid:"validHex40~ErrorAddressNotFollowingRegex"`
+	AddressAccountBuy    string                                                              `json:"addressAccountBuy" valid:"validHex40~ErrorAddressNotFollowingRegex"`
+	AddressCommission    string                                                              `json:"addressCommission" valid:"validHex40~ErrorAddressNotFollowingRegex"`
+	CurrencyCodeSell     int                                                                 `json:"currencyCodeSell" valid:"range(0|999)~ErrorCurrencyCodeRange"`
+	CurrencyCodeBuy      int                                                                 `json:"currencyCodeBuy" valid:"range(0|999)~ErrorCurrencyCodeRange"`
+	CurrencySymbolSell   string                                                              `json:"currencySymbolSell"`
+	CurrencySymbolBuy    string                                                              `json:"currencySymbolBuy"`
+	CurrencyUnitSell     string                                                              `json:"currencyUnitSell"`
+	CurrencyUnitBuy      string                                                              `json:"currencyUnitBuy"`
+	Type                 currency_exchange_contracts_type_enum.CurrencyExchangeContractsType `json:"type"`
+	Price                float64                                                             `json:"price" valid:"range(0|9223372036854775807)"`
+	FractionalCommission float64                                                             `json:"fractionalCommission" valid:"range(0|1)"`
+	MaxCommission        int64                                                               `json:"maxCommission" valid:"range(0|9223372036854775807)"`
+	MinAmount            int64                                                               `json:"minAmount" valid:"range(0|9223372036854775807)"`
+	MaxAmount            int64                                                               `json:"maxAmount" valid:"range(0|9223372036854775807)"`
+	StartDate            int64                                                               `json:"startDate" valid:"range(0|9223372036854775807)"`
+	EndDate              int64                                                               `json:"endDate" valid:"range(0|9223372036854775807)"`
 }
 
 type CurrencyExchangeContract struct {
@@ -387,6 +389,7 @@ type LimitsAccount struct {
 
 type Deal struct {
 	Id                    string                            `json:"id"`
+	OfferId               string                            `json:"offerId"`
 	Owner                 string                            `json:"owner"`
 	State                 deal_state_enum.DealState         `json:"state"`
 	Terms                 TermsDeal                         `json:"terms"`
@@ -490,6 +493,7 @@ type DepositSafeDealHistory struct {
 
 type DealResponseData struct {
 	Id                    string                    `json:"id"`
+	OfferId               string                    `json:"offerId"`
 	Owner                 string                    `json:"owner"`
 	State                 deal_state_enum.DealState `json:"state"`
 	Terms                 TermsDeal                 `json:"terms"`
