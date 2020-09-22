@@ -14,3 +14,9 @@ type GetContractPageRequest struct {
 	CurrencyCode int                                                                 `json:"currencyCode" valid:"range(0|999)~ErrorCurrencyCodeRange"`
 	Type         currency_exchange_contracts_type_enum.CurrencyExchangeContractsType `json:"type"`
 }
+
+func (getContractPage *GetContractPageRequest) SetDefaults() {
+	if getContractPage.Type == currency_exchange_contracts_type_enum.Undefined {
+		getContractPage.Type = currency_exchange_contracts_type_enum.CurrencyExchangeContract
+	}
+}
