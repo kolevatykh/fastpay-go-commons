@@ -22,3 +22,9 @@ type ContractCreateRequest struct {
 	StartDate            int64                                                               `json:"startDate" valid:"required~ErrorTimestampNotPassed,range(0|9223372036854775807)~ErrorTimestampNegative"`
 	EndDate              int64                                                               `json:"endDate" valid:"required~ErrorTimestampNotPassed,range(0|9223372036854775807)~ErrorTimestampNegative"`
 }
+
+func (createContract *ContractCreateRequest) SetDefaults() {
+	if createContract.Type == currency_exchange_contracts_type_enum.Undefined {
+		createContract.Type = currency_exchange_contracts_type_enum.CurrencyExchangeContract
+	}
+}
