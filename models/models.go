@@ -98,12 +98,11 @@ type TransactionHistoryEvent struct {
 }
 
 type ExecutedTransactionCurrencyExchangeContractItem struct {
-	From          string                                                 `json:"from"`
-	To            string                                                 `json:"to"`
-	CurrencyCode  int                                                    `json:"currencyCode"`
-	Amount        int64                                                  `json:"amount"`
-	OrdinalNumber int                                                    `json:"ordinalNumber"`
-	Payload       cross_transaction_payload_enum.CrossTransactionPayload `json:"payload"`
+	From         string                                                 `json:"from"`
+	To           string                                                 `json:"to"`
+	CurrencyCode int                                                    `json:"currencyCode"`
+	Amount       int64                                                  `json:"amount"`
+	Payload      cross_transaction_payload_enum.CrossTransactionPayload `json:"payload"`
 }
 
 type CrossTransactionHistory struct {
@@ -484,13 +483,14 @@ type DepositDetails struct {
 }
 
 type DepositSafeDealHistory struct {
-	AddressFrom  string                                          `json:"addressFrom"`
-	AddressTo    string                                          `json:"addressTo"`
-	CurrencyInfo CurrencyDealInfo                                `json:"currencyInfo"`
-	Amount       int64                                           `json:"amount"`
-	Type         safe_deal_deposit_type_enum.SafeDealDepositType `json:"type"`
-	TxID         string                                          `json:"txID"`
-	Timestamp    int64                                           `json:"timestamp"`
+	AddressFrom   string                                          `json:"addressFrom"`
+	AddressTo     string                                          `json:"addressTo"`
+	CurrencyInfo  CurrencyDealInfo                                `json:"currencyInfo"`
+	Amount        int64                                           `json:"amount"`
+	Type          safe_deal_deposit_type_enum.SafeDealDepositType `json:"type"`
+	TxID          string                                          `json:"txID"`
+	Timestamp     int64                                           `json:"timestamp"`
+	OrdinalNumber int                                             `json:"ordinalNumber"`
 }
 
 type DealResponseData struct {
