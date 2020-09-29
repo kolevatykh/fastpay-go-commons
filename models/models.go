@@ -445,7 +445,7 @@ type TermsDeal struct {
 	AmountInitiator        int64                                      `json:"amountInitiator" valid:"range(0|9223372036854775807)"` // Сумму которую инициатор отдает
 	OperationTypeInitiator operation_deal_type_enum.OperationDealType `json:"operationTypeInitiator" valid:"required,range(0|2)"`   // В каком виде инициатор отдает указанную сумму
 	Price                  float64                                    `json:"price" valid:"required,range(0|9223372036854775807)~ErrorAmountNegative"`
-	MinAmount              int64                                      `json:"minAmount" valid:"range(0|9223372036854775807)~ErrorAmountNegative"`
+	MinAmount              int64                                      `json:"minAmount" valid:"required,range(0|9223372036854775807)~ErrorAmountNegative"`
 	MaxAmount              int64                                      `json:"maxAmount" valid:"required,range(0|9223372036854775807)~ErrorAmountNegative"`
 	AddressAcceptor        string                                     `json:"addressAcceptor" valid:"validHex40~ErrorAddressNotFollowingRegex"`
 	CurrencyInfoAcceptor   CurrencyDealInfo                           `json:"currencyInfoAcceptor" valid:"required"`
