@@ -342,7 +342,7 @@ func CheckAccountCurrencyCode(stub shim.ChaincodeStubInterface, address string, 
 	}
 
 	if account.CurrencyCode != currencyCode {
-		return CreateError(0, fmt.Sprintf("Аккаунт %s не соответствует указанной валюте", account.Address))
+		return CreateError(cc_errors.ErrorIncorrectCurrencyCodeAccount, fmt.Sprintf("Аккаунт %s не соответствует указанной валюте", account.Address))
 	}
 
 	return nil
