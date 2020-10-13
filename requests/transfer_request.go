@@ -13,7 +13,7 @@ type TransferRequest struct {
 	InvoiceNumber string                                `json:"invoiceNumber" valid:"maxstringlength(255)~ErrorNumberInvoiceNotFolowingRegex"`
 	Exp           int64                                 `json:"exp"`
 	TransactionId string                                `json:"transactionId" valid:"uuidv4"`
-	TxType        transaction_type_enum.TransactionType `json:"txType" valid:"min=0,max=5"`
+	TxType        transaction_type_enum.TransactionType `json:"txType"`
 }
 
 func (transferRequest *TransferRequest) SetDefaults() {
