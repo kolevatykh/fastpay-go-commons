@@ -91,7 +91,7 @@ func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*response
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	// address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
@@ -104,7 +104,7 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("bankId")
 
-	//address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
@@ -758,4 +758,16 @@ func GetChaincodeName() string {
 	}
 
 	return name + "_" + currencyCode
+}
+
+// print the contents of the obj
+func PrettyPrint(data interface{}) {
+	var p []byte
+	//    var err := error
+	p, err := json.MarshalIndent(data, "", "\t")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("%s \n", p)
 }
