@@ -68,25 +68,6 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*models.Bank, e
 	return GetBankByRemoteContract(stub, mspId, address)
 }
 
-// Метод получения клиентского банка отправителя
-//func GetSenderClientBank(ctx contractapi.TransactionContextInterface) (*responses.ClientBankItemResponse, error) {
-//	stub := ctx.GetStub()
-//
-//	response, err := InvokeChaincodeWithEmptyParams(stub, ChaincodeClientBankName, "getOwnerClientBank")
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	var bankResponse responses.ClientBankResponse
-//	err = json.Unmarshal(response, &bankResponse)
-//
-//	if err != nil {
-//		return nil, CreateError(cc_errors.ErrorJsonUnmarshal, fmt.Sprintf("Ошибка десерилизации ответа вовремя вызова чейнкода client-banks. %s", err.Error()))
-//	}
-//
-//	return &bankResponse.Data, nil
-//}
-
 func GetClientBank(ctx contractapi.TransactionContextInterface, bankId string) (*responses.ClientBankItemResponse, error) {
 	stub := ctx.GetStub()
 
@@ -117,19 +98,6 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
-	}
-
-	return address, nil
-}
-
-// Метод получения идентификатора клиентского банка из сертификата
-func GetBankIdFromCertificate(identity cid.ClientIdentity) (string, error) {
-	address, isFound, _ := identity.GetAttributeValue("bankId")
-
-	address, isFound, _ = func() (string, bool, error) { return "clientBank1", true, nil }() // TODO Убрать
-
-	if !isFound {
-		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут bankId в сертификате")
 	}
 
 	return address, nil
@@ -221,22 +189,6 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 
 	return nil
 }
-
-//func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse) error {
-//	if senderClientBank == nil {
-//		var err error = nil
-//		senderClientBank, err = GetSenderClientBank(ctx)
-//		if err != nil {
-//			return err
-//		}
-//	}
-//
-//	if senderClientBank == nil || senderClientBank.State != state_enum.Available {
-//		return CreateError(cc_errors.ErrorClientBankNotAvailable, "Клиентский банк отправителя не доступен")
-//	}
-//
-//	return nil
-//}
 
 func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse, bankId string) error {
 	if senderClientBank == nil {

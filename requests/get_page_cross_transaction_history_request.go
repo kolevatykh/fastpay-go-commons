@@ -1,6 +1,6 @@
 package requests
 
-type GetContractPageByBankRequest struct {
+type GetPageCrossTransactionHistoryRequest struct {
+	GetPageRequest
 	BankId string `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
-	GetContractPageRequest
 }
