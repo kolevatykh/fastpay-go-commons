@@ -205,8 +205,12 @@ func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, se
 		return nil
 	}
 
-	if senderClientBank == nil || senderClientBank.State != state_enum.Available || senderClientBank.Owner == addressSender {
+	if senderClientBank == nil || senderClientBank.State != state_enum.Available {
 		return CreateError(cc_errors.ErrorClientBankNotAvailable, "Клиентский банк отправителя не доступен")
+	}
+	if senderClientBank.Owner != addressSender {
+		return CreateError(cc_errors.ErrorClientBankOwnerNotEqualSender,
+			fmt.Sprintf("Опорный банк(отправитель)(%s) не является владельцем клиентского банка(%s)", addressSender, senderClientBank.BankId))
 	}
 
 	return nil

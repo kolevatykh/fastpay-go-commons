@@ -858,6 +858,11 @@ const (
 	 * Информация о клиентском банке не найдена
 	 */
 	ErrorClientBankNotFound = 60803
+
+	/**
+	 * Опорный банк(отправитель) не является владельцем клиентского банка
+	 */
+	ErrorClientBankOwnerNotEqualSender = 60804
 )
 
 type Error struct {
