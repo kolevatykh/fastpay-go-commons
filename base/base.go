@@ -109,7 +109,6 @@ func GetClientBank(ctx contractapi.TransactionContextInterface, bankId string) (
 	return &bankResponse.Data, nil
 }
 
-
 // Метод получения адреса банка из сертификата
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
@@ -254,7 +253,7 @@ func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, se
 		return nil
 	}
 
-	if senderClientBank == nil || senderClientBank.State != state_enum.Available || senderClientBank.Owner === addressSender {
+	if senderClientBank == nil || senderClientBank.State != state_enum.Available || senderClientBank.Owner == addressSender {
 		return CreateError(cc_errors.ErrorClientBankNotAvailable, "Клиентский банк отправителя не доступен")
 	}
 
