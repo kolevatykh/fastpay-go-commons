@@ -18,4 +18,5 @@ type CrossTransferRequest struct {
 	Sig                SignDto                              `json:"sig" valid:"required"`
 	Exp                int64                                `json:"exp" valid:"required~ErrorTimestampNotPassed"`
 	TransactionId      string                               `json:"transactionId" valid:"required~ErrorTransactionIdNotPassed,uuidv4"`
+	BankId             string                               `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
 }

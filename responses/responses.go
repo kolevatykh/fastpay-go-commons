@@ -176,6 +176,7 @@ type ClientBankItemResponse struct {
 	State           state_enum.State  `json:"state"`
 	CountryCode     string            `json:"countryCode"`
 	Params          map[string]string `json:"params"`
+	Owner           string            `json:"owner"`
 }
 
 type ClientBankResponse struct {

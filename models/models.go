@@ -220,6 +220,7 @@ type ClientBank struct {
 	BankDisplayName string            `json:"bankDisplayName"`
 	State           state_enum.State  `json:"state"`
 	CountryCode     string            `json:"countryCode"`
+	Owner           string            `json:"owner"`
 	Params          map[string]string `json:"params"`
 	DocType         string            `json:"docType"`
 }
