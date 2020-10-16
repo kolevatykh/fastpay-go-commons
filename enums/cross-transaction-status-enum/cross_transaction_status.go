@@ -14,7 +14,7 @@ const (
 	Error
 )
 
-func (crossTransactionStatus CrossTransactionStatus) String() string {
+func (crossTransactionStatus CrossTransactionStatus) Str() string {
 	return [...]string{"Undefined", "Sent", "WaitWithdraw", "WithdrawToHlfSuspended", "ProgressWithdraw",
 		"WithdrawInAbsSuspended", "RejectedWithdraw", "Executed", "Error"}[crossTransactionStatus]
 }

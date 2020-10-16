@@ -8,7 +8,7 @@ const (
 	Arbitrator
 )
 
-func (memberDealType MemberDealType) String() string {
+func (memberDealType MemberDealType) Str() string {
 	return [...]string{"Undefined", "Participant", "Arbitrator"}[memberDealType]
 }
 

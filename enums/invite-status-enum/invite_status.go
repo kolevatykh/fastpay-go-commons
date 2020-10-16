@@ -9,6 +9,6 @@ const (
 	Accepted
 )
 
-func (inviteStatus InviteStatus) String() string {
+func (inviteStatus InviteStatus) Str() string {
 	return [...]string{"Undefined", "Invited", "Rejected", "Accepted"}[inviteStatus]
 }

@@ -11,6 +11,6 @@ const (
 	Any                  = Owner | Bank | Regulator | OwnerShip
 )
 
-func (role AccessRole) String() string {
+func (role AccessRole) Str() string {
 	return [...]string{"Undefined", "Owner", "Bank", "Regulator", "OwnerShip", "Any"}[role]
 }

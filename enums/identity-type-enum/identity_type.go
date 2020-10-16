@@ -9,7 +9,7 @@ const (
 	Identified
 )
 
-func (identityType IdentityType) String() string {
+func (identityType IdentityType) Str() string {
 	return [...]string{"Undefined", "None", "Simple", "Identified"}[identityType]
 }
 

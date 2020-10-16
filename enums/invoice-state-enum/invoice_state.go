@@ -12,6 +12,6 @@ const (
 	ClarificationRequested
 )
 
-func (invoiceState InvoiceState) String() string {
+func (invoiceState InvoiceState) Str() string {
 	return [...]string{"Undefined", "Created", "Billed", "Failed", "Expired", "Paid", "ClarificationRequested"}[invoiceState]
 }

@@ -9,6 +9,6 @@ const (
 	Executed
 )
 
-func (transactionStatus TransactionStatus) String() string {
+func (transactionStatus TransactionStatus) Str() string {
 	return [...]string{"Undefined", "InProgress", "Rejected", "Executed"}[transactionStatus]
 }

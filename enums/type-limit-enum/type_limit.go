@@ -7,6 +7,6 @@ const (
 	Monthly
 )
 
-func (typeLimit TypeLimit) String() string {
+func (typeLimit TypeLimit) Str() string {
 	return [...]string{"Daily", "Monthly"}[typeLimit]
 }

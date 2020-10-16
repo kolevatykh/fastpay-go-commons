@@ -9,6 +9,6 @@ const (
 	Return
 )
 
-func (safeDealDepositType SafeDealDepositType) String() string {
+func (safeDealDepositType SafeDealDepositType) Str() string {
 	return [...]string{"Undefined", "Topup", "Complete", "Return"}[safeDealDepositType]
 }

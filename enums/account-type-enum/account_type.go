@@ -9,7 +9,7 @@ const (
 	Agent
 )
 
-func (accountType AccountType) String() string {
+func (accountType AccountType) Str() string {
 	return [...]string{"Undefined", "Client", "Bank", "Agent"}[accountType]
 }
 

@@ -14,6 +14,6 @@ const (
 	ContractDisputeOpen  DealState = 8
 )
 
-func (state DealState) String() string {
+func (state DealState) Str() string {
 	return [...]string{"Undefined", "ApplicationCreated", "ApplicationDismissed", "ApplicationRejected", "ApplicationPublished", "ContractAwarded", "ContractTerminated", "ContractExecuted", "ContractDisputeOpen"}[state]
 }

@@ -8,7 +8,7 @@ const (
 	Deposit
 )
 
-func (operationDealType OperationDealType) String() string {
+func (operationDealType OperationDealType) Str() string {
 	return [...]string{"Undefined", "Transfer", "Deposit"}[operationDealType]
 }
 

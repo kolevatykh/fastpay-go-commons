@@ -8,6 +8,6 @@ const (
 	Terminated
 )
 
-func (filterContractState FilterContractState) String() string {
+func (filterContractState FilterContractState) Str() string {
 	return [...]string{"All", "Active", "Terminated"}[filterContractState]
 }

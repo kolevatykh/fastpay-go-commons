@@ -9,7 +9,7 @@ const (
 	LegalEntity
 )
 
-func (juridicalType JuridicalType) String() string {
+func (juridicalType JuridicalType) Str() string {
 	return [...]string{"Undefined", "Individual", "IndividualEntrepreneur", "LegalEntity"}[juridicalType]
 }
 

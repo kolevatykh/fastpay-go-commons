@@ -9,6 +9,6 @@ const (
 	TempBlocked
 )
 
-func (accountState State) String() string {
+func (accountState State) Str() string {
 	return [...]string{"Undefined", "Available", "Blocked", "TempBlocked"}[accountState]
 }

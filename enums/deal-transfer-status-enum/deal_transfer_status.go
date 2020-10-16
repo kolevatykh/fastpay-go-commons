@@ -9,7 +9,7 @@ const (
 	Performed
 )
 
-func (dealTransferStatus DealTransferStatus) String() string {
+func (dealTransferStatus DealTransferStatus) Str() string {
 	return [...]string{"Undefined", "Awaiting", "Canceled", "Performed"}[dealTransferStatus]
 }
 

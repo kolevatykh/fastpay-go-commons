@@ -8,7 +8,7 @@ const (
 	OfferExchangeContract
 )
 
-func (currencyExchangeContractsType CurrencyExchangeContractsType) String() string {
+func (currencyExchangeContractsType CurrencyExchangeContractsType) Str() string {
 	return [...]string{"Undefined", "CurrencyExchangeContract", "OfferExchangeContract"}[currencyExchangeContractsType]
 }
 

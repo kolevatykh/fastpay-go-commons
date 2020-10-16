@@ -8,7 +8,7 @@ const (
 	DigitalAsset
 )
 
-func (currencyType CurrencyType) String() string {
+func (currencyType CurrencyType) Str() string {
 	return [...]string{"Undefined", "DigitalCurrency", "DigitalAsset"}[currencyType]
 }
 

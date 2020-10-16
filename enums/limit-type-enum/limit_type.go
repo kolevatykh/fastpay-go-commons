@@ -10,7 +10,7 @@ const (
 	Balance
 )
 
-func (limitType LimitType) String() string {
+func (limitType LimitType) Str() string {
 	return [...]string{"Undefined", "Operation", "Daily", "Monthly", "Balance"}[limitType]
 }
 

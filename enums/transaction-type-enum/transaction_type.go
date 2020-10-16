@@ -11,6 +11,6 @@ const (
 	InstantPayment
 )
 
-func (transactionType TransactionType) String() string {
+func (transactionType TransactionType) Str() string {
 	return [...]string{"Undefined", "Topup", "Transfer", "Withdraw", "Payment", "InstantPayment"}[transactionType]
 }
