@@ -863,6 +863,11 @@ const (
 	 * Опорный банк(отправитель) не является владельцем клиентского банка
 	 */
 	ErrorClientBankOwnerNotEqualSender = 60804
+
+	/**
+	 * Некорректное значение типа лимита
+	 */
+	ErrorLimitTypeIncorrect = 60805
 )
 
 type Error struct {
@@ -952,4 +957,5 @@ var ErrorMessages = map[string]Error{
 	"ErrorCounterpartMadeChoice":               {60378, "Текущий контрагент уже проголосовал за расторжение(заключение) сделки"},
 	"ErrorNotValidAddressAcceptorOrArbitrator": {60379, "Операция запрещена аккаунту, который не явлется 2ым участником или арбитром сделки"},
 	"ErrorNotValidAddressInitiator":            {60380, "Операция запрещена аккаунту, который не явлется инициатором"},
+	"ErrorLimitTypeIncorrect":                  {60805, "Некорректное значение типа лимита"},
 }
