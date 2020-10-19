@@ -15,7 +15,6 @@ type GetContractPageRequest struct {
 	Address       string                                                              `json:"address" valid:"validHex40~ErrorAddressNotFollowingRegex"`
 	CurrencyCode  int                                                                 `json:"currencyCode" valid:"range(0|999)~ErrorCurrencyCodeRange"`
 	Type          currency_exchange_contracts_type_enum.CurrencyExchangeContractsType `json:"type"`
-	BankId        string                                                              `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
 }
 
 func (getContractPage *GetContractPageRequest) SetDefaults() {
