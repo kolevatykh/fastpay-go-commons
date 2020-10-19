@@ -21,7 +21,7 @@ type ContractCreateRequest struct {
 	MaxAmount            int64                                                               `json:"maxAmount" valid:"required~ErrorAmountNotPassed,range(0|9223372036854775807)~ErrorAmountNegative"`
 	StartDate            int64                                                               `json:"startDate" valid:"required~ErrorTimestampNotPassed,range(0|9223372036854775807)~ErrorTimestampNegative"`
 	EndDate              int64                                                               `json:"endDate" valid:"required~ErrorTimestampNotPassed,range(0|9223372036854775807)~ErrorTimestampNegative"`
-	BankId               string                                                              `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
+	BankId               string                                                              `json:"bankId"`
 }
 
 func (createContract *ContractCreateRequest) SetDefaults() {
