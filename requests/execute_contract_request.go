@@ -9,5 +9,4 @@ type ExecuteContractRequest struct {
 	Amount        int64                              `json:"amount" valid:"required~ErrorAmountNotPassed"`
 	TransactionId string                             `json:"transactionId" valid:"required~ErrorTransactionIdNotPassed,uuidv4"`
 	Payload       string                             `json:"payload"`
-	BankId        string                             `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
 }

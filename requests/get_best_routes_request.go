@@ -10,7 +10,6 @@ type GetBestRoutesRequest struct {
 	CountryCode        string                                                              `json:"countryCode" valid:"stringlength(3|3)"`
 	To                 string                                                              `json:"to" valid:"validHex40or64~ErrorAddressOrIdentifierNotFolowingRegex"`
 	Type               currency_exchange_contracts_type_enum.CurrencyExchangeContractsType `json:"type"`
-	BankId             string                                                              `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
 }
 
 func (getBestRoutes *GetBestRoutesRequest) SetDefaults() {
