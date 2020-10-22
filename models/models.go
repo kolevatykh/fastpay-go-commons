@@ -7,6 +7,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-exchange-contracts-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-state-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/type-limit-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-transfer-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/invite-status-enum"
@@ -506,4 +507,24 @@ type DealResponseData struct {
 	TermsContractConclude []TermsContractConclude   `json:"termsContractConclude"`
 	NecessaryTransfers    []TransferSafeDeal        `json:"necessaryTransfers"`
 	DepositHistory        []DepositSafeDealHistory  `json:"depositHistory"`
+}
+
+type AccountBalance struct {
+	AccountBalanceAddress     string `json:"accountBalanceAddress"`
+	AccountBalanceAddressBank string `json:"accountBalanceAddressBank"`
+	Op                        string `json:"op"`
+	Amount                    int64  `json:"amount"`
+	TxID                      string `json:"txID"`
+	DocType                   string `json:"docType"`
+}
+
+type TransferHistoryLimit struct {
+	TransferHistoryAddress   string                    `json:"transferHistoryLimitAddress"`
+	TransferHistoryLimitType type_limit_enum.TypeLimit `json:"transferHistoryLimitType"`
+	Year                     int                       `json:"year"`
+	Month                    int                       `json:"month"`
+	Day                      int                       `json:"day"`
+	Value                    int64                     `json:"value"`
+	TxID                     string                    `json:"txID"`
+	DocType                  string                    `json:"docType"`
 }
