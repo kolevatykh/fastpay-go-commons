@@ -280,7 +280,7 @@ func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function strin
 	Logger.Info("nameFunc: ", nameFunc)
 	Logger.Info("function: ", function)
 
-	if name == nameChaincode {
+	if strings.Contains(nameChaincode, name) {
 		if len(function) == 0 {
 			return true, nil
 		}
@@ -536,11 +536,9 @@ func CheckSignExpiration(stub shim.ChaincodeStubInterface, sign requests.SignDto
 }
 
 func GetExpirationSign(stub shim.ChaincodeStubInterface, sig requests.SignDto) (bool, error) {
+	signKey := fmt.Sprintf("%s_%s_%d", sig.R, sig.S, sig.V)
 
-	stringSign := fmt.Sprintf("%s_%s_%d", sig.R, sig.S, sig.V)
-	compositeKey, err := stub.CreateCompositeKey(compositeExpSignKey, []string{"exp_sign", stringSign})
-
-	expirationAsBytes, err := stub.GetState(compositeKey)
+	expirationAsBytes, err := stub.GetState(signKey)
 	if err != nil {
 		return false, CreateError(cc_errors.ErrorGetState, fmt.Sprintf("Ошибка при получении времени действия сигнатуры. %s", err.Error()))
 	}
@@ -553,13 +551,9 @@ func GetExpirationSign(stub shim.ChaincodeStubInterface, sig requests.SignDto) (
 
 func SaveExpirationSign(stub shim.ChaincodeStubInterface, sig requests.SignDto, expiration int64) error {
 
-	stringSign := fmt.Sprintf("%s_%s_%d", sig.R, sig.S, sig.V)
-	compositeKey, err := stub.CreateCompositeKey(compositeExpSignKey, []string{"exp_sign", stringSign})
-	if err != nil {
-		return CreateError(cc_errors.ErrorCreateCompositeKey, fmt.Sprintf("Ошибка создания композитного ключа: %s", err.Error()))
-	}
+	signKey := fmt.Sprintf("%s_%s_%d", sig.R, sig.S, sig.V)
 
-	err = stub.PutState(compositeKey, []byte(strconv.FormatInt(expiration, 10)))
+	err := stub.PutState(signKey, []byte(strconv.FormatInt(expiration, 10)))
 	if err != nil {
 		return CreateError(cc_errors.ErrorPutState, fmt.Sprintf("Ошибка даты окончания действия подписи. %s.", err.Error()))
 	}
