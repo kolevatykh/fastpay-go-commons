@@ -7,7 +7,6 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-exchange-contracts-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/currency-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-state-enum"
-	"github.com/SolarLabRU/fastpay-go-commons/enums/type-limit-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/deal-transfer-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/identity-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/invite-status-enum"
@@ -19,6 +18,7 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
+	"github.com/SolarLabRU/fastpay-go-commons/enums/type-limit-enum"
 	"sort"
 )
 
@@ -114,6 +114,7 @@ type CrossTransactionHistory struct {
 	Amount               int64                                                `json:"amount"`
 	Payload              string                                               `json:"payload"`
 	To                   string                                               `json:"to"`
+	EncryptedSecretKeys  []AccountSecretKey                                   `json:"encryptedSecretKeys"`
 	CurrencyCodeFrom     int                                                  `json:"currencyCodeFrom"`
 	CurrencyCodeTo       int                                                  `json:"currencyCodeTo"`
 	CustomerIdentifier   string                                               `json:"customerIdentifier"`
@@ -527,4 +528,9 @@ type TransferHistoryLimit struct {
 	Value                    int64                     `json:"value"`
 	TxID                     string                    `json:"txID"`
 	DocType                  string                    `json:"docType"`
+}
+
+type AccountSecretKey struct {
+	AddressFrom        string `json:"addressFrom"`
+	EncryptedSecretKey string `json:"encryptedSecretKey"`
 }
