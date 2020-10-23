@@ -21,3 +21,9 @@ type CrossTransferRequest struct {
 	TransactionId       string                               `json:"transactionId" valid:"required~ErrorTransactionIdNotPassed,uuidv4"`
 	BankId              string                               `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
 }
+
+func (crossTransferRequest *CrossTransferRequest) SetDefaults() {
+	if crossTransferRequest.EncryptedSecretKeys == nil {
+		crossTransferRequest.EncryptedSecretKeys = []models.AccountSecretKey{}
+	}
+}
