@@ -868,6 +868,11 @@ const (
 	 * Некорректное значение типа лимита
 	 */
 	ErrorLimitTypeIncorrect = 60805
+
+	/**
+	 * Адрес банка отправителя не совпадает с адресом технического аккаунта
+	 */
+	ErrorAccountTechnicalNotEqlSender = 60806
 )
 
 type Error struct {

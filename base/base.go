@@ -216,6 +216,29 @@ func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, se
 	return nil
 }
 
+func CheckTechnicalAccountSign(ctx contractapi.TransactionContextInterface, technicalSignRequest requests.TechnicalSignRequest, bankSender *models.Bank) error {
+	if bankSender == nil {
+		var err error = nil
+		bankSender, err = GetSenderBank(ctx)
+		if err != nil {
+			return err
+		}
+	}
+
+	err := CheckSign(technicalSignRequest.TechnicalAddress, technicalSignRequest.TechnicalMsgHash, technicalSignRequest.TechnicalSig)
+	if err != nil {
+		return err
+	}
+
+	// TODO Убрать проверку если в сертификате не будет указыватся адрес банка отправителя
+	if bankSender.Address != technicalSignRequest.TechnicalAddress {
+		return CreateError(cc_errors.ErrorAccountTechnicalNotEqlSender,
+			"Адрес банка отправителя не совпадает с адресом технического аккаунта")
+	}
+
+	return nil
+}
+
 // Метод проверки доступа к методу чейнкода
 func CheckAccess(ctx contractapi.TransactionContextInterface, role access_role_enum.AccessRole, addressOwnerShip string, checkAvailable bool) error {
 	return CheckAccessWithBank(ctx, nil, role, addressOwnerShip, checkAvailable)
