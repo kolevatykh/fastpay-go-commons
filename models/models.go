@@ -18,7 +18,6 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
-	"github.com/SolarLabRU/fastpay-go-commons/enums/type-limit-enum"
 	"sort"
 )
 
@@ -520,17 +519,15 @@ type AccountBalance struct {
 }
 
 type TransferHistoryLimit struct {
-	TransferHistoryAddress   string                    `json:"transferHistoryLimitAddress"`
-	TransferHistoryLimitType type_limit_enum.TypeLimit `json:"transferHistoryLimitType"`
-	Year                     int                       `json:"year"`
-	Month                    int                       `json:"month"`
-	Day                      int                       `json:"day"`
-	Value                    int64                     `json:"value"`
-	TxID                     string                    `json:"txID"`
-	DocType                  string                    `json:"docType"`
+	TransferHistoryAddress string `json:"transferHistoryLimitAddress"`
+	YearMonth              int    `json:"yearMonth"`
+	Day                    int    `json:"day"`
+	Value                  int64  `json:"value"`
+	TxID                   string `json:"txID"`
+	DocType                string `json:"docType"`
 }
 
 type AccountSecretKey struct {
-	AddressFrom        string `json:"addressFrom"`
+	AddressTo          string `json:"addressTo"`
 	EncryptedSecretKey string `json:"encryptedSecretKey"`
 }
