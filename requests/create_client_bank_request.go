@@ -1,6 +1,7 @@
 package requests
 
 type CreateClientBankRequest struct {
+	TechnicalSignRequest
 	BankId          string            `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
 	BankDisplayName string            `json:"bankDisplayName" valid:"required~ErrorBankDisplayNameNotPassed"`
 	CountryCode     string            `json:"countryCode"`
