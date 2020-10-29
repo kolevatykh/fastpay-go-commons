@@ -16,8 +16,8 @@ type CreateAccountRequest struct {
 	Type          account_type_enum.AccountType     `json:"type"`
 	Identifiers   []string                          `json:"identifiers" valid:"validHex64~ErrorIdentifierNotFolowingRegex"`
 	PublicKey     string                            `json:"publicKey"`
-	MsgHash       string                            `json:"msgHash" valid:"required"`
-	Sig           SignDto                           `json:"sig" valid:"required"`
+	MsgHash       string                            `json:"msgHash"`
+	Sig           SignDto                           `json:"sig"`
 }
 
 func (createAccount *CreateAccountRequest) SetDefaults() {

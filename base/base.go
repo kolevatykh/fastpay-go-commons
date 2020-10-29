@@ -498,6 +498,10 @@ func parseErrorFromAnotherChaincode(message string) error {
 
 // Метод проверки сигнатуры
 func CheckSign(address, msgHash string, sign requests.SignDto) error {
+	if msgHash == "" || sign.R == "" || sign.S == "" || sign.V == 0 {
+		return CreateError(cc_errors.ErrorValidateDefault, "Сигнатура не передана")
+	}
+
 	isSigned, err := crypto.IsSigned(address, msgHash, sign.R, sign.S, sign.V)
 
 	if err != nil {
@@ -516,10 +520,6 @@ func CheckSignAndExpiration(stub shim.ChaincodeStubInterface, address, msgHash s
 
 	if expiration == 0 {
 		return CreateError(cc_errors.ErrorValidateDefault, "Поле Exp не передано")
-	}
-
-	if msgHash == "" || sign.R == "" || sign.S == "" || sign.V == 0 {
-		return CreateError(cc_errors.ErrorValidateDefault, "Сигнатура не передана")
 	}
 
 	err := CheckSign(address, msgHash, sign)

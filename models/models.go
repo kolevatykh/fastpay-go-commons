@@ -414,6 +414,7 @@ type TransferSafeDeal struct {
 type TermsContractConclude struct {
 	AddressFrom      string                               `json:"addressFrom"`
 	AddressTo        string                               `json:"addressTo"`
+	EscrowAddress    string                               `json:"escrowAddress"`
 	MemberTypeTo     member_deal_type_enum.MemberDealType `json:"memberTypeTo"`
 	TxIds            []string                             `json:"txIds"`
 	IsComplete       bool                                 `json:"isComplete"`
