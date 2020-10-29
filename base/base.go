@@ -373,12 +373,22 @@ func CheckAccountCurrencyCode(stub shim.ChaincodeStubInterface, address string, 
 
 // Метод публикации события в чейнкоде
 func PublicEvent(stub shim.ChaincodeStubInterface, event interface{}, eventName string) error {
-	eventAsBytes, err := json.Marshal(event)
+	return PublicEvents(stub, models.EventBatch{
+		Events: []models.EventBatchItem{{
+			EventName: eventName,
+			Data:      event,
+		}},
+	}, eventName)
+}
+
+// Метод публикации массива событий в чейнкоде
+func PublicEvents(stub shim.ChaincodeStubInterface, events interface{}, eventName string) error {
+	eventsAsBytes, err := json.Marshal(events)
 	if err != nil {
-		return CreateError(cc_errors.ErrorJsonMarshal, fmt.Sprintf("Ошибка при сериализации события. %s", err.Error()))
+		return CreateError(cc_errors.ErrorJsonMarshal, fmt.Sprintf("Ошибка при сериализации событий. %s", err.Error()))
 	}
 
-	err = stub.SetEvent(eventName, eventAsBytes)
+	err = stub.SetEvent(eventName, eventsAsBytes)
 	if err != nil {
 		return err
 	}
