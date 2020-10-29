@@ -7,12 +7,13 @@ const (
 	Client
 	Bank
 	Agent
+	Escrow
 )
 
 func (accountType AccountType) Str() string {
-	return [...]string{"Undefined", "Client", "Bank", "Agent"}[accountType]
+	return [...]string{"Undefined", "Client", "Bank", "Agent", "Escrow"}[accountType]
 }
 
 func GetAccountTypes() []AccountType {
-	return []AccountType{Undefined, Client, Bank, Agent}
+	return []AccountType{Undefined, Client, Bank, Agent, Escrow}
 }
