@@ -274,14 +274,52 @@ type CurrencyExchangeContract struct {
 }
 
 type BaseEvent struct {
-	ChaincodeName string          `json:"chaincodeName"`
-	FunctionName  string          `json:"functionName"`
-	Events        []BaseEventItem `json:"events"`
+	ChaincodeName string `json:"chaincodeName"`
+	FunctionName  string `json:"functionName"`
 }
 
-type BaseEventItem struct {
+type EventBatch struct {
+	Events []EventBatchItem `json:"events"`
+}
+
+type EventBatchItem struct {
 	EventName string      `json:"eventName"`
 	Data      interface{} `json:"data"`
+}
+
+type CurrencyEvent struct {
+	BaseEvent
+	Data Currency `json:"data"`
+}
+
+type AccountEvent struct {
+	BaseEvent
+	Data Account `json:"data"`
+}
+
+type ArbitratorEvent struct {
+	BaseEvent
+	Data Arbitrator `json:"data"`
+}
+
+type BankEvent struct {
+	BaseEvent
+	Data Bank `json:"data"`
+}
+
+type AvailablePlatformsEvent struct {
+	BaseEvent
+	Data string `json:"data"`
+}
+
+type TransactionEvent struct {
+	BaseEvent
+	Data []TransactionHistory `json:"data"`
+}
+
+type CrossTransactionEvent struct {
+	BaseEvent
+	Data CrossTransactionHistory `json:"data"`
 }
 
 type ClaimsItemResponse struct {
@@ -301,6 +339,31 @@ type ClearingData struct {
 	Netting     []AmountOfBank       `json:"netting"`
 	Procedure   []ClaimsItemResponse `json:"procedure"`
 	Created     int64                `json:"created"`
+}
+
+type ClearingEvent struct {
+	BaseEvent
+	Data ClearingData `json:"data"`
+}
+
+type ClaimsEvent struct {
+	BaseEvent
+	Data []ClaimsItem `json:"data"`
+}
+
+type ClientBankEvent struct {
+	BaseEvent
+	Data ClientBank `json:"data"`
+}
+
+type CustomerEvent struct {
+	BaseEvent
+	Data Customer `json:"data"`
+}
+
+type ContractEvent struct {
+	BaseEvent
+	Data CurrencyExchangeContract `json:"data"`
 }
 
 type SetBalanceAccountParam struct {
@@ -324,6 +387,11 @@ type Invoice struct {
 	ErrorCode    int                             `json:"errorCode"`
 	Owner        string                          `json:"owner"`
 	DocType      string                          `json:"docType"`
+}
+
+type InvoiceEvent struct {
+	BaseEvent
+	Data Invoice `json:"data"`
 }
 
 type LimitsAccount struct {
@@ -401,6 +469,11 @@ type CurrencyDealInfo struct {
 	Code int    `json:"code" valid:"range(0|999)~ErrorCurrencyCodeRange"`
 	Name string `json:"name" valid:"required"`
 	Unit string `json:"unit"`
+}
+
+type SafeDealEvent struct {
+	BaseEvent
+	Data DealResponseData `json:"data"`
 }
 
 type SafeDealDeposit struct {
