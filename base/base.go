@@ -47,6 +47,7 @@ const (
 	ChaincodeAccountsName   = "accounts"
 	ChaincodeClientBankName = "client-banks"
 	compositeExpSignKey     = "typeExpSign~sign"
+	EventBatchName          = "EventBatch"
 )
 
 // Метод получения банка отправителя
@@ -378,17 +379,17 @@ func PublicEvent(stub shim.ChaincodeStubInterface, event interface{}, eventName 
 			EventName: eventName,
 			Data:      event,
 		}},
-	}, eventName)
+	})
 }
 
 // Метод публикации массива событий в чейнкоде
-func PublicEvents(stub shim.ChaincodeStubInterface, events interface{}, eventName string) error {
+func PublicEvents(stub shim.ChaincodeStubInterface, events interface{}) error {
 	eventsAsBytes, err := json.Marshal(events)
 	if err != nil {
 		return CreateError(cc_errors.ErrorJsonMarshal, fmt.Sprintf("Ошибка при сериализации событий. %s", err.Error()))
 	}
 
-	err = stub.SetEvent(eventName, eventsAsBytes)
+	err = stub.SetEvent(EventBatchName, eventsAsBytes)
 	if err != nil {
 		return err
 	}
