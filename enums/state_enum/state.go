@@ -7,8 +7,9 @@ const (
 	Available
 	Blocked
 	TempBlocked
+	Deleted
 )
 
 func (accountState State) Str() string {
-	return [...]string{"Undefined", "Available", "Blocked", "TempBlocked"}[accountState]
+	return [...]string{"Undefined", "Available", "Blocked", "TempBlocked", "Deleted"}[accountState]
 }
