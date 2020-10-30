@@ -246,6 +246,21 @@ func CheckTechnicalAccountSignByAddress(ctx contractapi.TransactionContextInterf
 	return nil
 }
 
+func CheckClientBankTechnicalSignAndAvailable(ctx contractapi.TransactionContextInterface, request requests.TechnicalSignRequest) error {
+
+	err := CheckSign(request.TechnicalAddress, request.TechnicalMsgHash, request.TechnicalSig)
+	if err != nil {
+		return err
+	}
+
+	err = SenderClientBankIsAvailable(ctx, nil, request.TechnicalAddress)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // Метод проверки доступа к методу чейнкода
 func CheckAccess(ctx contractapi.TransactionContextInterface, role access_role_enum.AccessRole, addressOwnerShip string, checkAvailable bool) error {
 	return CheckAccessWithBank(ctx, nil, role, addressOwnerShip, checkAvailable)
