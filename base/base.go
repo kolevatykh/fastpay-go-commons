@@ -95,7 +95,7 @@ func GetClientBank(ctx contractapi.TransactionContextInterface, bankId string) (
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	//address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
@@ -218,7 +218,7 @@ func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, se
 }
 
 func CheckTechnicalAccountSign(ctx contractapi.TransactionContextInterface, technicalSignRequest requests.TechnicalSignRequest, bankSender *models.Bank) error {
-	
+
 	if bankSender == nil {
 		var err error = nil
 		bankSender, err = GetSenderBank(ctx)
@@ -231,7 +231,7 @@ func CheckTechnicalAccountSign(ctx contractapi.TransactionContextInterface, tech
 }
 
 func CheckTechnicalAccountSignByAddress(ctx contractapi.TransactionContextInterface, technicalSignRequest requests.TechnicalSignRequest, address string) error {
-	
+
 	err := CheckSign(technicalSignRequest.TechnicalAddress, technicalSignRequest.TechnicalMsgHash, technicalSignRequest.TechnicalSig)
 	if err != nil {
 		return err
