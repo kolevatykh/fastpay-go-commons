@@ -421,10 +421,11 @@ type TransferSafeDeal struct {
 }
 
 type TermsContractConclude struct {
-	DepositDetails   []DepositDetails                     `json:"depositDetails"`
+	AddressFrom      string                               `json:"addressFrom"`
 	AddressTo        string                               `json:"addressTo"`
 	EscrowAddress    string                               `json:"escrowAddress"`
 	MemberTypeTo     member_deal_type_enum.MemberDealType `json:"memberTypeTo"`
+	TxId             string                               `json:"txId"`
 	IsComplete       bool                                 `json:"isComplete"`
 	CurrencyInfo     CurrencyDealInfo                     `json:"currencyInfo"`
 	ObligatoryAmount int64                                `json:"obligatoryAmount"`
