@@ -218,7 +218,7 @@ func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, se
 }
 
 func CheckTechnicalAccountSign(ctx contractapi.TransactionContextInterface, technicalSignRequest requests.TechnicalSignRequest, bankSender *models.Bank) error {
-	
+
 	if bankSender == nil {
 		var err error = nil
 		bankSender, err = GetSenderBank(ctx)
@@ -231,7 +231,7 @@ func CheckTechnicalAccountSign(ctx contractapi.TransactionContextInterface, tech
 }
 
 func CheckTechnicalAccountSignByAddress(ctx contractapi.TransactionContextInterface, technicalSignRequest requests.TechnicalSignRequest, address string) error {
-	
+
 	err := CheckSign(technicalSignRequest.TechnicalAddress, technicalSignRequest.TechnicalMsgHash, technicalSignRequest.TechnicalSig)
 	if err != nil {
 		return err
@@ -241,6 +241,21 @@ func CheckTechnicalAccountSignByAddress(ctx contractapi.TransactionContextInterf
 	if address != technicalSignRequest.TechnicalAddress {
 		return CreateError(cc_errors.ErrorAccountTechnicalNotEqlSender,
 			"Адрес банка отправителя не совпадает с адресом технического аккаунта")
+	}
+
+	return nil
+}
+
+func CheckClientBankTechnicalSignAndAvailable(ctx contractapi.TransactionContextInterface, request requests.TechnicalSignRequest) error {
+
+	err := CheckSign(request.TechnicalAddress, request.TechnicalMsgHash, request.TechnicalSig)
+	if err != nil {
+		return err
+	}
+
+	err = SenderClientBankIsAvailable(ctx, nil, request.TechnicalAddress)
+	if err != nil {
+		return err
 	}
 
 	return nil
