@@ -1,6 +1,9 @@
 package models
 
 import (
+	"sort"
+
+	access_role_enum "github.com/SolarLabRU/fastpay-go-commons/enums/access-role-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/account-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-payload-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-status-enum"
@@ -18,7 +21,6 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
-	"sort"
 )
 
 type Account struct {
@@ -44,17 +46,16 @@ type Arbitrator struct {
 }
 
 type Bank struct {
-	Address     string           `json:"address"`
-	Name        string           `json:"name"`
-	BIK         string           `json:"bik"`
-	State       state_enum.State `json:"state"`
-	CreatedBy   string           `json:"createdBy"`
-	IsOwner     bool             `json:"isOwner"`
-	Encrypted   bool             `json:"encrypted"`
-	IsRegulator bool             `json:"isRegulator"`
-	MSPId       string           `json:"mspId"`
-	Conf        string           `json:"conf"`
-	DocType     string           `json:"docType"`
+	Address   string                      `json:"address"`
+	Name      string                      `json:"name"`
+	BIK       string                      `json:"bik"`
+	State     state_enum.State            `json:"state"`
+	CreatedBy string                      `json:"createdBy"`
+	Encrypted bool                        `json:"encrypted"`
+	MSPId     string                      `json:"mspId"`
+	Roles     []access_role_enum.AccessRole `json:"roles"`
+	Conf      string                      `json:"conf"`
+	DocType   string                      `json:"docType"`
 }
 
 type Currency struct {
