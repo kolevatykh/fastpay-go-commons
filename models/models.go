@@ -46,16 +46,16 @@ type Arbitrator struct {
 }
 
 type Bank struct {
-	Address   string                      `json:"address"`
-	Name      string                      `json:"name"`
-	BIK       string                      `json:"bik"`
-	State     state_enum.State            `json:"state"`
-	CreatedBy string                      `json:"createdBy"`
-	Encrypted bool                        `json:"encrypted"`
-	MSPId     string                      `json:"mspId"`
+	Address   string                        `json:"address"`
+	Name      string                        `json:"name"`
+	BIK       string                        `json:"bik"`
+	State     state_enum.State              `json:"state"`
+	CreatedBy string                        `json:"createdBy"`
+	Encrypted bool                          `json:"encrypted"`
+	MSPId     string                        `json:"mspId"`
 	Roles     []access_role_enum.AccessRole `json:"roles"`
-	Conf      string                      `json:"conf"`
-	DocType   string                      `json:"docType"`
+	Conf      string                        `json:"conf"`
+	DocType   string                        `json:"docType"`
 }
 
 type Currency struct {
