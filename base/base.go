@@ -69,11 +69,11 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*models.Bank, e
 	return GetBankByRemoteContract(stub, mspId, address)
 }
 
-func GetClientBank(ctx contractapi.TransactionContextInterface, bankId string) (*responses.ClientBankItemResponse, error) {
+func GetClientBank(ctx contractapi.TransactionContextInterface, address string) (*responses.ClientBankItemResponse, error) {
 	stub := ctx.GetStub()
 
-	request := requests.GetClientBankByIdRequest{
-		BankId: bankId,
+	request := requests.GetClientBankByAddressRequest{
+		Address: address,
 	}
 
 	response, err := InvokeChaincode(stub, ChaincodeClientBankName, "getClientBankById", request)
@@ -191,10 +191,10 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 	return nil
 }
 
-func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse, bankId string) error {
+func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse, address string) error {
 	if senderClientBank == nil {
 		var err error = nil
-		senderClientBank, err = GetClientBank(ctx, bankId)
+		senderClientBank, err = GetClientBank(ctx, address)
 		if err != nil {
 			return err
 		}
@@ -211,7 +211,7 @@ func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, se
 	}
 	if senderClientBank.Owner != addressSender {
 		return CreateError(cc_errors.ErrorClientBankOwnerNotEqualSender,
-			fmt.Sprintf("Опорный банк(отправитель)(%s) не является владельцем клиентского банка(%s)", addressSender, senderClientBank.BankId))
+			fmt.Sprintf("Опорный банк(отправитель)(%s) не является владельцем клиентского банка(%s)", addressSender, senderClientBank.Address))
 	}
 
 	return nil

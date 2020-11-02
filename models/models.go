@@ -120,7 +120,7 @@ type CrossTransactionHistory struct {
 	CountryCode          string                                               `json:"countryCode"`
 	Details              []ExecutedTransactionCurrencyExchangeContractItem    `json:"details"`
 	SenderAddress        string                                               `json:"senderAddress"`
-	BankId               string                                               `json:"bankId"`
+	BankAddress          string                                               `json:"bankAddress"`
 	Status               cross_transaction_status_enum.CrossTransactionStatus `json:"status"`
 	TxId                 string                                               `json:"txId"`
 	ErrorCode            int                                                  `json:"errorCode"`
@@ -217,7 +217,7 @@ type ClaimsAggregate struct {
 }
 
 type ClientBank struct {
-	BankId          string            `json:"bankId"`
+	Address         string            `json:"address"`
 	BankDisplayName string            `json:"bankDisplayName"`
 	State           state_enum.State  `json:"state"`
 	CountryCode     string            `json:"countryCode"`
@@ -238,7 +238,7 @@ func (cb *ClientBank) GetSortParamsKeys() []string {
 
 type Customer struct {
 	Identifier          string `json:"identifier"`
-	BankId              string `json:"bankId"`
+	Address             string `json:"address"`
 	BankDisplayName     string `json:"bankDisplayName"`
 	CountryCode         string `json:"countryCode"`
 	CustomerDisplayName string `json:"customerDisplayName"`
@@ -268,7 +268,7 @@ type CurrencyExchangeContractMutable struct {
 
 type CurrencyExchangeContract struct {
 	CurrencyExchangeContractMutable
-	BankId          string `json:"bankId"`
+	BankAddress     string `json:"bankAddress"`
 	BankDisplayName string `json:"bankDisplayName"`
 	DocType         string `json:"docType"`
 }

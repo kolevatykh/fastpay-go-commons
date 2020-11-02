@@ -1,6 +1,6 @@
 package requests
 
-type GetPageCustomersByBankIdRequest struct {
+type GetPageCustomersByAddressRequest struct {
 	GetPageRequest
-	BankId string `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
+	Address string `json:"address" valid:"required~ErrorBankAddressNotPassed"`
 }

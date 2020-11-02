@@ -4,5 +4,5 @@ import "github.com/SolarLabRU/fastpay-go-commons/models"
 
 type ContractUpdateRequest struct {
 	models.CurrencyExchangeContractMutable
-	BankId string `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
+	Address string `json:"address" valid:"required~ErrorBankAddressNotPassed"`
 }

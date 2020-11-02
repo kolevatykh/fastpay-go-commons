@@ -2,5 +2,5 @@ package requests
 
 type CrossWithdrawRequest struct {
 	WithdrawRequest
-	BankId string `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
+	BankAddress string `json:"bankAddress" valid:"required~ErrorBankAddressNotPassed"`
 }
