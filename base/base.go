@@ -299,24 +299,9 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *mode
 
 // Метод проверки, что вызваемый метод вызывался другим чейнкодом
 func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function string) (bool, error) {
-	signedProposal, err := stub.GetSignedProposal()
+	nameChaincode, nameFunc, err := GetChaincodeNameCalled(stub)
 	if err != nil {
 		return false, err
-	}
-	stringSignedProposal := string(signedProposal.GetProposalBytes())
-	filterString := regexp.MustCompile(`[^a-zA-Z 0-9\n_-]`).ReplaceAllString(stringSignedProposal, "")
-	filterString2 := regexp.MustCompile(`[\t\r\n]+`).ReplaceAllString(strings.TrimSpace(filterString), "\n")
-	splitResult := strings.Split(filterString2, "\n")
-
-	nameChaincode := "not set"
-	nameFunc := "not set"
-
-	if len(stringSignedProposal) > 0 && len(splitResult) > 2 && stringSignedProposal[len(stringSignedProposal)-1] == '}' { // Если есть входные парметры
-		nameFunc = splitResult[len(splitResult)-2]
-		nameChaincode = splitResult[len(splitResult)-3]
-	} else if len(splitResult) > 1 { // Если нет входных парметров
-		nameFunc = splitResult[len(splitResult)-1]
-		nameChaincode = splitResult[len(splitResult)-2]
 	}
 
 	// TODO Убрать
@@ -334,6 +319,30 @@ func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function strin
 	}
 
 	return false, nil
+}
+
+func GetChaincodeNameCalled(stub shim.ChaincodeStubInterface) (string, string, error) {
+	nameChaincode := ""
+	nameFunc := ""
+
+	signedProposal, err := stub.GetSignedProposal()
+	if err != nil {
+		return nameChaincode, nameFunc, err
+	}
+	stringSignedProposal := string(signedProposal.GetProposalBytes())
+	filterString := regexp.MustCompile(`[^a-zA-Z 0-9\n_-]`).ReplaceAllString(stringSignedProposal, "")
+	filterString2 := regexp.MustCompile(`[\t\r\n]+`).ReplaceAllString(strings.TrimSpace(filterString), "\n")
+	splitResult := strings.Split(filterString2, "\n")
+
+	if len(stringSignedProposal) > 0 && len(splitResult) > 2 && stringSignedProposal[len(stringSignedProposal)-1] == '}' { // Если есть входные парметры
+		nameFunc = splitResult[len(splitResult)-2]
+		nameChaincode = splitResult[len(splitResult)-3]
+	} else if len(splitResult) > 1 { // Если нет входных парметров
+		nameFunc = splitResult[len(splitResult)-1]
+		nameChaincode = splitResult[len(splitResult)-2]
+	}
+
+	return nameChaincode, nameFunc, nil
 }
 
 // Метод создания структуры ошибки
