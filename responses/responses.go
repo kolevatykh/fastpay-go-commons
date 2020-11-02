@@ -10,6 +10,11 @@ type BankResponse struct {
 	BaseResponse
 }
 
+type MakeSafeDealDepositResponse struct {
+	Data []models.EventBatchItem `json:"data"`
+	BaseResponse
+}
+
 type AccountResponse struct {
 	Data models.Account `json:"data"`
 	BaseResponse
