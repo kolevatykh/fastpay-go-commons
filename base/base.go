@@ -121,7 +121,7 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 
 	if response.GetStatus() == 500 {
 		fmt.Println("Ошибка при вызове чейнкода: ", response.GetMessage())
-
+		fmt.Println("Ошибка при вызове чейнкода. Payload: ", string(response.GetPayload()))
 		return nil, parseErrorFromAnotherChaincode(response.GetMessage())
 	}
 
