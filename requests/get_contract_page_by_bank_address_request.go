@@ -6,7 +6,7 @@ import (
 
 type GetContractPageByBankRequest struct {
 	GetContractPageRequest
-	Address string `json:"address" valid:"required~ErrorBankAddressNotPassed"`
+	BankAddress string `json:"bankAddress" valid:"required~ErrorBankAddressNotPassed"`
 }
 
 func (getContractPage *GetContractPageByBankRequest) SetDefaults() {
