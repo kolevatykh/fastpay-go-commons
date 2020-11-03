@@ -69,11 +69,11 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*models.Bank, e
 	return GetBankByRemoteContract(stub, mspId, address)
 }
 
-func GetClientBank(ctx contractapi.TransactionContextInterface, bankId string) (*responses.ClientBankItemResponse, error) {
+func GetClientBank(ctx contractapi.TransactionContextInterface, address string) (*responses.ClientBankItemResponse, error) {
 	stub := ctx.GetStub()
 
-	request := requests.GetClientBankByIdRequest{
-		BankId: bankId,
+	request := requests.GetClientBankByAddressRequest{
+		Address: address,
 	}
 
 	response, err := InvokeChaincode(stub, ChaincodeClientBankName, "getClientBankById", request)
@@ -95,7 +95,7 @@ func GetClientBank(ctx contractapi.TransactionContextInterface, bankId string) (
 func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error) {
 	address, isFound, _ := identity.GetAttributeValue("address")
 
-	//address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
+	address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
 		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
@@ -191,10 +191,10 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 	return nil
 }
 
-func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse, bankId string) error {
+func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse, address string) error {
 	if senderClientBank == nil {
 		var err error = nil
-		senderClientBank, err = GetClientBank(ctx, bankId)
+		senderClientBank, err = GetClientBank(ctx, address)
 		if err != nil {
 			return err
 		}
@@ -211,7 +211,7 @@ func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, se
 	}
 	if senderClientBank.Owner != addressSender {
 		return CreateError(cc_errors.ErrorClientBankOwnerNotEqualSender,
-			fmt.Sprintf("Опорный банк(отправитель)(%s) не является владельцем клиентского банка(%s)", addressSender, senderClientBank.BankId))
+			fmt.Sprintf("Опорный банк(отправитель)(%s) не является владельцем клиентского банка(%s)", addressSender, senderClientBank.Address))
 	}
 
 	return nil
@@ -509,11 +509,8 @@ func createError(baseError *cc_errors.BaseError) error {
 func getRoles(bank *models.Bank, addressOwnerShip string) access_role_enum.AccessRole {
 	roles := access_role_enum.Bank
 
-	if bank.IsOwner {
-		roles |= access_role_enum.Owner
-	}
-	if bank.IsRegulator {
-		roles |= access_role_enum.Regulator
+	for _, v := range bank.Roles {
+		roles |= v
 	}
 
 	if len(addressOwnerShip) > 0 && bank.Address == addressOwnerShip {

@@ -188,7 +188,7 @@ type BankClaimsLiabilitiesResponse struct {
 }
 
 type ClientBankItemResponse struct {
-	BankId          string            `json:"bankId"`
+	Address         string            `json:"address"`
 	BankDisplayName string            `json:"bankDisplayName"`
 	State           state_enum.State  `json:"state"`
 	CountryCode     string            `json:"countryCode"`

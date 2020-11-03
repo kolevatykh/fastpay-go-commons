@@ -1,5 +1,5 @@
 package requests
 
-type GetClientBankByIdRequest struct {
-	BankId string `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
+type GetClientBankByAddressRequest struct {
+	Address string `json:"address" valid:"required~ErrorBankAddressNotPassed"`
 }

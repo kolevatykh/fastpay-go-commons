@@ -2,7 +2,7 @@ package requests
 
 type CreateClientBankRequest struct {
 	TechnicalSignRequest
-	BankId          string            `json:"bankId" valid:"required~ErrorBankIdNotPassed"`
+	Address         string            `json:"address" valid:"required~ErrorBankAddressNotPassed"`
 	BankDisplayName string            `json:"bankDisplayName" valid:"required~ErrorBankDisplayNameNotPassed"`
 	CountryCode     string            `json:"countryCode"`
 	Params          map[string]string `json:"params"`

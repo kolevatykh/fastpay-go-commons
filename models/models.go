@@ -1,6 +1,9 @@
 package models
 
 import (
+	"sort"
+
+	access_role_enum "github.com/SolarLabRU/fastpay-go-commons/enums/access-role-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/account-type-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-payload-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/cross-transaction-status-enum"
@@ -18,7 +21,6 @@ import (
 	"github.com/SolarLabRU/fastpay-go-commons/enums/state_enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-status-enum"
 	"github.com/SolarLabRU/fastpay-go-commons/enums/transaction-type-enum"
-	"sort"
 )
 
 type Account struct {
@@ -44,17 +46,16 @@ type Arbitrator struct {
 }
 
 type Bank struct {
-	Address     string           `json:"address"`
-	Name        string           `json:"name"`
-	BIK         string           `json:"bik"`
-	State       state_enum.State `json:"state"`
-	CreatedBy   string           `json:"createdBy"`
-	IsOwner     bool             `json:"isOwner"`
-	Encrypted   bool             `json:"encrypted"`
-	IsRegulator bool             `json:"isRegulator"`
-	MSPId       string           `json:"mspId"`
-	Conf        string           `json:"conf"`
-	DocType     string           `json:"docType"`
+	Address   string                        `json:"address"`
+	Name      string                        `json:"name"`
+	BIK       string                        `json:"bik"`
+	State     state_enum.State              `json:"state"`
+	CreatedBy string                        `json:"createdBy"`
+	Encrypted bool                          `json:"encrypted"`
+	MSPId     string                        `json:"mspId"`
+	Roles     []access_role_enum.AccessRole `json:"roles"`
+	Conf      string                        `json:"conf"`
+	DocType   string                        `json:"docType"`
 }
 
 type Currency struct {
@@ -120,7 +121,7 @@ type CrossTransactionHistory struct {
 	CountryCode          string                                               `json:"countryCode"`
 	Details              []ExecutedTransactionCurrencyExchangeContractItem    `json:"details"`
 	SenderAddress        string                                               `json:"senderAddress"`
-	BankId               string                                               `json:"bankId"`
+	BankAddress          string                                               `json:"bankAddress"`
 	Status               cross_transaction_status_enum.CrossTransactionStatus `json:"status"`
 	TxId                 string                                               `json:"txId"`
 	ErrorCode            int                                                  `json:"errorCode"`
@@ -217,7 +218,7 @@ type ClaimsAggregate struct {
 }
 
 type ClientBank struct {
-	BankId          string            `json:"bankId"`
+	Address         string            `json:"address"`
 	BankDisplayName string            `json:"bankDisplayName"`
 	State           state_enum.State  `json:"state"`
 	CountryCode     string            `json:"countryCode"`
@@ -238,7 +239,7 @@ func (cb *ClientBank) GetSortParamsKeys() []string {
 
 type Customer struct {
 	Identifier          string `json:"identifier"`
-	BankId              string `json:"bankId"`
+	BankAddress         string `json:"bankAddress"`
 	BankDisplayName     string `json:"bankDisplayName"`
 	CountryCode         string `json:"countryCode"`
 	CustomerDisplayName string `json:"customerDisplayName"`
@@ -268,7 +269,7 @@ type CurrencyExchangeContractMutable struct {
 
 type CurrencyExchangeContract struct {
 	CurrencyExchangeContractMutable
-	BankId          string `json:"bankId"`
+	BankAddress     string `json:"bankAddress"`
 	BankDisplayName string `json:"bankDisplayName"`
 	DocType         string `json:"docType"`
 }
