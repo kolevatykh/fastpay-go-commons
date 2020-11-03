@@ -261,6 +261,10 @@ func CheckClientBankTechnicalSignAndAvailable(ctx contractapi.TransactionContext
 	return nil
 }
 
+func CheckAccessWithBankAndAvailable(ctx contractapi.TransactionContextInterface, bank *models.Bank, role access_role_enum.AccessRole) error {
+	return CheckAccessWithBank(ctx, bank, role, true)
+}
+
 func CheckAccessAndAvailable(ctx contractapi.TransactionContextInterface, role access_role_enum.AccessRole) error {
 	return CheckAccessWithBank(ctx, nil, role, true)
 }
