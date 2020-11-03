@@ -509,11 +509,8 @@ func createError(baseError *cc_errors.BaseError) error {
 func getRoles(bank *models.Bank, addressOwnerShip string) access_role_enum.AccessRole {
 	roles := access_role_enum.Bank
 
-	if bank.IsOwner {
-		roles |= access_role_enum.Owner
-	}
-	if bank.IsRegulator {
-		roles |= access_role_enum.Regulator
+	for _,v:= range bank.Roles {
+		roles |= v
 	}
 
 	if len(addressOwnerShip) > 0 && bank.Address == addressOwnerShip {
