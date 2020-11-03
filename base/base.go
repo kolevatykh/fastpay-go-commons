@@ -369,6 +369,27 @@ func CreateErrorWithData(code int, message, data string) error {
 	return createError(&baseError)
 }
 
+// Метод создания структуры ошибки с сообщением по умолчанию
+func CreateDefaultError(code int) error {
+	baseError := cc_errors.BaseError{
+		Code:    code,
+		Message: cc_errors.ErrorCodeMessagesMap[code],
+	}
+
+	return createError(&baseError)
+}
+
+// Метод создания структуры ошибки с сообщением по умолчанию
+func CreateDefaultErrorWithData(code int, data string) error {
+	baseError := cc_errors.BaseError{
+		Code:    code,
+		Message: cc_errors.ErrorCodeMessagesMap[code],
+		Data:    data,
+	}
+
+	return createError(&baseError)
+}
+
 // Метод проверки входных параметров
 func CheckArgs(args string, request interface{}) error {
 	err := json.Unmarshal([]byte(args), &request)
@@ -660,16 +681,16 @@ func DeleteExpirationSign(stub shim.ChaincodeStubInterface) error {
 
 // Обработка ошибки при валидации запроса
 func processValidationError(err error) error {
-	var errorData cc_errors.Error
+	var errorCode int
 
 	if strings.Contains(err.Error(), ";") {
-		errorData = cc_errors.ErrorMessages[strings.Split(err.Error(), ";")[0]]
+		errorCode = cc_errors.ErrorStringCodeMap[strings.Split(err.Error(), ";")[0]]
 	} else {
-		errorData = cc_errors.ErrorMessages[err.Error()]
+		errorCode = cc_errors.ErrorStringCodeMap[err.Error()]
 	}
 
-	if errorData.Code != 0 {
-		return CreateError(errorData.Code, errorData.Message)
+	if errorCode != 0 {
+		return CreateError(errorCode, cc_errors.ErrorCodeMessagesMap[errorCode])
 	}
 
 	return CreateError(cc_errors.ErrorValidateDefault, fmt.Sprintf("Ошибка валидации: %s", err.Error()))
