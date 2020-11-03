@@ -1,6 +1,7 @@
 package requests
 
 type TopupRequest struct {
+	TechnicalSignRequest
 	AddressTo     string `json:"addressTo" valid:"required~ErrorAddressNotPassed,validHex40~ErrorAddressNotFollowingRegex"`
 	Amount        int64  `json:"amount" valid:"required~ErrorAmountNotPassed"`
 	CurrencyCode  int    `json:"currencyCode" valid:"required~ErrorCurrencyCodeNotPassed,range(0|999)~ErrorCurrencyCodeRange"`
