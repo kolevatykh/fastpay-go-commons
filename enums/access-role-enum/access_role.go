@@ -7,10 +7,9 @@ const (
 	Owner     AccessRole = 1 << 0
 	Bank      AccessRole = 1 << 1
 	Regulator AccessRole = 1 << 2
-	OwnerShip AccessRole = 1 << 3
-	Any                  = Owner | Bank | Regulator | OwnerShip
+	Any                  = Owner | Bank | Regulator
 )
 
 func (role AccessRole) Str() string {
-	return [...]string{"Undefined", "Owner", "Bank", "Regulator", "OwnerShip", "Any"}[role]
+	return [...]string{"Undefined", "Owner", "Bank", "Regulator", "Any"}[role]
 }
