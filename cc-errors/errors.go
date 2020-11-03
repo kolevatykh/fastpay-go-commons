@@ -314,215 +314,175 @@ const (
 	ErrorNotValidAddressInitiator = 60380 //+
 
 	/** Участник уже был приглашен */
-	ErrorCounterpartWasInvited = 60381
+	ErrorCounterpartWasInvited = 60381 //+
 
 	/** Участник не был приглашен */
-	ErrorParticipantNotInvited = 60382
+	ErrorParticipantNotInvited = 60382 //+
 
 	/** Операция запрещена аккаунту, который не явлется владельцем сделки */
-	ErrorNotValidAddressOwner = 60383
+	ErrorNotValidAddressOwner = 60383 //+
 
 	/** Приглашено достаточно участников с такой ролью */
-	ErrorEnoughParticipants = 60384
+	ErrorEnoughParticipants = 60384 //+
 
 	/** Некорректная сумма сделки */
-	ErrorIncorrectSafeDealAmount = 60385
+	ErrorIncorrectSafeDealAmount = 60385 //+
 
 	/** Депозит безопасной сделики не найден или уже был пополнен */
-	ErrorSafeDealDepositNotFound = 60386
+	ErrorSafeDealDepositNotFound = 60386 //+
 
 	/** Некорректный код валюты аккаунта */
-	ErrorIncorrectCurrencyCodeAccount = 60387
+	ErrorIncorrectCurrencyCodeAccount = 60387 //+
 
 	/* Арбитр уже добавлен */
-	ErrorArbitratorExist = 60388
+	ErrorArbitratorExist = 60388 //+
 
 	/* Арбитра не существует */
-	ErrorArbitratorNotExist = 60389
+	ErrorArbitratorNotExist = 60389 //+
 
 	/* Арбитр не может частично исполнить сделку */
-	ErrorArbitratorCannotPartialPerform = 60390
+	ErrorArbitratorCannotPartialPerform = 60390 //+
 
 	/* В сделке не задействован физический актив */
-	ErrorPhysicalAssetNotPresent = 60391
-
-	/* Инициатор не является владельцем физического актива */
-	ErrorInitiatorNotOwnPhysicalAsset = 60392
-
-	/* Акцептант не является владельцем физического актива */
-	ErrorAcceptorNotOwnPhysicalAsset = 60393
+	ErrorPhysicalAssetNotPresent = 60391 //+
 
 	/* Внести данные об частичном исполнении сделки может только первый заявитель об исполнении сделки */
-	ErrorPartialPerformOrder = 60394
+	ErrorPartialPerformOrder = 60394 //+
 
-	/* В предложении можно указать только адрес аккаунта покупки */
-	ErrorOfferAccountBuyOnly = 60395
+	/* В предложении можно указать только адрес аккаунта продажи */
+	ErrorOfferAccountSellOnly = 60395 //+
 
 	/* Переданный контракт не является предложением */
-	ErrorContractNotOffer = 60396
+	ErrorContractNotOffer = 60396 //+
 
 	/* В сделке не указан адрес владельца предложения */
-	ErrorOfferOwnerMissing = 60397
-
-	/* Минимальное и максимальное количество актива не соответствует предложению */
-	ErrorAssetAmountNotMatchOffer = 60398
+	ErrorOfferOwnerMissing = 60397 //+
 
 	/* Коды валют не соответствует заявленным в предложении */
-	ErrorCurrencyNotMatchOffer = 60399
+	ErrorCurrencyNotMatchOffer = 60399 //+
 
 	/* Курс не соответствует заявленному в предложении */
-	ErrorPriceNotMatchOffer = 60400
+	ErrorPriceNotMatchOffer = 60400 //+
 
 	/* Количество актива не соответствует интервалу минимального и максимального количества. */
-	ErrorAssetAmountNotCorrespondMaxMinInterval = 60401
+	ErrorAssetAmountNotCorrespondMaxMinInterval = 60401 //+
 
 	/* Физический актив не может начисляться на депозит */
-	ErrorPhysicalAssetDeposit = 60402
+	ErrorPhysicalAssetDeposit = 60402 //+
 
 	/* Количество переданного актива не соответствует переданному курсу */
-	ErrorAmountNotCorrespondPrice = 60403
+	ErrorAmountNotCorrespondPrice = 60403 //+
 
 	/* Безопасная сделка не найдена */
-	ErrorSafeDealNotFound = 60404
+	ErrorSafeDealNotFound = 60404 //+
 
-	/** Попытка перевода средств между юр. лицами */
-	ErrorLimitLegalEntry = 60410
+	/* Участник безопасной сделки уже проголосовал */
+	ErrorCounterpartVoted = 60405 //+
+
+	/* Некорректная сумма депозита */
+	ErrorIncorrectDepositAmount = 60406 //+
+
+	/* Аккаунт с таким адресом уже принимает участие в сделке */
+	ErrorAccountAlreadyInDeal = 60407 //+
 
 	/** Информация о доступных платформах не найдена */
-	ErrorAvailablePlatformsNotFound = 60411
-
-	/** Превышен операционный лимит перевода средств */
-	ErrorLimitOperation = 60420
-
-	/** Превышен дневной лимит перевода средств */
-	ErrorLimitDaily = 60430
-
-	/** Превышен месячный лимит перевода средств */
-	ErrorLimitMonthly = 60440
-
-	/** Превышен лимит баланса */
-	ErrorLimitBalance = 60450
-
-	/** Лимит не наден */
-	ErrorLimitNotFound = 60460
+	ErrorAvailablePlatformsNotFound = 60411 //+
 
 	/** Адреса отправителя и получателя совпадают */
-	ErrorAddressFromToEqual = 60461
+	ErrorAddressFromToEqual = 60461 //+
 
 	/** Банк не может быть заблокирован */
-	ErrorBankCannotBeBlocked = 60462
+	ErrorBankCannotBeBlocked = 60462 //+
 
 	/** История по трансграничному переводу не найдена */
-	ErrorCrossTransactionHistoryNotFound = 60463
+	ErrorCrossTransactionHistoryNotFound = 60463 //+
 
 	/** Невозможно выполнить операцию с текущим статусом транзакции */
-	ErrorStatusConflict = 60464
+	ErrorStatusConflict = 60464 //+
 
 	/** Неверный адрес аккаунта для выполнения вывода средств в рамках трансграничного перевода */
-	ErrorCrossTransactionWithdrawIncorrectAddress = 60465
+	ErrorCrossTransactionWithdrawIncorrectAddress = 60465 //+
 
 	/** Неверная сумма для выполнения вывода средств в рамках трансграничномого перевода */
-	ErrorCrossTransactionWithdrawIncorrectAmount = 60466
+	ErrorCrossTransactionWithdrawIncorrectAmount = 60466 //+
 
 	/** Другая ошибка */
-	ErrorDefault = 60500
+	ErrorDefault = 60500 //+
 
 	/** Счет не найден */
-	ErrorInvoiceNotExist = 60501
+	ErrorInvoiceNotExist = 60501 //+
 
-	/** Счет плательщики не совпадают */
-	ErrorInvoiceTransactionPayer = 60502
-
-	/** Счет получатели не совпадают */
-	ErrorInvoiceTransactionRecipient = 60503
-
-	/** Счет суммы не совпадают */
-	ErrorInvoiceTransactionAmount = 60504
+	/** Cуммы cчета не совпадают */
+	ErrorInvoiceTransactionAmount = 60504 //+
 
 	/** Счет попытка оплатить ранее оплаченный счет */
-	ErrorInvoiceTransactionPaid = 60505
+	ErrorInvoiceTransactionPaid = 60505 //+
 
 	/** Счет попытка оплатить счета с истекшим сроком жизни */
-	ErrorInvoiceTransactionExpired = 60506
+	ErrorInvoiceTransactionExpired = 60506 //+
+
 	/** Счет с таким номером уже существует */
-	ErrorInvoiceExist = 60507
+	ErrorInvoiceExist = 60507 //+
+
 	/** Ошибка обновления статуса счета */
-	ErrorInvoiceUpdate = 60508
+	ErrorInvoiceUpdate = 60508 //+
 
 	/** Указанный адрес платильщика не совпадает с тем, который указан в счете */
-	ErrorPayerNotEqual = 60509
+	ErrorPayerNotEqual = 60509 //+
 
 	/** Ошибка сохрания данных в БД */
-	ErrorPutState = 60510
+	ErrorPutState = 60510 //+
 
 	/** Ошибка при получении данных в БД */
-	ErrorGetState = 60511
+	ErrorGetState = 60511 //+
 
 	/** Ошибка при удалении данных в БД */
-	ErrorDeleteState = 60512
+	ErrorDeleteState = 60512 //+
 
 	/** Ошибка создании композитного ключа */
-	ErrorCreateCompositeKey = 60513
+	ErrorCreateCompositeKey = 60513 //+
 
 	/** Ошибка при серилизации JSON */
-	ErrorJsonMarshal = 60514
+	ErrorJsonMarshal = 60514 //+
 
 	/** Ошибка при десерилизации JSON */
-	ErrorJsonUnmarshal = 60515
+	ErrorJsonUnmarshal = 60515 //+
 
 	/** Ошибка при получении времени создания транзакции */
-	ErrorGetTxTime = 60516
+	ErrorGetTxTime = 60516 //+
 
 	/** Не доступен для этого владельца */
-	ErrorForbidden = 60601
-
-	/** Депозит не найден */
-	ErrorDepositNotFound = 60602
-
-	/** История по транзакции не найдена */
-	ErrorTransactionHistoryNotFound = 60603
-
-	/** Маршрут контрактов не найден */
-	ErrorContractRouteNotFound = 60604
-
-	/** Контракт не найден */
-	ErrorContractNotFound = 60605
+	ErrorForbidden = 60601 //+
 
 	/** Ошибка валидации контракта */
-	ErrorContractValidate = 60606
+	ErrorContractValidate = 60606 //+
 
-	/** Комиссия превышает сумму перевода */
-	ErrorContractRecoverCommission = 60607
-
-	/** Ошибка выполнения транзакии */
-	ErrorTransactionExecute = 60608
-
-	/** Адрес банка в сертификате не найден */
-	ErrorCertificateBankAddressNotFound = 60609
+	/** Адрес банка в сертификате не совпадает */
+	ErrorCertificateBankAddressNotMatch = 60609 //+
 
 	/** Клиринг. Расхождение требований и обязательств */
-	ErrorClearingBadClaimsLiabilities = 60701
+	ErrorClearingBadClaimsLiabilities = 60701 //+
 
 	/** Клиринг. Информация о клиринге не найдена */
-	ErrorClearingInfoNotFound = 60702
+	ErrorClearingInfoNotFound = 60702 //+
 
-	/** Сертификат. Ошибка валидация сертификаты */
-	ErrorCertificateNotValid = 60801
+	/** Сертификат. Отсутвует атрибут address в сертификате */
+	ErrorCertificateBankAddressNotFound = 60801 //+
 
 	/** Клиентский банк уже существует */
-	ErrorClientBankExists = 60802
+	ErrorClientBankExists = 60802 //+
 
 	/** Информация о клиентском банке не найдена */
-	ErrorClientBankNotFound = 60803
+	ErrorClientBankNotFound = 60803 //+
 
 	/** Опорный банк(отправитель) не является владельцем клиентского банка */
-	ErrorClientBankOwnerNotEqualSender = 60804
+	ErrorClientBankOwnerNotEqualSender = 60804 //+
 
 	/** Некорректное значение типа лимита */
-	ErrorLimitTypeIncorrect = 60805
+	ErrorLimitTypeIncorrect = 60805 //+
 
 	/** Адрес банка отправителя не совпадает с адресом технического аккаунта */
-	ErrorAccountTechnicalNotEqlSender = 60806
+	ErrorAccountTechnicalNotEqlSender = 60806 //+
 )
 
 var ErrorCodeMessagesMap = map[int]string{
@@ -610,6 +570,9 @@ var ErrorCodeMessagesMap = map[int]string{
 	ErrorAccountNotIdentified:                "Аккаунт не идентифицирован",
 	ErrorAccountNotEscrow:                    "Аккаунт не является эскроу-счетом",
 	ErrorClientBankIsBlocked:                 "Клиентский банк заблокирован",
+	ErrorCounterpartVoted:                    "Участник безопасной сделки уже проголосовал",
+	ErrorIncorrectDepositAmount:              "Некорректная сумма депозита",
+	ErrorAccountAlreadyInDeal:                "Аккаунт с таким адресом уже принимает участие в сделке",
 }
 
 var ErrorStringCodeMap = map[string]int{
@@ -697,4 +660,7 @@ var ErrorStringCodeMap = map[string]int{
 	"ErrorAccountNotIdentified":                ErrorAccountNotIdentified,
 	"ErrorAccountNotEscrow":                    ErrorAccountNotEscrow,
 	"ErrorClientBankIsBlocked":                 ErrorClientBankIsBlocked,
+	"ErrorCounterpartVoted":                    ErrorCounterpartVoted,
+	"ErrorIncorrectDepositAmount":              ErrorIncorrectDepositAmount,
+	"ErrorAccountAlreadyInDeal":                ErrorAccountAlreadyInDeal,
 }

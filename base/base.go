@@ -98,7 +98,7 @@ func GetSenderAddressFromCertificate(identity cid.ClientIdentity) (string, error
 	//address, isFound, _ = func() (string, bool, error) { return "263093b1c21f98c5f9b6433bf9bbb97bb87b6e79", true, nil }() // TODO Убрать
 
 	if !isFound {
-		return "", CreateError(cc_errors.ErrorCertificateNotValid, "Отсутвует атрибут address в сертификате")
+		return "", CreateDefaultError(cc_errors.ErrorCertificateBankAddressNotFound)
 	}
 
 	return address, nil
@@ -239,8 +239,7 @@ func CheckTechnicalAccountSignByAddress(ctx contractapi.TransactionContextInterf
 
 	// TODO Убрать проверку если в сертификате не будет указыватся адрес банка отправителя
 	if address != technicalSignRequest.TechnicalAddress {
-		return CreateError(cc_errors.ErrorAccountTechnicalNotEqlSender,
-			"Адрес банка отправителя не совпадает с адресом технического аккаунта")
+		return CreateDefaultError(cc_errors.ErrorAccountTechnicalNotEqlSender)
 	}
 
 	return nil
@@ -294,7 +293,7 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *mode
 	result := currentRoles & role
 
 	if result == 0 {
-		return CreateError(cc_errors.ErrorForbidden, "Недостаточно прав для вызова метода")
+		return CreateDefaultError(cc_errors.ErrorForbidden)
 	}
 
 	return nil
