@@ -69,11 +69,11 @@ func GetSenderBank(ctx contractapi.TransactionContextInterface) (*models.Bank, e
 	return GetBankByRemoteContract(stub, mspId, address)
 }
 
-func GetClientBank(ctx contractapi.TransactionContextInterface, bankId string) (*responses.ClientBankItemResponse, error) {
+func GetClientBank(ctx contractapi.TransactionContextInterface, address string) (*responses.ClientBankItemResponse, error) {
 	stub := ctx.GetStub()
 
-	request := requests.GetClientBankByIdRequest{
-		BankId: bankId,
+	request := requests.GetClientBankByAddressRequest{
+		Address: address,
 	}
 
 	response, err := InvokeChaincode(stub, ChaincodeClientBankName, "getClientBankById", request)
@@ -121,7 +121,7 @@ func InvokeChaincode(stub shim.ChaincodeStubInterface, chaincodeName string, nam
 
 	if response.GetStatus() == 500 {
 		fmt.Println("Ошибка при вызове чейнкода: ", response.GetMessage())
-
+		fmt.Println("Ошибка при вызове чейнкода. Payload: ", string(response.GetPayload()))
 		return nil, parseErrorFromAnotherChaincode(response.GetMessage())
 	}
 
@@ -191,10 +191,10 @@ func SenderBankIsAvailableWithBank(ctx contractapi.TransactionContextInterface, 
 	return nil
 }
 
-func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse, bankId string) error {
+func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, senderClientBank *responses.ClientBankItemResponse, address string) error {
 	if senderClientBank == nil {
 		var err error = nil
-		senderClientBank, err = GetClientBank(ctx, bankId)
+		senderClientBank, err = GetClientBank(ctx, address)
 		if err != nil {
 			return err
 		}
@@ -211,7 +211,7 @@ func SenderClientBankIsAvailable(ctx contractapi.TransactionContextInterface, se
 	}
 	if senderClientBank.Owner != addressSender {
 		return CreateError(cc_errors.ErrorClientBankOwnerNotEqualSender,
-			fmt.Sprintf("Опорный банк(отправитель)(%s) не является владельцем клиентского банка(%s)", addressSender, senderClientBank.BankId))
+			fmt.Sprintf("Опорный банк(отправитель)(%s) не является владельцем клиентского банка(%s)", addressSender, senderClientBank.Address))
 	}
 
 	return nil
@@ -302,24 +302,9 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *mode
 
 // Метод проверки, что вызваемый метод вызывался другим чейнкодом
 func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function string) (bool, error) {
-	signedProposal, err := stub.GetSignedProposal()
+	nameChaincode, nameFunc, err := GetChaincodeNameCalled(stub)
 	if err != nil {
 		return false, err
-	}
-	stringSignedProposal := string(signedProposal.GetProposalBytes())
-	filterString := regexp.MustCompile(`[^a-zA-Z 0-9\n_-]`).ReplaceAllString(stringSignedProposal, "")
-	filterString2 := regexp.MustCompile(`[\t\r\n]+`).ReplaceAllString(strings.TrimSpace(filterString), "\n")
-	splitResult := strings.Split(filterString2, "\n")
-
-	nameChaincode := "not set"
-	nameFunc := "not set"
-
-	if len(stringSignedProposal) > 0 && len(splitResult) > 2 && stringSignedProposal[len(stringSignedProposal)-1] == '}' { // Если есть входные парметры
-		nameFunc = splitResult[len(splitResult)-2]
-		nameChaincode = splitResult[len(splitResult)-3]
-	} else if len(splitResult) > 1 { // Если нет входных парметров
-		nameFunc = splitResult[len(splitResult)-1]
-		nameChaincode = splitResult[len(splitResult)-2]
 	}
 
 	// TODO Убрать
@@ -337,6 +322,30 @@ func CheckCalledChaincode(stub shim.ChaincodeStubInterface, name, function strin
 	}
 
 	return false, nil
+}
+
+func GetChaincodeNameCalled(stub shim.ChaincodeStubInterface) (string, string, error) {
+	nameChaincode := ""
+	nameFunc := ""
+
+	signedProposal, err := stub.GetSignedProposal()
+	if err != nil {
+		return nameChaincode, nameFunc, err
+	}
+	stringSignedProposal := string(signedProposal.GetProposalBytes())
+	filterString := regexp.MustCompile(`[^a-zA-Z 0-9\n_-]`).ReplaceAllString(stringSignedProposal, "")
+	filterString2 := regexp.MustCompile(`[\t\r\n]+`).ReplaceAllString(strings.TrimSpace(filterString), "\n")
+	splitResult := strings.Split(filterString2, "\n")
+
+	if len(stringSignedProposal) > 0 && len(splitResult) > 2 && stringSignedProposal[len(stringSignedProposal)-1] == '}' { // Если есть входные парметры
+		nameFunc = splitResult[len(splitResult)-2]
+		nameChaincode = splitResult[len(splitResult)-3]
+	} else if len(splitResult) > 1 { // Если нет входных парметров
+		nameFunc = splitResult[len(splitResult)-1]
+		nameChaincode = splitResult[len(splitResult)-2]
+	}
+
+	return nameChaincode, nameFunc, nil
 }
 
 // Метод создания структуры ошибки
