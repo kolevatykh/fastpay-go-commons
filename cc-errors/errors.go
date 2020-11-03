@@ -444,9 +444,9 @@ const (
 	ErrorConfNotPassed = 60363
 
 	/**
-	 * Требуется передать индентификатор банка
+	 * Требуется передать адрес банка
 	 */
-	ErrorBankIdNotPassed = 60364
+	ErrorBankAddressNotPassed = 60364
 
 	/**
 	 * Требуется передать код страны
@@ -830,9 +830,9 @@ const (
 	 */
 	ErrorTransactionExecute = 60608
 	/**
-	 * Идентификатор банка в сертификате не найден
+	 * Адрес банка в сертификате не найден
 	 */
-	ErrorCertificateBankIdNoFound = 60609
+	ErrorCertificateBankAddressNoFound = 60609
 
 	/**
 	 * Клиринг. Расхождение требований и обязательств
@@ -945,7 +945,7 @@ var ErrorMessages = map[string]Error{
 	"ErrorPublicKeyNotFolowingRegex":           {60361, "Неверный формат публичного ключа аккаунта"},
 	"ErrorPublicKeyNotPassed":                  {60362, "Требуется передать публичный ключ аккаунта"},
 	"ErrorConfNotPassed":                       {60363, "Требуется передать дополнительную конфигурацию банка"},
-	"ErrorBankIdNotPassed":                     {60364, "Требуется передать индентификатор банка"},
+	"ErrorBankAddressNotPassed":                {60364, "Требуется передать адрес банка"},
 	"ErrorCountryCodeNotPassed":                {60365, "Требуется передать код страны"},
 	"ErrorTransactionIdNotPassed":              {60366, "Требуется передать идентификатор транзакции"},
 	"ErrorAddressOrIdentifierNotFolowingRegex": {60367, "Неверный формат идентификатора или адреса аккаунта"},
