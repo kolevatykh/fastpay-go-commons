@@ -261,13 +261,16 @@ func CheckClientBankTechnicalSignAndAvailable(ctx contractapi.TransactionContext
 	return nil
 }
 
-// Метод проверки доступа к методу чейнкода
-func CheckAccess(ctx contractapi.TransactionContextInterface, role access_role_enum.AccessRole, addressOwnerShip string, checkAvailable bool) error {
-	return CheckAccessWithBank(ctx, nil, role, addressOwnerShip, checkAvailable)
+func CheckAccessAndAvailableWithBank(ctx contractapi.TransactionContextInterface, bank *models.Bank, role access_role_enum.AccessRole) error {
+	return CheckAccessWithBank(ctx, bank, role, true)
+}
+
+func CheckAccessAndAvailable(ctx contractapi.TransactionContextInterface, role access_role_enum.AccessRole) error {
+	return CheckAccessWithBank(ctx, nil, role, true)
 }
 
 // Метод проверки доступа к методу чейнкода с переданым банком отправителя
-func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *models.Bank, role access_role_enum.AccessRole, addressOwnerShip string, checkAvailable bool) error {
+func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *models.Bank, role access_role_enum.AccessRole, checkAvailable bool) error {
 	if role == access_role_enum.Any {
 		return nil
 	}
@@ -287,7 +290,7 @@ func CheckAccessWithBank(ctx contractapi.TransactionContextInterface, bank *mode
 		}
 	}
 
-	currentRoles := getRoles(bank, addressOwnerShip)
+	currentRoles := getRoles(bank)
 	result := currentRoles & role
 
 	if result == 0 {
@@ -506,15 +509,11 @@ func createError(baseError *cc_errors.BaseError) error {
 }
 
 // Метод получения ролей
-func getRoles(bank *models.Bank, addressOwnerShip string) access_role_enum.AccessRole {
+func getRoles(bank *models.Bank) access_role_enum.AccessRole {
 	roles := access_role_enum.Bank
 
 	for _, v := range bank.Roles {
 		roles |= v
-	}
-
-	if len(addressOwnerShip) > 0 && bank.Address == addressOwnerShip {
-		roles |= access_role_enum.OwnerShip
 	}
 
 	return roles
