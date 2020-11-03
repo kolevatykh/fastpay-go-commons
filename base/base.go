@@ -563,11 +563,11 @@ func CheckSign(address, msgHash string, sign requests.SignDto) error {
 	isSigned, err := crypto.IsSigned(address, msgHash, sign.R, sign.S, sign.V)
 
 	if err != nil {
-		return CreateError(cc_errors.ErrorSignVerify, fmt.Sprintf("Ошибка проверки сигнатуры. %s", err.Error()))
+		return CreateDefaultError(cc_errors.ErrorSignVerify)
 	}
 
 	if !isSigned {
-		return CreateError(cc_errors.ErrorSignVerify, "Ошибка проверки сигнатуры.")
+		return CreateDefaultError(cc_errors.ErrorSignVerify)
 	}
 
 	return nil

@@ -10,319 +10,310 @@ const (
 	/** Код ошибки при успешном выполнении операции */
 	ErrorSuccess = 0
 
-	/** Минимальная сумма перевода средств */
-	ErrorAmountTxMin = 60001
-
 	/** Аккаунт существует */
-	ErrorAccountExist = 60100
+	ErrorAccountExist = 60100 //+
 
 	/** Идентификатор аккаунта существует */
-	ErrorIdentifierExist = 60101
+	ErrorIdentifierExist = 60101 //+
 
 	/** Валюта существует */
-	ErrorCurrencyExist = 60104
+	ErrorCurrencyExist = 60104 //+
 
 	/** Валюта не может быть созданна так как не существет чейнкодов для работы с ней */
-	ErrorCurrencyCreateConflict = 60105
+	ErrorCurrencyCreateConflict = 60105 //+
 
 	/** Аккаунт не существует */
-	ErrorAccountNotExist = 60110
+	ErrorAccountNotExist = 60110 //+
 
 	/** Идентификатор аккаунта не существует */
-	ErrorIdentifierNotExist = 60111
+	ErrorIdentifierNotExist = 60111 //+
 
 	/** Банк не существует */
-	ErrorBankNotExist = 60112
+	ErrorBankNotExist = 60112 //+
 
 	/** Валюта не существует */
-	ErrorCurrencyNotExist = 60114
+	ErrorCurrencyNotExist = 60114 //+
+
+	/** Клиентский банк заблокирован */
+	ErrorClientBankIsBlocked = 60117
+
+	/** Аккаунт не является эскроу-счётом */
+	ErrorAccountNotEscrow = 60118 //+
+
+	/** Аккаунт не идентифицирован */
+	ErrorAccountNotIdentified = 60119 //+
 
 	/** Аккаунт не доступен */
-	ErrorAccountNotAvailable = 60120
+	ErrorAccountNotAvailable = 60120 //+
 
 	/** Аккаунт заблокирован */
-	ErrorAccountIsBlocked = 60121
+	ErrorAccountIsBlocked = 60121 //+
 
 	/** Банк не доступен */
-	ErrorBankNotAvailable = 60122
+	ErrorBankNotAvailable = 60122 //+
 
 	/** Банк заблокирован */
-	ErrorBankIsBlocked = 60123
+	ErrorBankIsBlocked = 60123 //+
 
 	/** Банк уже существует */
-	ErrorBankExist = 60124
+	ErrorBankExist = 60124 //+
 
 	/** Контракт не найден */
-	ErrorContractNotExists = 60125
+	ErrorContractNotExists = 60125 //+
 
 	/** Контракт уже существует */
-	ErrorContractExists = 60126
-
-	/** Клиент банка уже существует */
-	ErrorCustomerExists = 60127
+	ErrorContractExists = 60126 //+
 
 	/** Информация о клиенте банка не найдена */
-	ErrorCustomerNotFound = 60128
+	ErrorCustomerNotFound = 60128 //+
 
 	/** Клиентский банк не доступен */
-	ErrorClientBankNotAvailable = 60129
-
-	/** Аккаунт создан без идентификатора */
-	ErrorAccountCreatedWithoutIdentifier = 60130
+	ErrorClientBankNotAvailable = 60129 //+
 
 	/** Ошибка проверки сигнатуры */
-	ErrorSignVerify = 60200
+	ErrorSignVerify = 60200 //+
 
-	/** Не достаточно средств */
-	ErrorFundsNotEnough = 60240
-
-	/** Превышен допустимый баланс средств */
-	ErrorBalanceOperation = 60250
+	/** Недостаточно средств */
+	ErrorFundsNotEnough = 60240 //+
 
 	/** Ошибка валидации */
-	ErrorValidateDefault = 60300
+	ErrorValidateDefault = 60300 //+
 
 	/** Неверный формат адреса аккаунта */
-	ErrorAddressNotFollowingRegex = 60301
+	ErrorAddressNotFollowingRegex = 60301 //+
 
 	/** Требуется передать адрес аккаунта */
-	ErrorAddressNotPassed = 60302
+	ErrorAddressNotPassed = 60302 //+
 
 	/** Неверный формат идентификатора аккаунта */
-	ErrorIdentifierNotFolowingRegex = 60303
+	ErrorIdentifierNotFolowingRegex = 60303 //+
 
 	/** Требуется передать идентификатор */
-	ErrorIdentifierNotPassed = 60304
+	ErrorIdentifierNotPassed = 60304 //+
 
 	/** Неверный формат типа идентификации аккаунта */
-	ErrorIdentityTypeIncorrect = 60305
+	ErrorIdentityTypeIncorrect = 60305 //+
 
 	/** Неверный формат статуса аккаунта */
-	ErrorStateIncorrect = 60306
+	ErrorStateIncorrect = 60306 //+
 
 	/** Неверный формат юридического типа аккаунта */
-	ErrorJuridicalTypeIncorrect = 60307
+	ErrorJuridicalTypeIncorrect = 60307 //+
 
 	/** Неверный формат роли аккаунта */
-	ErrorRoleIncorrect = 60308
+	ErrorRoleIncorrect = 60308 //+
 
 	/** Требуется передать имя канала чейнкода */
-	ErrorChannelNotPassed = 60309
+	ErrorChannelNotPassed = 60309 //+
 
 	/** Требуется передать имя чейнкода */
-	ErrorNameNotPassed = 60310
+	ErrorNameNotPassed = 60310 //+
 
 	/** Требуется передать версию чейнкода */
-	ErrorVersionNotPassed = 60311
+	ErrorVersionNotPassed = 60311 //+
 
 	/** Значение суммы не может быть отрицательным */
-	ErrorAmountNegative = 60312
+	ErrorAmountNegative = 60312 //+
 
 	/** Требуется передать сумму */
-	ErrorAmountNotPassed = 60313
+	ErrorAmountNotPassed = 60313 //+
 
 	/** Требуется передать тип идентификации аккаунта */
-	ErrorIdentityTypeNotPassed = 60314
+	ErrorIdentityTypeNotPassed = 60314 //+
 
 	/** Значение не может быть отрицательным */
-	ErrorValueNegative = 60315
+	ErrorValueNegative = 60315 //+
 
 	/** Требуется передать значение */
-	ErrorValueNotPassed = 60316
+	ErrorValueNotPassed = 60316 //+
 
 	/** Значение кода валюты должно входить в диапазон от 0 до 999 */
-	ErrorCurrencyCodeRange = 60317
+	ErrorCurrencyCodeRange = 60317 //+
 
 	/** Требуется передать код валюты */
-	ErrorCurrencyCodeNotPassed = 60318
+	ErrorCurrencyCodeNotPassed = 60318 //+
 
 	/** Значение баланса не может быть отрицательным */
-	ErrorBalanceNegative = 60319
+	ErrorBalanceNegative = 60319 //+
 
 	/** Требуется передать баланс */
-	ErrorBalanceNotPassed = 60320
+	ErrorBalanceNotPassed = 60320 //+
 
 	/** Неверный формат сообщения */
-	ErrorMsgHashNotFolowingRegex = 60321
+	ErrorMsgHashNotFolowingRegex = 60321 //+
 
 	/** Требуется передать сообщение */
-	ErrorMsgHashNotPassed = 60322
+	ErrorMsgHashNotPassed = 60322 //+
 
 	/** Неверный формат R сигнатуры */
-	ErrorSigRNotFolowingRegex = 60323
+	ErrorSigRNotFolowingRegex = 60323 //+
 
 	/** Требуется передать R сигнатуры */
-	ErrorSigRHashNotPassed = 60324
+	ErrorSigRHashNotPassed = 60324 //+
 
 	/** Неверный формат S сигнатуры */
-	ErrorSigSNotFolowingRegex = 60325
+	ErrorSigSNotFolowingRegex = 60325 //+
 
 	/** Требуется передать S сигнатуры */
-	ErrorSigSNotPassed = 60326
+	ErrorSigSNotPassed = 60326 //+
 
 	/** Неверное значение V сигнатуры */
-	ErrorSigVIncorrect = 60327
+	ErrorSigVIncorrect = 60327 //+
 
 	/** Неверный формат V сигнатуры */
-	ErrorSigVNotFollowingRegex = 60328
-
-	/** Значение atc не может быть отрицательным */
-	ErrorAtcNegative = 60329
-
-	/** Требуется передать atc */
-	ErrorAtcNotPassed = 60330
+	ErrorSigVNotFollowingRegex = 60328 //+
 
 	/** Требуется передать идентификатор транзакции */
-	ErrorTxIdSNotPassed = 60331
+	ErrorTxIdSNotPassed = 60331 //+
 
 	/** Требуется передать время */
-	ErrorTimestampNotPassed = 60332
+	ErrorTimestampNotPassed = 60332 //+
 
 	/** Значение времени не может быть отрицательным */
-	ErrorTimestampNegative = 60333
+	ErrorTimestampNegative = 60333 //+
 
 	/** Требуется передать тип транзакции */
-	ErrorTxTypeNotPassed = 60334
+	ErrorTxTypeNotPassed = 60334 //+
 
 	/** Неверный формат типа транзакции */
-	ErrorTxTypeIncorrect = 60335
+	ErrorTxTypeIncorrect = 60335 //+
 
 	/** Значение размера страницы меньше минимально допустимого */
-	ErrorPageSizeMinValue = 60336
+	ErrorPageSizeMinValue = 60336 //+
 
 	/** Требуется передать значение символа валюты */
-	ErrorSymbolNotPassed = 60337
+	ErrorSymbolNotPassed = 60337 //+
 
 	/** Требуется передать значение количества знаков после запятой */
-	ErrorDecimalsNotPassed = 60338
+	ErrorDecimalsNotPassed = 60338 //+
 
 	/** Значение количества знаков должно входить в диапазон от 0 до 8 */
-	ErrorDecimalsRange = 60339
+	ErrorDecimalsRange = 60339 //+
 
 	/** Значение количества знаков после запятой больше максимально допустимого */
-	ErrorDecimalsMaxValue = 60340
+	ErrorDecimalsMaxValue = 60340 //+
 
 	/** Требуется передать значение признака активности */
-	ErrorEnabledNotPassed = 60341
+	ErrorEnabledNotPassed = 60341 //+
 
 	/** Требуется передать идентификатор аккаунта */
-	ErrorIdentifiersNotPassed = 60342
+	ErrorIdentifiersNotPassed = 60342 //+
 
 	/** Количество идентификаторв больше максимально допустимого */
-	ErrorIdentifiersMaxValue = 60343
+	ErrorIdentifiersMaxValue = 60343 //+
 
 	/** Требуется передать статус аккаунта */
-	ErrorStateNotPassed = 60344
+	ErrorStateNotPassed = 60344 //+
 
 	/** Требуется передать юридический тип аккаунта */
-	ErrorJuridicalTypeNotPassed = 60345
+	ErrorJuridicalTypeNotPassed = 60345 //+
 
 	/** Требуется передать юридический тип банка-владельца аккаунта */
-	ErrorJuridicalTypeBankSetterNotPassed = 60346
+	ErrorJuridicalTypeBankSetterNotPassed = 60346 //+
 
 	/** Требуется передать тип аккаунта */
-	ErrorAccountTypeNotPassed = 60347
+	ErrorAccountTypeNotPassed = 60347 //+
 
 	/** Неверное значение типа аккаунта */
-	ErrorAccountTypeIncorrect = 60348
+	ErrorAccountTypeIncorrect = 60348 //+
 
 	/** Требуется передать роль */
-	ErrorRoleNotPassed = 60349
+	ErrorRoleNotPassed = 60349 //+
 
 	/** Требуется передать ID */
-	ErrorIdNotPassed = 60350
+	ErrorIdNotPassed = 60350 //+
 
 	/** Неверный формат ID */
-	ErrorIdNotFolowingRegex = 60351
+	ErrorIdNotFolowingRegex = 60351 //+
 
 	/** Требуется передать номер счета */
-	ErrorNumberNotPassed = 60352
+	ErrorNumberNotPassed = 60352 //+
 
 	/** Неверный формат номера счета */
-	ErrorNumberInvoiceNotFolowingRegex = 60353
+	ErrorNumberInvoiceNotFolowingRegex = 60353 //+
 
 	/** Неверное значение состояния счета */
-	ErrorInvoiceStateIncorrect = 60354
+	ErrorInvoiceStateIncorrect = 60354 //+
 
 	/** Требуется передать состояние счета */
-	ErrorInvoiceStateNotPassed = 60355
+	ErrorInvoiceStateNotPassed = 60355 //+
 
 	/** Значение лимита эмисси не может быть отрицательным */
-	ErrorIssueLimitNegative = 60356
+	ErrorIssueLimitNegative = 60356 //+
 
 	/** Неверное значение статуса транзакции */
-	ErrorStatusTransactionIncorrect = 60357
+	ErrorStatusTransactionIncorrect = 60357 //+
 
 	/** Требуется передать статус транзакции */
-	ErrorStatusTransactionPassed = 60358
+	ErrorStatusTransactionPassed = 60358 //+
 
 	/** MSP ID не совпадают */
-	ErrorMspIdNotMatch = 60359
+	ErrorMspIdNotMatch = 60359 //+
 
 	/** Адреса не совпадают */
-	ErrorAddressNotMatch = 60360
+	ErrorAddressNotMatch = 60360 //+
 
 	/** Неверный формат публичного ключа аккаунта */
-	ErrorPublicKeyNotFolowingRegex = 60361
+	ErrorPublicKeyNotFolowingRegex = 60361 //+
 
 	/** Требуется передать публичный ключ аккаунта */
-	ErrorPublicKeyNotPassed = 60362
+	ErrorPublicKeyNotPassed = 60362 //+
 
 	/** Требуется передать дополнительную конфигурацию банка */
-	ErrorConfNotPassed = 60363
+	ErrorConfNotPassed = 60363 //+
 
 	/** Требуется передать адрес банка */
-	ErrorBankAddressNotPassed = 60364
+	ErrorBankAddressNotPassed = 60364 //+
 
 	/** Требуется передать код страны */
-	ErrorCountryCodeNotPassed = 60365
+	ErrorCountryCodeNotPassed = 60365 //+
 
 	/** Требуется передать идентификатор транзакции */
-	ErrorTransactionIdNotPassed = 60366
+	ErrorTransactionIdNotPassed = 60366 //+
 
 	/** Неверный формат идентификатора или адреса аккаунта */
-	ErrorAddressOrIdentifierNotFolowingRegex = 60367
+	ErrorAddressOrIdentifierNotFolowingRegex = 60367 //+
 
 	/** Требуется передать идентификатор или адрес аккаунта */
-	ErrorAddressOrIdentifierNotPassed = 60368
+	ErrorAddressOrIdentifierNotPassed = 60368 //+
 
 	/** Требуется передать отображаемое имя банка */
-	ErrorBankDisplayNameNotPassed = 60369
+	ErrorBankDisplayNameNotPassed = 60369 //+
 
 	/** Ошибка при получении MSP_ID */
-	ErrorGetMspId = 60370
+	ErrorGetMspId = 60370 //+
 
 	/** Время подписи истекло */
-	ErrorExpirationSign = 60371
+	ErrorExpirationSign = 60371 //+
 
 	/** Подпись уже была использована */
-	ErrorSignUsed = 60372
+	ErrorSignUsed = 60372 //+
 
 	/** Действие запрещено на текущем этапе сделки */
-	ErrorChangeStateSafeDealForbidden = 60373
+	ErrorChangeStateSafeDealForbidden = 60373 //+
 
 	/** Невалидная конфигурация машины состояний для безапасной сделки */
-	ErrorSettingsFSMSafeDeal = 60374
+	ErrorSettingsFSMSafeDeal = 60374 //+
 
 	/** Сделка с переданным идентификатором уже существет. */
-	ErrorSafeDealExists = 60375
+	ErrorSafeDealExists = 60375 //+
 
 	/** Неверный адрес акцептанта безопасной сделки */
-	ErrorNotValidAddressAcceptor = 60376
+	ErrorNotValidAddressAcceptor = 60376 //+
 
 	/** Адрес аккаута не является контрагентом сделки */
-	ErrorAddressNotCounterpartDeal = 60377
+	ErrorAddressNotCounterpartDeal = 60377 //+
 
 	/** Текущий контрагент уже проголосовал за расторжение(заключение) сделки */
-	ErrorCounterpartMadeChoice = 60378
+	ErrorCounterpartMadeChoice = 60378 //+
 
 	/** Операция запрещена аккаунту, который не явлется 2ым участником или арбитром сделки */
-	ErrorNotValidAddressAcceptorOrArbitrator = 60379
+	ErrorNotValidAddressAcceptorOrArbitrator = 60379 //+
 
 	/** Операция запрещена аккаунту, который не явлется инициатором */
-	ErrorNotValidAddressInitiator = 60380
+	ErrorNotValidAddressInitiator = 60380 //+
 
-	/** Операция запрещена аккаунту, который не явлется инициатором */
+	/** Участник уже был приглашен */
 	ErrorCounterpartWasInvited = 60381
 
 	/** Участник не был приглашен */
@@ -390,6 +381,9 @@ const (
 
 	/* Количество переданного актива не соответствует переданному курсу */
 	ErrorAmountNotCorrespondPrice = 60403
+
+	/* Безопасная сделка не найдена */
+	ErrorSafeDealNotFound = 60404
 
 	/** Попытка перевода средств между юр. лицами */
 	ErrorLimitLegalEntry = 60410
@@ -504,7 +498,7 @@ const (
 	ErrorTransactionExecute = 60608
 
 	/** Адрес банка в сертификате не найден */
-	ErrorCertificateBankAddressNoFound = 60609
+	ErrorCertificateBankAddressNotFound = 60609
 
 	/** Клиринг. Расхождение требований и обязательств */
 	ErrorClearingBadClaimsLiabilities = 60701
@@ -561,8 +555,6 @@ var ErrorCodeMessagesMap = map[int]string{
 	ErrorSigSNotPassed:                       "Требуется передать S сигнатуры",
 	ErrorSigVIncorrect:                       "Неверное значение V сигнатуры",
 	ErrorSigVNotFollowingRegex:               "Неверный формат V сигнатуры",
-	ErrorAtcNegative:                         "Значение atc не может быть отрицательным",
-	ErrorAtcNotPassed:                        "Требуется передать atc",
 	ErrorTxIdSNotPassed:                      "Требуется передать идентификатор транзакции",
 	ErrorTimestampNotPassed:                  "Требуется передать время",
 	ErrorTimestampNegative:                   "Значение времени не может быть отрицательным",
@@ -606,7 +598,7 @@ var ErrorCodeMessagesMap = map[int]string{
 	ErrorExpirationSign:                      "Время подписи истекло",
 	ErrorSignUsed:                            "Подпись уже была использована",
 	ErrorChangeStateSafeDealForbidden:        "Действие запрещено на текущем этапе сделки",
-	ErrorSettingsFSMSafeDeal:                 "Невалидная конфигурация машины состояний для безапасной сделки",
+	ErrorSettingsFSMSafeDeal:                 "Невалидная конфигурация машины состояний для безопасной сделки",
 	ErrorSafeDealExists:                      "Сделка с переданным идентификатором уже существет.",
 	ErrorNotValidAddressAcceptor:             "Запрещено принимать заявку аккаунтом, который не явлется 2ым участником сделки",
 	ErrorAddressNotCounterpartDeal:           "Адрес аккаута не является контрагентом сделки",
@@ -614,6 +606,10 @@ var ErrorCodeMessagesMap = map[int]string{
 	ErrorNotValidAddressAcceptorOrArbitrator: "Операция запрещена аккаунту, который не явлется 2ым участником или арбитром",
 	ErrorNotValidAddressInitiator:            "Операция запрещена аккаунту, который не явлется инициатором",
 	ErrorLimitTypeIncorrect:                  "Некорректное значение типа лимита",
+	ErrorSafeDealNotFound:                    "Безопасная сделка не найдена",
+	ErrorAccountNotIdentified:                "Аккаунт не идентифицирован",
+	ErrorAccountNotEscrow:                    "Аккаунт не является эскроу-счетом",
+	ErrorClientBankIsBlocked:                 "Клиентский банк заблокирован",
 }
 
 var ErrorStringCodeMap = map[string]int{
@@ -646,8 +642,6 @@ var ErrorStringCodeMap = map[string]int{
 	"ErrorSigSNotPassed":                       ErrorSigSNotPassed,
 	"ErrorSigVIncorrect":                       ErrorSigVIncorrect,
 	"ErrorSigVNotFollowingRegex":               ErrorSigVNotFollowingRegex,
-	"ErrorAtcNegative":                         ErrorAtcNegative,
-	"ErrorAtcNotPassed":                        ErrorAtcNotPassed,
 	"ErrorTxIdSNotPassed":                      ErrorTxIdSNotPassed,
 	"ErrorTimestampNotPassed":                  ErrorTimestampNotPassed,
 	"ErrorTimestampNegative":                   ErrorTimestampNegative,
@@ -699,4 +693,8 @@ var ErrorStringCodeMap = map[string]int{
 	"ErrorNotValidAddressAcceptorOrArbitrator": ErrorNotValidAddressAcceptorOrArbitrator,
 	"ErrorNotValidAddressInitiator":            ErrorNotValidAddressInitiator,
 	"ErrorLimitTypeIncorrect":                  ErrorLimitTypeIncorrect,
+	"ErrorSafeDealNotFound":                    ErrorSafeDealNotFound,
+	"ErrorAccountNotIdentified":                ErrorAccountNotIdentified,
+	"ErrorAccountNotEscrow":                    ErrorAccountNotEscrow,
+	"ErrorClientBankIsBlocked":                 ErrorClientBankIsBlocked,
 }
