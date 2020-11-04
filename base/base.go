@@ -378,7 +378,7 @@ func CreateDefaultError(code int) error {
 	return createError(&baseError)
 }
 
-// Метод создания структуры ошибки с сообщением по умолчанию
+// Метод создания структуры ошибки с сообщением по умолчанию с доп. информацией
 func CreateDefaultErrorWithData(code int, data string) error {
 	baseError := cc_errors.BaseError{
 		Code:    code,
