@@ -329,8 +329,8 @@ const (
 	/** Некорректная сумма сделки */
 	ErrorIncorrectSafeDealAmount = 60385
 
-	/** Депозит безопасной сделики не найден или уже был пополнен */
-	ErrorSafeDealDepositNotFound = 60386
+	/** Эскроу-счет безопасной сделики не найден или уже был пополнен */
+	ErrorSafeDealEscrowNotFound = 60386
 
 	/** Некорректный код валюты аккаунта */
 	ErrorIncorrectCurrencyCodeAccount = 60387
@@ -368,8 +368,8 @@ const (
 	/* Количество актива не соответствует интервалу минимального и максимального количества. */
 	ErrorAssetAmountNotCorrespondMaxMinInterval = 60401
 
-	/* Физический актив не может начисляться на депозит */
-	ErrorPhysicalAssetDeposit = 60402
+	/* Физический актив не может начисляться на эскроу-счет */
+	ErrorPhysicalAssetEscrow = 60402
 
 	/* Количество переданного актива не соответствует переданному курсу */
 	ErrorAmountNotCorrespondPrice = 60403
@@ -380,8 +380,8 @@ const (
 	/* Участник безопасной сделки уже проголосовал */
 	ErrorCounterpartVoted = 60405
 
-	/* Некорректная сумма депозита */
-	ErrorIncorrectDepositAmount = 60406
+	/* Некорректная сумма эскроу-счета */
+	ErrorIncorrectEscrowAmount = 60406
 
 	/* Аккаунт с таким адресом уже принимает участие в сделке */
 	ErrorAccountAlreadyInDeal = 60407
@@ -467,8 +467,8 @@ const (
 	/** Не доступен для этого владельца */
 	ErrorForbidden = 60601
 
-	/** Депозит не найден */
-	ErrorDepositNotFound = 60602
+	/** Эскроу-счет не найден */
+	ErrorEscrowNotFound = 60602
 
 	/** Ошибка валидации контракта */
 	ErrorContractValidate = 60606
@@ -607,7 +607,7 @@ var ErrorCodeMessagesMap = map[int]string{
 	ErrorNotValidAddressOwner:                     "Операция запрещена аккаунту, который не явлется владельцем сделки",
 	ErrorEnoughParticipants:                       "Приглашено достаточно участников с такой ролью",
 	ErrorIncorrectSafeDealAmount:                  "Некорректная сумма сделки",
-	ErrorSafeDealDepositNotFound:                  "Депозит безопасной сделики не найден или уже был пополнен",
+	ErrorSafeDealEscrowNotFound:                   "Эскроу-счет безопасной сделики не найден или уже был пополнен",
 	ErrorIncorrectCurrencyCodeAccount:             "Некорректный код валюты аккаунта",
 	ErrorArbitratorExist:                          "Арбитр уже добавлен",
 	ErrorArbitratorNotExist:                       "Арбитра не существует",
@@ -620,11 +620,11 @@ var ErrorCodeMessagesMap = map[int]string{
 	ErrorCurrencyNotMatchOffer:                    "Коды валют не соответствует заявленным в предложении",
 	ErrorPriceNotMatchOffer:                       "Курс не соответствует заявленному в предложении",
 	ErrorAssetAmountNotCorrespondMaxMinInterval:   "Количество актива не соответствует интервалу минимального и максимального количества",
-	ErrorPhysicalAssetDeposit:                     "Физический актив не может начисляться на депозит",
+	ErrorPhysicalAssetEscrow:                      "Физический актив не может начисляться на эскроу-счет",
 	ErrorAmountNotCorrespondPrice:                 "Количество переданного актива не соответствует переданному курсу",
 	ErrorSafeDealNotFound:                         "Безопасная сделка не найдена",
 	ErrorCounterpartVoted:                         "Участник безопасной сделки уже проголосовал",
-	ErrorIncorrectDepositAmount:                   "Некорректная сумма депозита",
+	ErrorIncorrectEscrowAmount:                    "Некорректная сумма эскроу-счета",
 	ErrorAccountAlreadyInDeal:                     "Аккаунт с таким адресом уже принимает участие в сделке",
 	ErrorAvailablePlatformsNotFound:               "Информация о доступных платформах не найдена",
 	ErrorLimitOperation:                           "Превышен операционный лимит перевода средств",
@@ -653,7 +653,7 @@ var ErrorCodeMessagesMap = map[int]string{
 	ErrorJsonUnmarshal:                            "Ошибка при десерилизации JSON",
 	ErrorGetTxTime:                                "Ошибка при получении времени создания транзакции",
 	ErrorForbidden:                                "Не доступен для этого владельца",
-	ErrorDepositNotFound:                          "Депозит не найден",
+	ErrorEscrowNotFound:                           "Эскроу-счет не найден",
 	ErrorContractValidate:                         "Ошибка валидации контракта",
 	ErrorCertificateBankAddressNotMatch:           "Адрес банка в сертификате не совпадает",
 	ErrorClearingBadClaimsLiabilities:             "Клиринг. Расхождение требований и обязательств",
@@ -773,7 +773,7 @@ var ErrorStringCodeMap = map[string]int{
 	"ErrorNotValidAddressOwner":                     ErrorNotValidAddressOwner,
 	"ErrorEnoughParticipants":                       ErrorEnoughParticipants,
 	"ErrorIncorrectSafeDealAmount":                  ErrorIncorrectSafeDealAmount,
-	"ErrorSafeDealDepositNotFound":                  ErrorSafeDealDepositNotFound,
+	"ErrorSafeDealEscrowNotFound":                   ErrorSafeDealEscrowNotFound,
 	"ErrorIncorrectCurrencyCodeAccount":             ErrorIncorrectCurrencyCodeAccount,
 	"ErrorArbitratorExist":                          ErrorArbitratorExist,
 	"ErrorArbitratorNotExist":                       ErrorArbitratorNotExist,
@@ -786,11 +786,11 @@ var ErrorStringCodeMap = map[string]int{
 	"ErrorCurrencyNotMatchOffer":                    ErrorCurrencyNotMatchOffer,
 	"ErrorPriceNotMatchOffer":                       ErrorPriceNotMatchOffer,
 	"ErrorAssetAmountNotCorrespondMaxMinInterval":   ErrorAssetAmountNotCorrespondMaxMinInterval,
-	"ErrorPhysicalAssetDeposit":                     ErrorPhysicalAssetDeposit,
+	"ErrorPhysicalAssetEscrow":                      ErrorPhysicalAssetEscrow,
 	"ErrorAmountNotCorrespondPrice":                 ErrorAmountNotCorrespondPrice,
 	"ErrorSafeDealNotFound":                         ErrorSafeDealNotFound,
 	"ErrorCounterpartVoted":                         ErrorCounterpartVoted,
-	"ErrorIncorrectDepositAmount":                   ErrorIncorrectDepositAmount,
+	"ErrorIncorrectEscrowAmount":                    ErrorIncorrectEscrowAmount,
 	"ErrorAccountAlreadyInDeal":                     ErrorAccountAlreadyInDeal,
 	"ErrorAvailablePlatformsNotFound":               ErrorAvailablePlatformsNotFound,
 	"ErrorLimitOperation":                           ErrorLimitOperation,
@@ -819,7 +819,7 @@ var ErrorStringCodeMap = map[string]int{
 	"ErrorJsonUnmarshal":                            ErrorJsonUnmarshal,
 	"ErrorGetTxTime":                                ErrorGetTxTime,
 	"ErrorForbidden":                                ErrorForbidden,
-	"ErrorDepositNotFound":                          ErrorDepositNotFound,
+	"ErrorEscrowNotFound":                           ErrorEscrowNotFound,
 	"ErrorContractValidate":                         ErrorContractValidate,
 	"ErrorCertificateBankAddressNotMatch":           ErrorCertificateBankAddressNotMatch,
 	"ErrorClearingBadClaimsLiabilities":             ErrorClearingBadClaimsLiabilities,
