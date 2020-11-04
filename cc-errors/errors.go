@@ -467,8 +467,8 @@ const (
 	/** Не доступен для этого владельца */
 	ErrorForbidden = 60601
 
-	/** Эскроу-счет не найден */
-	ErrorEscrowNotFound = 60602
+	/** Депозит не найден */
+	ErrorDepositNotFound = 60602
 
 	/** Ошибка валидации контракта */
 	ErrorContractValidate = 60606
@@ -653,7 +653,7 @@ var ErrorCodeMessagesMap = map[int]string{
 	ErrorJsonUnmarshal:                            "Ошибка при десерилизации JSON",
 	ErrorGetTxTime:                                "Ошибка при получении времени создания транзакции",
 	ErrorForbidden:                                "Не доступен для этого владельца",
-	ErrorEscrowNotFound:                           "Эскроу-счет не найден",
+	ErrorDepositNotFound:                          "Депозит не найден",
 	ErrorContractValidate:                         "Ошибка валидации контракта",
 	ErrorCertificateBankAddressNotMatch:           "Адрес банка в сертификате не совпадает",
 	ErrorClearingBadClaimsLiabilities:             "Клиринг. Расхождение требований и обязательств",
@@ -819,7 +819,7 @@ var ErrorStringCodeMap = map[string]int{
 	"ErrorJsonUnmarshal":                            ErrorJsonUnmarshal,
 	"ErrorGetTxTime":                                ErrorGetTxTime,
 	"ErrorForbidden":                                ErrorForbidden,
-	"ErrorEscrowNotFound":                           ErrorEscrowNotFound,
+	"ErrorDepositNotFound":                          ErrorDepositNotFound,
 	"ErrorContractValidate":                         ErrorContractValidate,
 	"ErrorCertificateBankAddressNotMatch":           ErrorCertificateBankAddressNotMatch,
 	"ErrorClearingBadClaimsLiabilities":             ErrorClearingBadClaimsLiabilities,
