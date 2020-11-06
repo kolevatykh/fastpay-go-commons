@@ -76,7 +76,7 @@ func GetClientBank(ctx contractapi.TransactionContextInterface, address string) 
 		Address: address,
 	}
 
-	response, err := InvokeChaincode(stub, ChaincodeClientBankName, "getClientBankById", request)
+	response, err := InvokeChaincode(stub, ChaincodeClientBankName, "getClientBankByAddress", request)
 	if err != nil {
 		return nil, err
 	}
